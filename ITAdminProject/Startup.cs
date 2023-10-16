@@ -18,6 +18,7 @@ namespace ITAdminProject
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            // divyansh 
         }
 
         public IConfiguration Configuration { get; }
