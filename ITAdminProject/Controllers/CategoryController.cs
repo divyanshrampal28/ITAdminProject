@@ -17,6 +17,8 @@ namespace ITAdminProject.Controllers
         }
         public IActionResult Index()
         {
+            List<Category> categories = _login.Category.ToList();
+            ViewBag.Category = categories;
             return View();
         }
         [HttpPost]
