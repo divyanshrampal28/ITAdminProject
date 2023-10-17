@@ -37,24 +37,27 @@ namespace ITAdminProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Category req)
+        public IActionResult Edit(int id, string categoryName)
         {
+            // Find the category by ID
+            var category = _login.Category.Find(id);
 
-            var cat = _login.Category.Find(req.Id);
-
-            if(cat == null)
+            if (category == null)
             {
-                return BadRequest("Invalid Id");
+                return NotFound();
             }
 
-            _login.Category.Update(cat);
+            // Update the category properties
+            category.CategoryName = categoryName;
 
+            // Save changes to the database
             _login.SaveChanges();
 
-            TempData["SuccessMessage"] = "Category created successfully"; // Add success message to TempData
-
-            return RedirectToAction("");
+            // You can return a response, e.g., a JSON result
+            return Json(new { success = true });
         }
+
+
 
 
     }

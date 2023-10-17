@@ -6,6 +6,10 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 <h2>@ViewData["Title"]</h2>
 
 <form method="post" asp-action="Create" class="col-md-6">
@@ -78,26 +82,20 @@
     function openEditModal(categoryName, categoryId) {
         // Populate the modal form fields
         document.getElementById('editCategoryName').value = categoryName;
-
-        // Store the category ID in a data attribute for reference
-        $('#editCategoryModal').data('categoryId', categoryId);
+        document.getElementById('categoryId').value = categoryId;
 
         // Open the modal
         $('#editCategoryModal').modal('show');
     }
 
     function saveEditedCategory() {
-        // Get the edited category name from the modal form
+
         var editedCategoryName = document.getElementById('editCategoryName').value;
 
-        // Get the category ID from the data attribute
         var categoryId = $('#editCategoryModal').data('categoryId');
 
-        // Perform the logic to update the category using AJAX or other method
-        // Example: Use jQuery.ajax or fetch API to send the updated data to the server
+        console.log(categoryId + " " + editedCategoryName);
 
-        // After saving changes, close the modal
-        $('#editCategoryModal').modal('hide');
     }
 </script>
 
@@ -113,19 +111,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Your form to edit the category goes here -->
-                <form id="editCategoryForm">
+                <form id="editCategoryForm" method="post">
+                    <input type="hidden" id="categoryId" name="id" />
                     <div class="form-group">
                         <label for="editCategoryName">Category Name:</label>
-                        <input type="text" class="form-control" id="editCategoryName" name="editCategoryName" required>
+                        <input type="text" class="form-control" id="editCategoryName" name="categoryName" required>
                     </div>
-                    <!-- Add other fields as needed -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" onclick="saveEditedCategory">Save changes</button>
+                    </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="saveEditedCategory()">Save changes</button>
             </div>
         </div>
     </div>
-</div>
