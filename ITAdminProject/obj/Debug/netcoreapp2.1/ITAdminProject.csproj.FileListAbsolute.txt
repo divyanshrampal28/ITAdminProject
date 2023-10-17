@@ -63,3 +63,5 @@ C:\Users\NamanMalik\Desktop\ItAdminProject\ITAdminProject\obj\Debug\netcoreapp2.
 C:\Users\NamanMalik\Desktop\ItAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.dll
 C:\Users\NamanMalik\Desktop\ItAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.pdb
 C:\Users\NamanMalik\Desktop\ItAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.csproj.CopyComplete
+C:\Users\NamanMalik\Desktop\ItAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.csprojAssemblyReference.cache
+C:\Users\NamanMalik\Desktop\ItAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\View\view.g.cshtml.cs
