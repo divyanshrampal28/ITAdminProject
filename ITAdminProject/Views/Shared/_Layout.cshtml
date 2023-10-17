@@ -34,10 +34,11 @@
             </div>
             <div class="navbar-collapse collapse" id="prnt">
 
-                <ul class="nav navbar-nav">
-                        <li><a asp-area="" asp-controller="Category" asp-action="Index">Category</a></li>
-                        <li><a asp-area="" asp-controller="View" asp-action="view">View</a></li>
-                    </ul>
+                @*<ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Category" asp-action="Index">Category</a></li>
+                    <li><a asp-area="" asp-controller="View" asp-action="view">View</a></li>
+                    <li><a asp-area="" asp-controller="Device" asp-action="Index">Device</a></li>
+                </ul>*@
                 @*<ul class="nav navbar-nav">
                     @if (string.IsNullOrEmpty(user))
                     {
@@ -124,6 +125,20 @@
         a3.textContent = 'View';
         li3.appendChild(a3);
         u.appendChild(li3);
+
+        var li4 = document.createElement('li');
+        var a4 = document.createElement('a');
+        a4.href = '/Device/Index';
+        a4.textContent = 'Device';
+        li4.appendChild(a4);
+        u.appendChild(li4);
+
+        var li5 = document.createElement('li');
+        var a5 = document.createElement('a');
+        a5.href = '/Category/Index';
+        a5.textContent = 'Category';
+        li5.appendChild(a5);
+        u.appendChild(li5);
     }
     //}, 1000)
 
