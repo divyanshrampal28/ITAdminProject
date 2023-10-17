@@ -35,5 +35,27 @@ namespace ITAdminProject.Controllers
 
             return RedirectToAction("");
         }
+
+        [HttpPost]
+        public IActionResult Edit(Category req)
+        {
+
+            var cat = _login.Category.Find(req.Id);
+
+            if(cat == null)
+            {
+                return BadRequest("Invalid Id");
+            }
+
+            _login.Category.Update(cat);
+
+            _login.SaveChanges();
+
+            TempData["SuccessMessage"] = "Category created successfully"; // Add success message to TempData
+
+            return RedirectToAction("");
+        }
+
+
     }
 }
