@@ -1,0 +1,277 @@
+﻿@model IEnumerable<ITAdminProject.Models.Inventory>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h2>Index in device</h2>
+<a asp-controller="Device" asp-action="Create">create new category</a>
+
+
+
+
+
+
+@{
+
+    ViewData["Title"] = "Search table";
+
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <title>Bootstrap Example</title>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Filterable Table</h2>
+
+        <p>Type something in the input field to search the table for first names, last names or emails:</p>
+
+        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+
+        <br>
+
+        <input type="number" id="entriesToShow" placeholder="Entries to Show">
+
+        <button id="showEntriesButton">Show</button>
+
+        <br />
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-bordered table-striped" style="width:100%">
+                <thread>
+                    <tr>
+                        <th>
+                            Category Name
+                        </th>
+
+                    </tr>
+                </thread>
+                <tbody>
+                    @foreach (var obj in Model)
+                    {
+                        <tr>
+                            <td width="50%">@obj.DeviceName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No category exists.....</p>
+        }
+
+        @*<table class="table table-bordered table-striped">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Firstname</th>
+
+                        <th>Lastname</th>
+
+                        <th>Email</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="myTable">
+
+
+
+                    <tr>
+
+                        <td>July</td>
+
+                        <td>Dooley</td>
+
+                        <td>july@greatstuff.com</td>
+
+                    </tr>
+
+
+
+                </tbody>
+
+            </table>*@
+
+        <p>Note that we start the search in tbody, to prevent filtering the table headers.</p>
+
+        <nav aria-label="...">
+
+            <ul class="pagination">
+
+                <li class="page-item disabled">
+
+                    <a class="page-link">Previous</a>
+
+                </li>
+
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+
+                <li class="page-item active" aria-current="page">
+
+                    <a class="page-link" href="#">2</a>
+
+                </li>
+
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                <li class="page-item">
+
+                    <a class="page-link" href="#">Next</a>
+
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#myInput").on("keyup", function () {
+
+                var value = $(this).val().toLowerCase();
+
+                $("#myTable tr").filter(function () {
+
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+                });
+
+            });
+
+        });
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            var myInput = document.getElementById("myInput");
+
+            var myTable = document.getElementById("myTable");
+
+            var entryCount = document.getElementById("entryCount");
+
+            var entriesToShowInput = document.getElementById("entriesToShow");
+
+            var showEntriesButton = document.getElementById("showEntriesButton");
+
+            var displayedEntriesCount = document.getElementById("displayedEntriesCount"); // Get the displayed entries count element
+
+
+
+            showEntriesButton.addEventListener("click", function () {
+
+                displayEntries();
+
+            });
+
+
+
+            function displayEntries() {
+
+                var value = myInput.value.toLowerCase();
+
+                var rows = myTable.getElementsByTagName("tr");
+
+                var entriesToShow = parseInt(entriesToShowInput.value); // Get the number of entries to show
+
+
+
+                for (var i = 0; i < rows.length; i++) {
+
+                    var row = rows[i];
+
+                    var cells = row.getElementsByTagName("td");
+
+                    var shouldShow = false;
+
+
+
+                    for (var j = 0; j < cells.length; j++) {
+
+                        var cell = cells[j];
+
+                        if (cell.textContent.toLowerCase().indexOf(value) > -1) {
+
+                            shouldShow = true;
+
+                            break;
+
+                        }
+
+                    }
+
+
+
+                    if (shouldShow) {
+
+                        if (i < entriesToShow) {
+
+                            row.style.display = "";
+
+                        } else {
+
+                            row.style.display = "none";
+
+                        }
+
+                    } else {
+
+                        row.style.display = "none";
+
+                    }
+
+                }
+
+
+
+                // Calculate and display the number of displayed entries
+
+                var displayedCount = Array.from(rows).filter(row => row.style.display !== "none").length;
+
+                displayedEntriesCount.textContent = "Displayed Entries: " + displayedCount;
+
+            }
+
+        });
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
