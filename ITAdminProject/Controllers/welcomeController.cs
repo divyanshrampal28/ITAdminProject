@@ -14,8 +14,6 @@ namespace ITAdminProject.Controllers
             return View();
         }
 
-
-
         private readonly ItAdminContext _login;
 
         public welcomeController(ItAdminContext login)
@@ -45,7 +43,7 @@ namespace ITAdminProject.Controllers
                             if (send.RoleId == 1)
                             {
                         
-                        return View(send);
+                        return View();
                             }
                             else
                             {
@@ -59,5 +57,30 @@ namespace ITAdminProject.Controllers
                     //return RedirectToAction("Index", "Home");
                     return RedirectToAction("Index", "Register"); 
                 }
-            }
-        }
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public IActionResult Create(Category req)
+        //{
+        //    if (_login.Category.Any(u => u.CategoryName == req.CategoryName))
+        //    {
+        //        return BadRequest("this category already exists");
+        //    }
+        //    _login.Category.Add(req);
+        //    _login.SaveChanges();
+
+        //    TempData["SuccessMessage"] = "Category created successfully"; // Add success message to TempData
+
+        //    return RedirectToAction("");
+        //}
+
+    }
+
+        
+
+
+}
+
+           

@@ -34,10 +34,10 @@
             </div>
             <div class="navbar-collapse collapse" id="prnt">
 
-                @*<ul class="nav navbar-nav">
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
-                    </ul>*@
+                <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Category" asp-action="Index">Category</a></li>
+                        <li><a asp-area="" asp-controller="View" asp-action="view">View</a></li>
+                    </ul>
                 @*<ul class="nav navbar-nav">
                     @if (string.IsNullOrEmpty(user))
                     {
@@ -91,7 +91,7 @@
 
 </body>
 <script>
-    alert("heloo");
+     //alert("heloo");
     setInterval(function () {
         var user = localStorage.getItem('user');
         var par = document.getElementById("prnt");
