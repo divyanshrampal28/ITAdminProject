@@ -32,7 +32,7 @@
                             <label asp-for="Email"></label>
                         </div>
                         <div class="col-8">
-                            <input asp-for="Email" class="form-control" required id="inp"/>
+                            <input asp-for="Email" class="form-control" required id="inp" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="col-4">
@@ -48,7 +48,7 @@
                         <div class="col-8 offset-4 row">
 
                             <div class="col">
-                                <input type="submit" class="btn btn-info w-100" value="Submit"  id="sub"/>
+                                <input type="submit" class="btn btn-info w-100" value="Submit" id="sub" />
                             </div>
                             <div class="col">
                                 <a asp-controller="Home" asp-action="Index" class="btn btn-success w-100">Back</a>
@@ -67,14 +67,23 @@
     </form>
     <script>
         let value = document.getElementById("inp");
+        //alert("hello from login");
+        //console.log("value", value.value);
         const sub = document.getElementById('sub').addEventListener("click", function () {
             localStorage.setItem('user', JSON.stringify(value.value));
             sessionStorage.setItem('user', 'value.value');
             //alert(value.value);
             const par = document.getElementById("prnt");
-            par.innerHTML = '';
-            par.appendChild('<ul class="nav navbar-nav">< li > <a asp-area="" asp-controller="View" asp-action="view">View</a></li>')
-            
+            //par.innerHTML = '';
+            //par.appendChild('<ul class="nav navbar-nav">< li > <a asp-area="" asp-controller="View" asp-action="view">View</a></li>')
+            var u = document.createElement('ul');
+            u.className = 'nav navbar-nav';
+            var li3 = document.createElement('li');
+            var a3 = document.createElement('a');
+            a3.href = '/View/view';
+            a3.textContent = 'View';
+            li3.appendChild(a3);
+            u.appendChild(li3);
         });
 
     </script>

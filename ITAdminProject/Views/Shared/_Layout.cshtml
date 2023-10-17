@@ -91,40 +91,41 @@
 
 </body>
 <script>
-     //alert("heloo");
-    setInterval(function () {
-        var user = localStorage.getItem('user');
-        var par = document.getElementById("prnt");
+    //alert("heloo");
+    //setInterval
+    //function () {
+    var user = localStorage.getItem('user');
+    var par = document.getElementById("prnt");
 
-        // Create an unordered list element
-        var u = document.createElement('ul');
-        u.className = 'nav navbar-nav';
+    // Create an unordered list element
+    var u = document.createElement('ul');
+    u.className = 'nav navbar-nav';
 
-        if (user === null) {
-            // Add "Home" and "Login" links to the list
-            var li1 = document.createElement('li');
-            var a1 = document.createElement('a');
-            a1.href = '/Home/Index';
-            a1.textContent = 'Home';
-            li1.appendChild(a1);
-            u.appendChild(li1);
+    if (user === null) {
+        // Add "Home" and "Login" links to the list
+        var li1 = document.createElement('li');
+        var a1 = document.createElement('a');
+        a1.href = '/Home/Index';
+        a1.textContent = 'Home';
+        li1.appendChild(a1);
+        u.appendChild(li1);
 
-            var li2 = document.createElement('li');
-            var a2 = document.createElement('a');
-            a2.href = '/Login/Index';
-            a2.textContent = 'Login';
-            li2.appendChild(a2);
-            u.appendChild(li2);
-        } else {
-            // Add "View" link to the list
-            var li3 = document.createElement('li');
-            var a3 = document.createElement('a');
-            a3.href = '/View/view';
-            a3.textContent = 'View';
-            li3.appendChild(a3);
-            u.appendChild(li3);
-        }
-    }, 1000)
+        var li2 = document.createElement('li');
+        var a2 = document.createElement('a');
+        a2.href = '/Login/Index';
+        a2.textContent = 'Login';
+        li2.appendChild(a2);
+        u.appendChild(li2);
+    } else {
+        // Add "View" link to the list
+        var li3 = document.createElement('li');
+        var a3 = document.createElement('a');
+        a3.href = '/View/view';
+        a3.textContent = 'View';
+        li3.appendChild(a3);
+        u.appendChild(li3);
+    }
+    //}, 1000)
 
     // Append the list to the parent element
     par.appendChild(u);
