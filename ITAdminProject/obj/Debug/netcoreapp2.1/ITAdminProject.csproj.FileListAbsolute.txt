@@ -177,3 +177,5 @@ C:\Users\JigyasaChopra\Documents\It Admin Project\ITAdminProject\obj\Debug\netco
 C:\Users\JigyasaChopra\Documents\It Admin Project\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.dll
 C:\Users\JigyasaChopra\Documents\It Admin Project\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.pdb
 C:\Users\JigyasaChopra\Documents\It Admin Project\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.csproj.CopyComplete
+C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Device\Create.g.cshtml.cs
+C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Device\Index.g.cshtml.cs

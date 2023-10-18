@@ -17,7 +17,7 @@ namespace ITAdminProject.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> categories = _login.Category.ToList();
+            List<Category> categories = _login.Category.OrderBy(c => c.Id).ToList();
             ViewBag.Category = categories;
             return View();
         }
@@ -36,28 +36,43 @@ namespace ITAdminProject.Controllers
             return RedirectToAction("");
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var data = _login.Category.Where(x => x.Id == id).FirstOrDefault();
+
+            return View(data);
+
+        }
+
         [HttpPost]
-        public IActionResult Edit(int id, string categoryName)
+        public IActionResult Edit(Category Model)
         {
             // Find the category by ID
-            var category = _login.Category.Find(id);
+            var data = _login.Category.Where(x => x.Id == Model.Id).FirstOrDefault();
 
-            if (category == null)
+            if (data != null)
             {
-                return NotFound();
+                data.CategoryName = Model.CategoryName;
+                _login.SaveChanges();
             }
 
-            // Update the category properties
-            category.CategoryName = categoryName;
-
-            // Save changes to the database
-            _login.SaveChanges();
-
-            // You can return a response, e.g., a JSON result
-            return Json(new { success = true });
+            return RedirectToAction("");
         }
 
 
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var data = _login.Category.FirstOrDefault(x => x.Id == id);
+            if (data != null)
+            {
+                _login.Category.Remove(data);
+                _login.SaveChanges();
+            }
+
+            return RedirectToAction(""); 
+        }
 
 
     }
