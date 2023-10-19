@@ -30,6 +30,26 @@ namespace ITAdminProject.Controllers
 
             ViewBag.RoleList = roleList;
 
+            // List<Employee> users = _login.Employee.ToList();
+            List<EmployeeRoleModel> users = _login.Employee
+        .Join(
+            _login.Role,
+            e => e.RoleId,
+            r => r.Id,
+            (e, r) => new EmployeeRoleModel
+            {
+                Id = e.Id,
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                Email = e.Email,
+                Password = e.Password,
+                RoleId = e.RoleId,
+                RoleName = r.RoleName
+            })
+        .ToList();
+
+            ViewBag.users = users;
+
             return View();
         }
 
@@ -47,7 +67,47 @@ namespace ITAdminProject.Controllers
             //return RedirectToAction("Index", "Home");
             //}
 
-            return View(obj);
+            return RedirectToAction("");
+        }
+
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            var data = _login.Employee.Where(i => i.Id == id).FirstOrDefault();
+            if(data == null)
+            {
+                return BadRequest("User not found");
+            }
+
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Employee emp)
+        {
+            var data = _login.Employee.FirstOrDefault(i => i.Id == emp.Id);
+            if(data.FirstName != null && data.LastName != null && data.Email != null)
+            {
+                data.FirstName = emp.FirstName;
+                data.LastName = emp.LastName;
+                data.Email = emp.Email;
+                _login.SaveChanges();
+            }
+
+            return RedirectToAction("");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var data = _login.Employee.FirstOrDefault(i => i.Id == id);
+            if(data != null)
+            {
+                _login.Employee.Remove(data);
+                _login.SaveChanges();
+               
+            }
+            return RedirectToAction("");
         }
     }
 }
