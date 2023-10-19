@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ITAdminProject.Models.Inventory>
+﻿@model ITAdminProject.Models.Jndmodel2
 @{
     ViewData["Title"] = "Index";
 }
@@ -47,17 +47,27 @@
     <div class="container">
 
         <label for="categoryFilter">Search by Category:</label>
-        <select id="categoryFilter">
-            <option value="">All Categories</option>
-            <option value="Category 1">Category 1</option>
-            <option value="Category 2">Category 2</option>
-            <!-- Add more options for your categories -->
-        </select>
+        <form method="post" asp-action="Index">
+            @*<select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="Category 1">Category 1</option>
+                    <option value="Category 2">Category 2</option>
+                </select>*@
+            <select asp-for="DeviceName" asp-items="ViewBag.DeviceName" class="form-control" required>
+                <option value="all">All</option>
+            </select>
+            <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" required></select>
+            <select asp-for="AssignedTo" asp-items="ViewBag.AssignedTo" class="form-control" required></select>
+            <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control" required></select>
+
+            <input type="submit" class="btn btn-info p-5" value="Filter" />
+        </form>
+
 
         <br />
-        @if (Model.Count() > 0)
+        @if (Model.listofJnd.Count() > 0)
         {
-            <table  class="table table-striped table-bordered" style="width:100%">
+            <table class="table table-striped table-bordered" style="width:100%">
                 <thread>
                     <tr>
                         <th>Device Name</th>
@@ -68,15 +78,15 @@
                         <th>Actions</th>
                     </tr>
                 </thread>
-                <tbody>
-                    @foreach (var obj in Model)
+                <tbody id="filter">
+                    @foreach (var obj in Model.listofJnd)
                     {
                         <tr>
                             <td width="50%">@obj.DeviceName</td>
                             <td>@obj.SerialNumber</td>
-                            <td>@obj.CategoryId</td>
-                            <td>@obj.AssignedTo</td>
-                            <td>@obj.StatusId</td>
+                            <td>@obj.cname</td>
+                            <td>@obj.FirstName</td>
+                            <td>@obj.StatusName</td>
                             <td>
                                 <button type="button" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" /></svg></button>
                                 <button type="button" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" /></svg></button>
@@ -92,5 +102,118 @@
         }
 
 </body>
+<script>
+    const dropdown = document.getElementById("categoryFilter");
+    dropdown.addEventListener('change', put());
 
+
+    async function put() {
+        const selectedValue = dropdown.value;
+
+        fetch(`/Filter/Index?selectedValue=${selectedValue}`)
+            .then(response => response.json())
+            .then(data => {
+                alert(selectedValue);
+                // var dataString = JSON.stringify(data);
+
+                // var target = '/Device/set?data=' + encodeURIComponent(dataString);
+                const fil = document.getElementById("filter");
+                console.log(data);
+                fil.innerHTML = '';
+                for (let i = 0; i < data.length; i++) {
+
+                    console.log(data[i].deviceName);
+
+                    var header = document.createElement('tr');
+                    var th = document.createElement('td');
+                    th.textContent = data[i].deviceName;
+                    header.appendChild(th);
+                    var th = document.createElement('td');
+                    th.textContent = data[i].serialNumber;
+                    header.appendChild(th);
+
+                    var ss = await fetchCustom();
+                    var th = document.createElement('td');
+                    th.textContent = ss;
+                    header.appendChild(th);
+
+
+
+                    var th = document.createElement('td');
+                    th.textContent = "from";
+                    header.appendChild(th);
+
+
+
+                    var th = document.createElement('td');
+                    th.textContent = "otherside";
+                    header.appendChild(th);
+
+
+
+                    var td = document.createElement('td');
+
+                    // Create the "Success" button
+                    var successButton = document.createElement('button');
+                    successButton.type = 'button';
+                    successButton.className = 'btn btn-success';
+
+                    // Create the SVG icon for the "Success" button
+                    var successSvg = document.createElement('svg');
+                    successSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                    successSvg.setAttribute('height', '1em');
+                    successSvg.setAttribute('viewBox', '0 0 512 512');
+
+                    // Create the path element for the "Success" button icon
+                    var successPath = document.createElement('path');
+                    successPath.setAttribute('d', 'M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c-21.9-21.9-57.3-21.9-79.2 0L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z');
+
+                    // Append the path element to the SVG element
+                    successSvg.appendChild(successPath);
+
+                    // Append the SVG element to the "Success" button
+                    successButton.appendChild(successSvg);
+
+                    // Create the "Danger" button (similar to "Success" button)
+                    var dangerButton = document.createElement('button');
+                    dangerButton.type = 'button';
+                    dangerButton.className = 'btn btn-danger';
+
+                    var dangerSvg = document.createElement('svg');
+                    dangerSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                    dangerSvg.setAttribute('height', '1em');
+                    dangerSvg.setAttribute('viewBox', '0 0 448 512');
+
+                    var dangerPath = document.createElement('path');
+                    dangerPath.setAttribute('d', 'M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z');
+
+                    dangerSvg.appendChild(dangerPath);
+                    dangerButton.appendChild(dangerSvg);
+
+                    // Append both buttons to the table cell
+                    td.appendChild(successButton);
+                    td.appendChild(dangerButton);
+
+                    header.appendChild(td);
+                    fil.appendChild(header);
+                }
+
+            }).catch(error => {
+                console.log("Error");
+            });
+    });
+
+    async function fetchCustom() {
+        alert("inside FUNC");
+        const r1 = await fetch(`http://localhost:56059/Category/Get?data=1`);
+        console.log(await r1.text())
+
+        //${data[i].categoryId}
+        //debugger
+        //const rj1 = await r1.json();
+        // console.log(rj1);
+        alert("done FUNC");
+        return await r1.text();
+    }
+</script>
 </html>

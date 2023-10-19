@@ -66,12 +66,55 @@
         </div>
     </form>
     <script>
+        //function LoginUser() {
+        //    let value = document.getElementById("inp");
+        //    console.log(value.value)
+        //}
         let value = document.getElementById("inp");
+        //console.log(value)
         //alert("hello from login");
         //console.log("value", value.value);
         const sub = document.getElementById('sub').addEventListener("click", function () {
+            debugger
+            console.log('user', JSON.stringify(value.value))
+            debugger
             localStorage.setItem('user', JSON.stringify(value.value));
-            sessionStorage.setItem('user', 'value.value');
+            //var naman = ${ }
+            $.ajax({
+                type: "POST",
+                traditional: true,
+                url: '@Url.Action("Id", "Login")',
+                data: { id: "naman@gmail.com" },
+                success: function (result) {
+                    alert(result.Result);
+                }
+            });
+            //sessionStorage.setItem('user', 'value.value');
+            // alert(value.value);
+            //const data = { email: value.value };
+            //fetch(`http://localhost:56059/Login/Id?data=${value.value}`)
+            //    //.then(response => response.json())
+            //    .then(data => {
+            //        console.log(data);
+            //    }).catch(error)
+            //{
+            //    console.log(Error.error);
+            //}
+            //const email = value.value;
+            //const data = { email: email };
+
+            //const data = new EmailModel
+            //{ "Email": "naman@gmail.com" };
+            //const url = `http://localhost:56059/Login/Id?data=${data}`;
+
+            //fetch(url)
+            //    //.then(response => response.json())
+            //    .then(data => {
+            //        alert(data);
+            //    })
+            //    .catch(error => {
+            //        console.error(error);
+            //    });
             //alert(value.value);
             const par = document.getElementById("prnt");
             //par.innerHTML = '';

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITAdminProject.Models
 {
@@ -21,5 +22,10 @@ namespace ITAdminProject.Models
         public Employee CreatedByNavigation { get; set; }
         public StatusTable Status { get; set; }
         public Employee UpdatedByNavigation { get; set; }
+
+        internal IEnumerable<Jnd> Join(DbSet<Category> cat, Func<object, object> p1, Func<Category, int> p2, Func<object, object, Jnd> p3)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

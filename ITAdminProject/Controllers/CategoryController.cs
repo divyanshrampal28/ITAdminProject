@@ -74,6 +74,11 @@ namespace ITAdminProject.Controllers
             return RedirectToAction(""); 
         }
 
-
+        [HttpGet]
+        public string Get([FromQuery]int data)
+        {
+            var res = _login.Category.Find(data);
+            return res.CategoryName;
+        }
     }
 }
