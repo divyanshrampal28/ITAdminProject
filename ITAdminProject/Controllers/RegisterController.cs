@@ -19,14 +19,21 @@ namespace ITAdminProject.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.RoleList = new List<SelectListItem>
-    {
-        new SelectListItem { Text = "1", Value = "1" },
-        new SelectListItem { Text = "2", Value = "2" },
-        // Add more items as needed
-    };
+            List<Role> roles = _login.Role.ToList();
+            List<SelectListItem> roleList = roles.Select(r => new SelectListItem
+            {
+                Text = r.RoleName,
+                Value = r.Id.ToString()  
+            }).ToList();
+
+            roleList = roleList.Where(role => role.Value != "1").ToList();
+
+            ViewBag.RoleList = roleList;
+
             return View();
         }
+
+        
 
         [HttpPost]
         public IActionResult Index(Employee obj)
