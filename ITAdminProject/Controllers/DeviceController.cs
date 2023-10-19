@@ -14,7 +14,7 @@ namespace ITAdminProject.Controllers
     public class DeviceController : Controller
     {
         private readonly ItAdminContext _login;
-
+        private DateTime currentDateTime;
 
         public DeviceController(ItAdminContext login)
         {
@@ -164,7 +164,12 @@ namespace ITAdminProject.Controllers
             obj.UpdatedBy = 1;
             obj.CreatedBy = 1;
 
+            if (obj.AssignedTo == 0)
+            {
+                obj.AssignedTo = 1;
+            }
             _login.Inventory.Add(obj);
+            
             _login.SaveChanges();
             //currentDateTime.ToString("yyyy-MM-dd HH:mm:ss");
             return RedirectToAction("Index");
@@ -298,6 +303,57 @@ namespace ITAdminProject.Controllers
             //var items = Jnd.Where
             //var items = _login.Inventory.Where(item => item.DeviceName == "Dell123").ToList();
             return View(objjndmodel2);
+        }
+
+        [HttpGet]
+        public IActionResult UpdateDevice(int id)
+        {
+            var data = _login.Inventory.Where(i => i.Id == id).FirstOrDefault();
+            if(data == null)
+            {
+                return BadRequest("Device does not exists");
+            }
+
+            return View(data);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateDevice(Jndmodel2 obj1)
+        {
+            IEnumerable<Jnd> obj = obj1.listofJnd;
+
+            //var data = new Jnd
+            //{
+            //    Id = obj1.Id,
+            //    DeviceName = obj.Where(v => v.Id == obj1.Id).FirstOrDefault().DeviceName,
+
+            //}
+       
+            //    (i => i.Id == obj1.Id).FirstOrDefault();
+            //if(data != null)
+            //{
+            //    data.DeviceName = obj.Where(v => v.Id == obj1.Id).FirstOrDefault().DeviceName;
+            //    data.SerialNumber = obj.Where(v => v.Id == obj1.Id).FirstOrDefault().SerialNumber;
+            //    data.UpdatedBy = 1;
+            //    data.UpdatedAtUtc = currentDateTime;
+            //    _login.SaveChanges();
+            //}
+            
+
+            return RedirectToAction("");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteDevice(int id)
+        {
+            var data = _login.Inventory.Where(i => i.Id == id).FirstOrDefault();
+            if(data != null)
+            {
+                _login.Inventory.Remove(data);
+                _login.SaveChanges();
+            }
+
+            return RedirectToAction("");
         }
 
     }

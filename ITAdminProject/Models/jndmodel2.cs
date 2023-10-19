@@ -13,5 +13,7 @@ namespace ITAdminProject.Models
         public int AssignedTo { get; set; }
         public int StatusId { get; set; }
 
+
+        public int Id { get; set; }
     }
 }
