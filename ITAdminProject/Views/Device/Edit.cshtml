@@ -1,0 +1,132 @@
+﻿@model ITAdminProject.Models.Inventory
+
+@*<h2>EditDelete</h2>
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <title>Bootstrap Example</title>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap.min.css" />
+    <script defer src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script defer src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+
+    <!-- Bootstrap JavaScript -->
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <script>
+        document.getElementById('editDeviceName').value = DeviceName;
+        document.getElementById('editSerialNumber').value = SerialNumber;
+        document.getElementById('editDeviceId').value = Id;
+    </script>
+
+    <!--Edit modal-->
+
+    <form id="editDeviceForm" method="post" asp-action="Edit">
+        <input type="hidden" id="editDeviceId" name="Id" asp-for="Id" />
+        <div class="form-group">
+
+            <label asp-for="DeviceName" class="control-label"></label>
+            <input type="text" asp-for="DeviceName" class="form-control" id="editDeviceName" name="DeviceName" />
+
+            <label asp-for="SerialNumber" class="control-label"></label>
+            <input type="text" asp-for="SerialNumber" class="form-control" id="editSerialNumber" name="SerialNumber" />
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" value="Save Changes" class="btn btn-default" />
+        </div>
+    </form>
+
+
+    <!--Delete Modal-->
+    <div class="modal fade" id="deleteDeviceModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete Employee</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <h3>Are you sure you want to delete this?</h3>
+                        <div>
+                            <form id="deleteDeviceForm" asp-action="DeleteDevice" method="post">
+                                <div class="form-group">
+                                    <input type="hidden" name="Id" asp-for="Id" />
+                                    <button type="submit" class="btn btn-default">Delete</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>*@
+
+<h2>Edit</h2>
+
+<h4>Inventory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="DeviceName" class="control-label"></label>
+                <input asp-for="DeviceName" class="form-control" />
+                <span asp-validation-for="DeviceName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SerialNumber" class="control-label"></label>
+                <input asp-for="SerialNumber" class="form-control" />
+                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignedTo" class="control-label"></label>
+                <select asp-for="AssignedTo" class="form-control" asp-items="ViewBag.AssignedTo"></select>
+                <span asp-validation-for="AssignedTo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusId" class="control-label"></label>
+                <select asp-for="StatusId" class="form-control" asp-items="ViewBag.StatusId"></select>
+                <span asp-validation-for="StatusId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+

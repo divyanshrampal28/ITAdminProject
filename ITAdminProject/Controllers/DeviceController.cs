@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ITAdminProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
 
@@ -33,6 +34,7 @@ namespace ITAdminProject.Controllers
         c => c.Id,
         (i, c) => new Jnd
         {
+            Id = i.Id,
             DeviceName = i.DeviceName,
             SerialNumber = i.SerialNumber,
             cname = c.CategoryName,
@@ -47,6 +49,7 @@ namespace ITAdminProject.Controllers
         j => j.StatusId, s => s.Id,
         (j, s) => new Jnd
         {
+            Id = j.Id,
             DeviceName = j.DeviceName,
             SerialNumber = j.SerialNumber,
             cname = j.cname,
@@ -62,6 +65,7 @@ namespace ITAdminProject.Controllers
         j => j.AssignedTo, e => e.Id,
         (j, e) => new Jnd
         {
+            Id = j.Id,
             DeviceName = j.DeviceName,
             SerialNumber = j.SerialNumber,
             cname = j.cname,
@@ -195,6 +199,7 @@ namespace ITAdminProject.Controllers
         c => c.Id,
         (i, c) => new Jnd
         {
+            Id = i.Id,
             DeviceName = i.DeviceName,
             SerialNumber = i.SerialNumber,
             cname = c.CategoryName,
@@ -209,6 +214,7 @@ namespace ITAdminProject.Controllers
         j => j.StatusId, s => s.Id,
         (j, s) => new Jnd
         {
+            Id = j.Id,
             DeviceName = j.DeviceName,
             SerialNumber = j.SerialNumber,
             cname = j.cname,
@@ -224,6 +230,7 @@ namespace ITAdminProject.Controllers
         j => j.AssignedTo, e => e.Id,
         (j, e) => new Jnd
         {
+            Id = j.Id,
             DeviceName = j.DeviceName,
             SerialNumber = j.SerialNumber,
             cname = j.cname,
@@ -305,43 +312,55 @@ namespace ITAdminProject.Controllers
             return View(objjndmodel2);
         }
 
-        [HttpGet]
-        public IActionResult UpdateDevice(int id)
+        public IActionResult Edit(int? id)
         {
-            var data = _login.Inventory.Where(i => i.Id == id).FirstOrDefault();
-            if(data == null)
+            if (id == null)
             {
-                return BadRequest("Device does not exists");
+                return BadRequest("NOT FOUND");
             }
 
-            return View(data);
+            var inventory = _login.Inventory.Find(id);
+            if (inventory == null)
+            {
+                return BadRequest("NOT FOUND"); ;
+            }
+            ViewData["AssignedTo"] = new SelectList(_login.Employee, "Id", "Email", inventory.AssignedTo);
+            ViewData["CategoryId"] = new SelectList(_login.Category, "Id", "CategoryName", inventory.CategoryId);
+            ViewData["CreatedBy"] = new SelectList(_login.Employee, "Id", "Email", inventory.CreatedBy);
+            ViewData["StatusId"] = new SelectList(_login.StatusTable, "Id", "StatusName", inventory.StatusId);
+            ViewData["UpdatedBy"] = new SelectList(_login.Employee, "Id", "Email", inventory.UpdatedBy);
+            return View(inventory);
         }
 
         [HttpPost]
-        public IActionResult UpdateDevice(Jndmodel2 obj1)
-        {
-            IEnumerable<Jnd> obj = obj1.listofJnd;
+        public IActionResult Edit(Inventory inventory)
+        { 
 
-            //var data = new Jnd
-            //{
-            //    Id = obj1.Id,
-            //    DeviceName = obj.Where(v => v.Id == obj1.Id).FirstOrDefault().DeviceName,
+            var data = _login.Inventory.Where(x => x.Id == inventory.Id).FirstOrDefault();
 
-            //}
-       
-            //    (i => i.Id == obj1.Id).FirstOrDefault();
-            //if(data != null)
-            //{
-            //    data.DeviceName = obj.Where(v => v.Id == obj1.Id).FirstOrDefault().DeviceName;
-            //    data.SerialNumber = obj.Where(v => v.Id == obj1.Id).FirstOrDefault().SerialNumber;
-            //    data.UpdatedBy = 1;
-            //    data.UpdatedAtUtc = currentDateTime;
-            //    _login.SaveChanges();
-            //}
-            
+            if (data.DeviceName != null && data.SerialNumber!= null && data.CategoryId != 0 && data.AssignedTo != 0 && data.StatusId != 0)
+            {
+                DateTime currentDateTime = DateTime.Now;
+                data.DeviceName = inventory.DeviceName;
+                data.SerialNumber = inventory.SerialNumber;
+                data.CategoryId = inventory.CategoryId;
+                data.AssignedTo = inventory.AssignedTo;
+                data.StatusId = inventory.StatusId;
+                data.UpdatedBy = 1;
+                data.UpdatedAtUtc = currentDateTime;
+                _login.SaveChanges();
+            }
 
             return RedirectToAction("");
+
+            //ViewData["AssignedTo"] = new SelectList(_login.Employee, "Id", "Email", inventory.AssignedTo);
+            //ViewData["CategoryId"] = new SelectList(_login.Category, "Id", "CategoryName", inventory.CategoryId);
+            //ViewData["CreatedBy"] = new SelectList(_login.Employee, "Id", "Email", inventory.CreatedBy);
+            //ViewData["StatusId"] = new SelectList(_login.StatusTable, "Id", "StatusName", inventory.StatusId);
+            //ViewData["UpdatedBy"] = new SelectList(_login.Employee, "Id", "Email", inventory.UpdatedBy);
+            //return View(inventory);
         }
+
 
         [HttpPost]
         public IActionResult DeleteDevice(int id)

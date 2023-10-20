@@ -217,3 +217,9 @@ C:\Users\NamanMalik\Desktop\itAd\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminP
 C:\Users\NamanMalik\Desktop\itAd\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.dll
 C:\Users\NamanMalik\Desktop\itAd\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.pdb
 C:\Users\NamanMalik\Desktop\itAd\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.csproj.CopyComplete
+C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Device\Edit.g.cshtml.cs
+C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Inventories\Create.g.cshtml.cs
+C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Inventories\Delete.g.cshtml.cs
+C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Inventories\Details.g.cshtml.cs
+C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Inventories\Edit.g.cshtml.cs
+C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Inventories\Index.g.cshtml.cs
