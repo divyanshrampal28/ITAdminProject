@@ -7,18 +7,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
-<h2>Index in device</h2>
-<a asp-controller="Device" asp-action="Create">create new category</a>
-
-
-
-@{
-
-    ViewData["Title"] = "Search table";
-
-}
-
-<h2>@ViewData["Title"]</h2>
 
 <!DOCTYPE html>
 
@@ -49,23 +37,46 @@
 
 <body>
 
+    <div class="addbutton">
+        <a asp-controller="Device" asp-action="Create">
+            <button class="add-item-button">Add Item</button>
+        </a>
+    </div>
+    <style>
+        .addbutton {
+            display: flex;
+            flex-direction: row-reverse;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+        }
+        .add-item-button, .searchButton{
+            margin-top : 1rem;
+            background-color: #012C3D;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+
     <div class="container">
 
-        <label for="categoryFilter">Search by Category:</label>
         <form method="post" asp-action="Index">
-            @*<select id="categoryFilter">
-                    <option value="">All Categories</option>
-                    <option value="Category 1">Category 1</option>
-                    <option value="Category 2">Category 2</option>
-                </select>*@
-            <select asp-for="DeviceName" asp-items="ViewBag.DeviceName" class="form-control" required>
-                <option value="all">All</option>
-            </select>
+            <div class="form-group col-6">
+                <label for="DeviceName">Search by Device Name:</label>
+                <select id="DeviceName" asp-for="DeviceName" asp-items="ViewBag.DeviceName" class="form-control " required>
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <label>Search by Category:</label>
             <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" required></select>
+            <label>Search by Assigned:</label>
             <select asp-for="AssignedTo" asp-items="ViewBag.AssignedTo" class="form-control" required></select>
+            <label>Search by Availabilty:</label>
             <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control" required></select>
 
-            <input type="submit" class="btn btn-info p-5" value="Filter" />
+            <input type="submit" class="btn btn-info p-5 searchButton" value="Search" />
         </form>
 
 
@@ -97,7 +108,7 @@
                             <td>
 
                                 @*<a asp-controller="Device" asp-action="Edit" asp-route-id="@obj.Id"><button type="button" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" /></svg></button></a>*@
-                               <button type="button" class="btn btn-success"  onclick="OpenUpdateModal('@obj.Id', '@obj.DeviceName', '@obj.SerialNumber','@obj.AssignedTo', '@obj.StatusId', '@obj.CategoryId')"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" /></svg></button>
+                                <button type="button" class="btn btn-success" onclick="OpenUpdateModal('@obj.Id', '@obj.DeviceName', '@obj.SerialNumber','@obj.AssignedTo', '@obj.StatusId', '@obj.CategoryId')"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" /></svg></button>
 
                                 <button type="button" class="btn btn-danger" onclick="OpenDeleteModal('@obj.Id')"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" /></svg></button>
                             </td>
