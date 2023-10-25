@@ -20,6 +20,21 @@ namespace ITAdminProject.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult GetloginDetails(User user)
+        {
+
+            var res = _login.Employee.FirstOrDefault(emp => emp.Email == user.Email);
+
+            if (res == null)
+            {
+                return Json("User not found"); // You can customize this message
+            }
+            var ans = res.RoleId.ToString();
+            return Json(ans);
+        }
+
+
         [HttpPost]
         public int Id(string id)
         {
@@ -30,6 +45,12 @@ namespace ITAdminProject.Controllers
             // Your further processing logic here
 
             return res;
+        }
+
+        public IActionResult Logout()
+        {
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

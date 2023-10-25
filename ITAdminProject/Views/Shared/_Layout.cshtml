@@ -129,8 +129,8 @@
         // Add "View" link to the list
         var li3 = document.createElement('li');
         var a3 = document.createElement('a');
-        a3.href = '/View/view';
-        a3.textContent = 'View';
+        a3.href = '/Dashboard/Index';
+        a3.textContent = 'Dashboard';
         a3.style.color = '#012C3D';
         li3.appendChild(a3);
         u.appendChild(li3);
@@ -160,10 +160,25 @@
         li6.appendChild(a6);
         u.appendChild(li6);
 
+        var li7 = document.createElement('li');
+        var a7 = document.createElement('a');
+        //a7.href = '/Login/Logout';
+        a7.textContent = 'Logout';
+        a7.id = 'logout-link';
+        li7.appendChild(a7);
+        u.appendChild(li7);
     }
     //}, 1000)
 
     // Append the list to the parent element
     par.appendChild(u);
+
+      const logout = document.getElementById("logout-link");
+
+    logout.addEventListener("click", function () {
+        localStorage.clear();
+    
+    window.location.href = '@Url.Action("Index", "Home")';
+    })
 </script>
 </html>

@@ -43,7 +43,7 @@ namespace ITAdminProject.Controllers
                             if (send.RoleId == 1)
                             {
                         
-                        return View();
+                        return RedirectToAction("Index", "Dashboard");
                             }
                             else
                             {

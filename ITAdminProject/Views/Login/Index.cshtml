@@ -66,68 +66,83 @@
         </div>
     </form>
     <script>
-        //function LoginUser() {
-        //    let value = document.getElementById("inp");
-        //    console.log(value.value)
-        //}
-        let value = document.getElementById("inp");
-        //console.log(value)
-        //alert("hello from login");
-        //console.log("value", value.value);
-        const sub = document.getElementById('sub').addEventListener("click", function () {
-            debugger
-            console.log('user', JSON.stringify(value.value))
-            debugger
-            localStorage.setItem('user', JSON.stringify(value.value));
-            //var naman = ${ }
-            $.ajax({
-                type: "POST",
-                traditional: true,
-                url: '@Url.Action("Id", "Login")',
-                data: { id: "naman@gmail.com" },
-                success: function (result) {
-                    alert(result.Result);
-                }
-            });
-            //sessionStorage.setItem('user', 'value.value');
-            // alert(value.value);
-            //const data = { email: value.value };
-            //fetch(`http://localhost:56059/Login/Id?data=${value.value}`)
-            //    //.then(response => response.json())
-            //    .then(data => {
-            //        console.log(data);
-            //    }).catch(error)
-            //{
-            //    console.log(Error.error);
-            //}
-            //const email = value.value;
-            //const data = { email: email };
+    const sub = document.getElementById('sub').addEventListener("click", function () {
+    let value = document.getElementById("inp");
+    console.log('user', JSON.stringify(value.value))
+    localStorage.setItem('user', JSON.stringify(value.value));
 
-            //const data = new EmailModel
-            //{ "Email": "naman@gmail.com" };
-            //const url = `http://localhost:56059/Login/Id?data=${data}`;
+    //var naman = ${ }
+    @*$.ajax({
+        type: "GET",
+        traditional: true,
+        url: '@Url.Action("GetloginDetails", "Account")',
+        data: { id: "naman@gmail.com" },
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (data) {
+            alert(result);
+            localStorage.setItem('role', JSON.stringify(result));
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("Error: " + textStatus + " - " + errorThrown);
+        }
+    });*@
 
-            //fetch(url)
-            //    //.then(response => response.json())
-            //    .then(data => {
-            //        alert(data);
-            //    })
-            //    .catch(error => {
-            //        console.error(error);
-            //    });
-            //alert(value.value);
-            const par = document.getElementById("prnt");
-            //par.innerHTML = '';
-            //par.appendChild('<ul class="nav navbar-nav">< li > <a asp-area="" asp-controller="View" asp-action="view">View</a></li>')
-            var u = document.createElement('ul');
-            u.className = 'nav navbar-nav';
-            var li3 = document.createElement('li');
-            var a3 = document.createElement('a');
-            a3.href = '/View/view';
-            a3.textContent = 'View';
-            li3.appendChild(a3);
-            u.appendChild(li3);
+        $.ajax({
+            url: '/Login/GetloginDetails',
+            type: 'GET',
+            data: { "Email": value.value.toString()},
+            dataType: 'json',
+            success: function (data) {
+               // alert(data.Result);
+                alert(data);
+                localStorage.setItem('role', JSON.stringify(data));
+
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("Why is Error");
+            }
         });
+    //sessionStorage.setItem('user', 'value.value');
+    // alert(value.value);
+    //const data = { email: value.value };
+    //fetch(`http://localhost:56059/Login/Id?data=${value.value}`)
+    //    //.then(response => response.json())
+    //    .then(data => {
+    //        console.log(data);
+    //    }).catch(error)
+    //{
+    //    console.log(Error.error);
+    //}
+    //const email = value.value;
+    //const data = { email: email };
+
+    //const data = new EmailModel
+    //{ "Email": "naman@gmail.com" };
+    //const url = `http://localhost:56059/Login/Id?data=${data}`;
+
+    //fetch(url)
+    //    //.then(response => response.json())
+    //    .then(data => {
+    //        alert(data);
+    //    })
+    //    .catch(error => {
+    //        console.error(error);
+    //    });
+    //alert(value.value);
+    const par = document.getElementById("prnt");
+    //par.innerHTML = '';
+    //par.appendChild('<ul class="nav navbar-nav">< li > <a asp-area="" asp-controller="View" asp-action="view">View</a></li>')
+    var u = document.createElement('ul');
+    u.className = 'nav navbar-nav';
+    var li3 = document.createElement('li');
+    var a3 = document.createElement('a');
+    a3.href = '/Dashboard/Index';
+    a3.textContent = 'View';
+    li3.appendChild(a3);
+    u.appendChild(li3);
+});
 
     </script>
 </body>

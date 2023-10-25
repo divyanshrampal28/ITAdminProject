@@ -1,0 +1,147 @@
+﻿@model ITAdminProject.Models.Dashboard
+
+<div id="empcount">
+    <div>Users</div>
+</div>
+<div id="devnum">
+    <div>No. of Devices</div>
+</div>
+<div id="unallotednum">
+    <div>Unalloted Devices</div>
+</div>
+<div style="width: 80%; margin: 0 auto;">
+    <canvas id="myPieChart"></canvas>
+    <canvas id="myBarChart" width="400" height="200"></canvas>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.is/2.8.0/Chart.bundle.min.js"></script>
+
+<script>
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    $(document).ready(function () {
+        var pieChartData = @Html.Raw(Json.Serialize(Model.pielist));
+
+
+        var empdata = @Html.Raw(Json.Serialize(Model.emp));
+
+        var empticket = document.getElementById("empcount");
+
+        var tkt = document.createElement("div");
+        tkt.innerHTML = empdata;
+        empticket.appendChild(tkt);
+
+
+
+         var devdata = @Html.Raw(Json.Serialize(Model.dev));
+
+        var devticket = document.getElementById("devnum");
+
+        var devtkt = document.createElement("div");
+        devtkt.innerHTML = devdata;
+        devticket.appendChild(devtkt);
+
+          var unalloteddata = @Html.Raw(Json.Serialize(Model.unalottedcount));
+
+        var unallotedticket = document.getElementById("unallotednum");
+
+        var unallotedtkt = document.createElement("div");
+        unallotedtkt.innerHTML = unalloteddata;
+        unallotedticket.appendChild(unallotedtkt);
+
+        var labels = pieChartData.map(item => item.firstName);
+        var dataValues = pieChartData.map(item => item.deviceCount);
+
+        var colors = labels.map(item => getRandomColor());
+
+        var ctx = document.getElementById("myPieChart").getContext('2d');
+
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: dataValues,
+                    backgroundColor: colors,
+                    borderColor: colors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+            }
+        });
+
+        var cht2 = document.getElementById("myBarChart").getContext('2d');
+
+    var myBarChart = new Chart(cht2, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Json.Serialize(Model.barlist.Select(c => c.Category))),
+            datasets: [{
+                label: 'Bar Chart',
+                data: @Html.Raw(Json.Serialize(Model.barlist.Select(c => c.CategoryCount))),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Category Details"
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+
+        @*var cht2 = document.getElementById("myBarChart").getContext('2d');
+
+    var barChartData = @Html.Raw(Json.Serialize(Model.barlist));
+
+    var labels = barChartData.map(item => item.Label);
+    var dataValues = barChartData.map(item => item.Value);
+
+    var myBarChart = new Chart(cht2, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Bar Chart',
+                data: dataValues,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Category Details"
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });*@
+    });
+</script>
