@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using ITAdminProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
 
@@ -15,7 +14,7 @@ namespace ITAdminProject.Controllers
     public class DeviceController : Controller
     {
         private readonly ItAdminContext _login;
-        private DateTime currentDateTime;
+
 
         public DeviceController(ItAdminContext login)
         {
@@ -34,7 +33,6 @@ namespace ITAdminProject.Controllers
         c => c.Id,
         (i, c) => new Jnd
         {
-            Id = i.Id,
             DeviceName = i.DeviceName,
             SerialNumber = i.SerialNumber,
             cname = c.CategoryName,
@@ -49,7 +47,6 @@ namespace ITAdminProject.Controllers
         j => j.StatusId, s => s.Id,
         (j, s) => new Jnd
         {
-            Id = j.Id,
             DeviceName = j.DeviceName,
             SerialNumber = j.SerialNumber,
             cname = j.cname,
@@ -65,7 +62,6 @@ namespace ITAdminProject.Controllers
         j => j.AssignedTo, e => e.Id,
         (j, e) => new Jnd
         {
-            Id = j.Id,
             DeviceName = j.DeviceName,
             SerialNumber = j.SerialNumber,
             cname = j.cname,
@@ -139,6 +135,16 @@ namespace ITAdminProject.Controllers
             }).ToList();
 
             ViewBag.CategoryId = selectListItems;
+
+            List<Employee> list3 = _login.Employee.ToList();
+            var selectListItems3 = list3.Select(emp => new SelectListItem
+            {
+                Text = emp.FirstName,
+                Value = emp.Id.ToString()
+            }).ToList();
+
+            ViewBag.AssignedTo = selectListItems3;
+
             //        ViewBag.CategoryId = new List<SelectListItem>
 
             //{
@@ -165,17 +171,11 @@ namespace ITAdminProject.Controllers
             DateTime currentDateTime = DateTime.Now;
             obj.CreatedAtUtc = currentDateTime;
             obj.UpdatedAtUtc = currentDateTime;
-            obj.UpdatedBy = 1;
-            obj.CreatedBy = 1;
+            obj.UpdatedBy = 4;
+            obj.CreatedBy = 4;
 
-            if (obj.AssignedTo == 0)
-            {
-                obj.AssignedTo = 1;
-            }
             _login.Inventory.Add(obj);
-            
             _login.SaveChanges();
-            //currentDateTime.ToString("yyyy-MM-dd HH:mm:ss");
             return RedirectToAction("Index");
         }
 
@@ -199,7 +199,6 @@ namespace ITAdminProject.Controllers
         c => c.Id,
         (i, c) => new Jnd
         {
-            Id = i.Id,
             DeviceName = i.DeviceName,
             SerialNumber = i.SerialNumber,
             cname = c.CategoryName,
@@ -214,7 +213,6 @@ namespace ITAdminProject.Controllers
         j => j.StatusId, s => s.Id,
         (j, s) => new Jnd
         {
-            Id = j.Id,
             DeviceName = j.DeviceName,
             SerialNumber = j.SerialNumber,
             cname = j.cname,
@@ -230,7 +228,6 @@ namespace ITAdminProject.Controllers
         j => j.AssignedTo, e => e.Id,
         (j, e) => new Jnd
         {
-            Id = j.Id,
             DeviceName = j.DeviceName,
             SerialNumber = j.SerialNumber,
             cname = j.cname,
@@ -247,7 +244,7 @@ namespace ITAdminProject.Controllers
 
 
 
-            if (dname != "all")
+            if (dname != null)
             {
                 jnd = jnd.Where(item => item.DeviceName == dname);
             }
@@ -310,69 +307,6 @@ namespace ITAdminProject.Controllers
             //var items = Jnd.Where
             //var items = _login.Inventory.Where(item => item.DeviceName == "Dell123").ToList();
             return View(objjndmodel2);
-        }
-
-        public IActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return BadRequest("NOT FOUND");
-            }
-
-            var inventory = _login.Inventory.Find(id);
-            if (inventory == null)
-            {
-                return BadRequest("NOT FOUND"); ;
-            }
-            ViewData["AssignedTo"] = new SelectList(_login.Employee, "Id", "Email", inventory.AssignedTo);
-            ViewData["CategoryId"] = new SelectList(_login.Category, "Id", "CategoryName", inventory.CategoryId);
-            ViewData["CreatedBy"] = new SelectList(_login.Employee, "Id", "Email", inventory.CreatedBy);
-            ViewData["StatusId"] = new SelectList(_login.StatusTable, "Id", "StatusName", inventory.StatusId);
-            ViewData["UpdatedBy"] = new SelectList(_login.Employee, "Id", "Email", inventory.UpdatedBy);
-            return View(inventory);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Inventory inventory)
-        { 
-
-            var data = _login.Inventory.Where(x => x.Id == inventory.Id).FirstOrDefault();
-
-            if (data.DeviceName != null && data.SerialNumber!= null && data.CategoryId != 0 && data.AssignedTo != 0 && data.StatusId != 0)
-            {
-                DateTime currentDateTime = DateTime.Now;
-                data.DeviceName = inventory.DeviceName;
-                data.SerialNumber = inventory.SerialNumber;
-                data.CategoryId = inventory.CategoryId;
-                data.AssignedTo = inventory.AssignedTo;
-                data.StatusId = inventory.StatusId;
-                data.UpdatedBy = 1;
-                data.UpdatedAtUtc = currentDateTime;
-                _login.SaveChanges();
-            }
-
-            return RedirectToAction("");
-
-            //ViewData["AssignedTo"] = new SelectList(_login.Employee, "Id", "Email", inventory.AssignedTo);
-            //ViewData["CategoryId"] = new SelectList(_login.Category, "Id", "CategoryName", inventory.CategoryId);
-            //ViewData["CreatedBy"] = new SelectList(_login.Employee, "Id", "Email", inventory.CreatedBy);
-            //ViewData["StatusId"] = new SelectList(_login.StatusTable, "Id", "StatusName", inventory.StatusId);
-            //ViewData["UpdatedBy"] = new SelectList(_login.Employee, "Id", "Email", inventory.UpdatedBy);
-            //return View(inventory);
-        }
-
-
-        [HttpPost]
-        public IActionResult DeleteDevice(int id)
-        {
-            var data = _login.Inventory.Where(i => i.Id == id).FirstOrDefault();
-            if(data != null)
-            {
-                _login.Inventory.Remove(data);
-                _login.SaveChanges();
-            }
-
-            return RedirectToAction("");
         }
 
     }

@@ -65,16 +65,22 @@
         <form method="post" asp-action="Index">
             <div class="form-group col-6">
                 <label for="DeviceName">Search by Device Name:</label>
-                <select id="DeviceName" asp-for="DeviceName" asp-items="ViewBag.DeviceName" class="form-control " required>
-                    <option value="all">All</option>
+                <select asp-for="DeviceName" asp-items="ViewBag.DeviceName" class="form-control">
+                    <option value="">All Devices</option>
                 </select>
             </div>
             <label>Search by Category:</label>
-            <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" required></select>
+            <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control">
+                <option value=0>Select an option</option>
+            </select>
             <label>Search by Assigned:</label>
-            <select asp-for="AssignedTo" asp-items="ViewBag.AssignedTo" class="form-control" required></select>
+            <select asp-for="AssignedTo" asp-items="ViewBag.AssignedTo" class="form-control">
+                <option value=0>Select an option</option>
+            </select>
             <label>Search by Availabilty:</label>
-            <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control" required></select>
+            <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control">
+                <option value=0>Select an option</option>
+            </select>
 
             <input type="submit" class="btn btn-info p-5 searchButton" value="Search" />
         </form>
