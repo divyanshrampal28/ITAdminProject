@@ -218,11 +218,6 @@ C:\Users\NamanMalik\Desktop\itAd\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminP
 C:\Users\NamanMalik\Desktop\itAd\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.pdb
 C:\Users\NamanMalik\Desktop\itAd\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.csproj.CopyComplete
 C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Device\Edit.g.cshtml.cs
-C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Inventories\Create.g.cshtml.cs
-C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Inventories\Delete.g.cshtml.cs
-C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Inventories\Details.g.cshtml.cs
-C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Inventories\Edit.g.cshtml.cs
-C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Inventories\Index.g.cshtml.cs
 C:\Users\JigyasaChopra\Desktop\IT Project\ITAdminProject\bin\Debug\netcoreapp2.1\ITAdminProject.deps.json
 C:\Users\JigyasaChopra\Desktop\IT Project\ITAdminProject\bin\Debug\netcoreapp2.1\ITAdminProject.runtimeconfig.json
 C:\Users\JigyasaChopra\Desktop\IT Project\ITAdminProject\bin\Debug\netcoreapp2.1\ITAdminProject.runtimeconfig.dev.json
@@ -346,3 +341,4 @@ C:\Users\NamanMalik\Desktop\wed_morn\ITAdminProject\obj\Debug\netcoreapp2.1\ITAd
 C:\Users\NamanMalik\Desktop\wed_morn\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.pdb
 C:\Users\NamanMalik\Desktop\wed_morn\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.csproj.CopyComplete
 C:\Users\NamanMalik\Desktop\wed_morn\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Dashboard\Index.g.cshtml.cs
+C:\Users\DivyanshRampal\Documents\ITAdminProject\ITAdminProject\obj\Debug\netcoreapp2.1\Razor\Views\Dashboard\Index.g.cshtml.cs

@@ -49,8 +49,9 @@
             margin-bottom: 1rem;
             margin-top: 1rem;
         }
-        .add-item-button, .searchButton{
-            margin-top : 1rem;
+
+        .add-item-button, .searchButton {
+            margin-top: 1rem;
             background-color: #012C3D;
             color: white;
             font-size: 16px;
@@ -58,33 +59,128 @@
             border: none;
             cursor: pointer;
         }
+
+        .dropdown * {
+            box-sizing: border-box;
+        }
+
+        .select {
+            background: #2a2f3b;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px #2a2f3b solid;
+            border-radius: 0.5em;
+            padding: 1em;
+            cursor: pointer;
+            transition: background 0.35;
+        }
+
+            .select:hover {
+                background: #323741;
+            }
+
+        .select-clicked {
+            border: 2px #26489a solid;
+            box-shadow: 0 0 0.8em #26489a;
+        }
+
+
+        .dropdown {
+            min-width: 15em;
+            position: relative;
+            margin: 2em;
+        }
+
+
+        .caret {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid #fff;
+            transition: 0.3s;
+        }
+
+        .caret-rotate {
+            transform: rotate(180deg);
+        }
+
+        .menu {
+            list-style: none;
+            padding: 0.2em 0.5em;
+            background: #323741;
+            border: 1px #363a43 solid;
+            box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.2);
+            border-radius: 0.5em;
+            color: #9fa5b5;
+            position: absolute;
+            top: 3em;
+            left: 50%;
+            width: 100%;
+            transform: translate(-50%);
+            opacity: 0;
+            display: none;
+            transition: 0.2s;
+            z-index: 1;
+        }
+
+            .menu li {
+                padding: 0.7em 0.5em;
+                margin: 0.3em 0;
+                border-radius: 0.5em;
+                cursor: pointer;
+            }
+
+        .active {
+            background: #23242a;
+        }
+
+        .menu-open {
+            display: block;
+            opacity: 1;
+        }
+
+        .menu li:hover {
+            background: #2a2d35;
+        }
     </style>
 
     <div class="container">
 
-        <form method="post" asp-action="Index">
-            <div class="form-group col-6">
-                <label for="DeviceName">Search by Device Name:</label>
-                <select asp-for="DeviceName" asp-items="ViewBag.DeviceName" class="form-control">
-                    <option value="">All Devices</option>
-                </select>
+        <form method="post" asp-action="Index" class="my-5 animated-form">
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label for="DeviceName">Search by Device Name:</label>
+                    <select asp-for="DeviceName" asp-items="ViewBag.DeviceName" class="form-control">
+                        <option value="">All Devices</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Search by Category:</label>
+                    <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control">
+                        <option value="0">All Categories</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Search by Assigned:</label>
+                    <select asp-for="AssignedTo" asp-items="ViewBag.AssignedTo" class="form-control">
+                        <option value="0">All Assigned</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Search by Availability:</label>
+                    <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control">
+                        <option value="0">All Status</option>
+                    </select>
+                </div>
             </div>
-            <label>Search by Category:</label>
-            <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control">
-                <option value=0>Select an option</option>
-            </select>
-            <label>Search by Assigned:</label>
-            <select asp-for="AssignedTo" asp-items="ViewBag.AssignedTo" class="form-control">
-                <option value=0>Select an option</option>
-            </select>
-            <label>Search by Availabilty:</label>
-            <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control">
-                <option value=0>Select an option</option>
-            </select>
-
-            <input type="submit" class="btn btn-info p-5 searchButton" value="Search" />
+            <div class="text-center mt-3">
+                <input type="submit" class="btn btn-primary btn-lg searchButton" value="Search" />
+            </div>
         </form>
-
+    </div>
 
         <br />
         @if (Model.listofJnd.Count() > 0)
@@ -148,8 +244,11 @@
     }
 
     function OpenDeleteModal(Id) {
+
+        alert(Id);
         $("#deleteDeviceForm input[name='Id']").val(Id);
 
+        // document.getElementById('editDeviceName').value = DeviceName;
         // Open the modal
         $("#deleteDeviceModal").modal("show");
     }
@@ -207,7 +306,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Delete Employee</h5>
+                <h5 class="modal-title">Delete Device</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -229,6 +328,7 @@
     </div>
 </div>
 
+</html>
 
 <script>
     const dropdown = document.getElementById("categoryFilter");
@@ -344,7 +444,3 @@
         return await r1.text();
     }
 </script>
-
-
-
-</html>
