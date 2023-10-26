@@ -1,189 +1,451 @@
-﻿@model ITAdminProject.Models.Dashboard
+﻿@*@model ITAdminProject.Models.Dashboard
 
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Example of Bootstrap 3 Two Column Grid Layouts for Tablets and Desktops</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <style type="text/css">
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Example of Bootstrap 3 Two Column Grid Layouts for Tablets and Desktops</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <style type="text/css">
 
-        .demo-content {
-            padding: 15px;
-            font-size: 18px;
-            background: #dbdfe5;
-            margin-bottom: 10px;
-        }
-
-
-
-            .demo-content.bg-alt {
-                background: #EEEEEE;
+            .demo-content {
+                padding: 15px;
+                font-size: 18px;
+                background: #dbdfe5;
+                margin-bottom: 10px;
             }
 
-        .scrooolll {
-            overflow-y: scroll;
-            height: 300px;
-        }
-    </style>
-</head>
-<body>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-3">
-            <!-- card -->
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="text-uppercase text-muted">Users</div>
-                    <div class="d-flex justify-content-between align-items-center mt-4">
-                        <h4 class="fw-bold">
-                            <div id="empcount">
 
-                            </div>
-                        </h4>
+                .demo-content.bg-alt {
+                    background: #EEEEEE;
+                }
+
+            .scrooolll {
+                overflow-y: scroll;
+                height: 300px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <!-- card -->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-uppercase text-muted">Users</div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <h4 class="fw-bold">
+                                <div id="empcount">
+
+                                </div>
+                            </h4>
+                        </div>
+                    </div><!-- end panel-body -->
+                </div><!-- end panel -->
+            </div><!-- end col -->
+        </div>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 demo">
+                    <div class="demo-content">
+
                     </div>
-                </div><!-- end panel-body -->
-            </div><!-- end panel -->
-        </div><!-- end col -->
+                </div>
+
+                <div class="col-sm-3 demo">
+                    <div class="demo-content">
+                        .col-sm-3
+                        <ul>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 demo">
+                    <div class="demo-content">
+                        .col-sm-3
+                        <ul>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 demo">
+                    <div class="demo-content">
+                        .col-sm-3
+                        <ul>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <hr>
+            <!--Row with two columns divided in 1:2 ratio-->
+            <div class="row">
+                <div class="col-sm-8 ">
+                    <div class="demo-content scrooolll">
+                        .col-sm-8
+                        <ul>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="demo-content bg-alt">
+                        Pie Chart
+                        <ul>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!--Row with two columns divided in 1:3 ratio-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="demo-content scrooolll">
+                        .col-sm-12
+                        <ul>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                            <li>helo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+
+    <div id="empcount">
+        <div>Users</div>
+    </div>
+    <div id="devnum">
+        <div>No. of Devices</div>
+    </div>
+    <div id="unallotednum">
+        <div>Unalloted Devices</div>
+    </div>
+    <div style="width: 80%; margin: 0 auto;">
+        <canvas id="myPieChart"></canvas>
+        <canvas id="myBarChart" width="400" height="200"></canvas>
     </div>
 
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3 demo">
-                <div class="demo-content">
-                    
-                </div>
-            </div>
 
-            <div class="col-sm-3 demo">
-                <div class="demo-content">
-                    .col-sm-3
-                    <ul>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                    </ul>
-                </div>
-            </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.is/2.8.0/Chart.bundle.min.js"></script>
 
-            <div class="col-sm-3 demo">
-                <div class="demo-content">
-                    .col-sm-3
-                    <ul>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                    </ul>
-                </div>
-            </div>
+    <script>
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
 
-            <div class="col-sm-3 demo">
-                <div class="demo-content">
-                    .col-sm-3
-                    <ul>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                    </ul>
-                </div>
-            </div>
+        $(document).ready(function () {
+            var pieChartData = @Html.Raw(Json.Serialize(Model.pielist));
 
-        </div>
-        <hr>
-        <!--Row with two columns divided in 1:2 ratio-->
-        <div class="row">
-            <div class="col-sm-8 ">
-                <div class="demo-content scrooolll">
-                    .col-sm-8
-                    <ul>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
 
-                    </ul>
-                </div>
-            </div>
+            var empdata = @Html.Raw(Json.Serialize(Model.emp));
 
-            <div class="col-sm-4">
-                <div class="demo-content bg-alt">
-                    Pie Chart
-                    <ul>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <!--Row with two columns divided in 1:3 ratio-->
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="demo-content scrooolll">
-                    .col-sm-12
-                    <ul>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                        <li>helo</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+            var empticket = document.getElementById("empcount");
+
+            var tkt = document.createElement("div");
+            tkt.innerHTML = empdata;
+            empticket.appendChild(tkt);
+
+
+
+             var devdata = @Html.Raw(Json.Serialize(Model.dev));
+
+            var devticket = document.getElementById("devnum");
+
+            var devtkt = document.createElement("div");
+            devtkt.innerHTML = devdata;
+            devticket.appendChild(devtkt);
+
+              var unalloteddata = @Html.Raw(Json.Serialize(Model.unalottedcount));
+
+            var unallotedticket = document.getElementById("unallotednum");
+
+            var unallotedtkt = document.createElement("div");
+            unallotedtkt.innerHTML = unalloteddata;
+            unallotedticket.appendChild(unallotedtkt);
+
+            var labels = pieChartData.map(item => item.firstName);
+            var dataValues = pieChartData.map(item => item.deviceCount);
+
+            var colors = labels.map(item => getRandomColor());
+
+            var ctx = document.getElementById("myPieChart").getContext('2d');
+
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: dataValues,
+                        backgroundColor: colors,
+                        borderColor: colors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                }
+            });
+
+            var cht2 = document.getElementById("myBarChart").getContext('2d');
+
+        var myBarChart = new Chart(cht2, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.barlist.Select(c => c.Category))),
+                datasets: [{
+                    label: 'Bar Chart',
+                    data: @Html.Raw(Json.Serialize(Model.barlist.Select(c => c.CategoryCount))),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Category Details"
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+
+            @*var cht2 = document.getElementById("myBarChart").getContext('2d');
+
+        var barChartData = @Html.Raw(Json.Serialize(Model.barlist));
+
+        var labels = barChartData.map(item => item.Label);
+        var dataValues = barChartData.map(item => item.Value);
+
+        var myBarChart = new Chart(cht2, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Bar Chart',
+                    data: dataValues,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Category Details"
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });*@
+@*const calenderappend = document.getElementById("calender");
+        const left = document.getElementById("left");
+        const right = document.getElementById("right");
+        var currentDateTime = new Date();
+        //const currentDateISO = currentDateTime.toISOString();
+
+
+        const year = currentDateTime.getFullYear();
+        const month = currentDateTime.getMonth();
+        const day = currentDateTime.getDate();
+
+        const currentDate = new Date(year, month, day);
+        //alert(currentDate);
+        calenderappend.innerHTML = currentDate;
+        //const currentDateISO = currentDateTime.toISOString();
+        left.addEventListener("click", before);
+        right.addEventListener("click",after);
+
+        async function before() {
+            var currentDateISO = currentDateTime.toISOString();
+            currentDate.setHours(currentDate.getHours() - 24);
+            currentDateTime.setHours(currentDateTime.getHours() - 24);
+            calenderappend.innerHTML = ''
+            calenderappend.innerHTML = currentDate;
+            //currentDate = currentDateTime.Now.AddHours(-24);
+            alert(currentDate)
+            $.ajax({
+                url: '/Dashboard/CalenderBefore',
+                type: 'GET',
+                data: { currentDate: currentDateISO },
+                //dataType: 'json',
+                success: function (data) {
+                    alert("entered");
+                    var par = document.createElement("div"); // Use 'document.createElement'
+                    data.forEach(function (item) {
+                        var child = document.createElement("div"); // Use 'document.createElement'
+                        child.innerHTML = item;
+                        par.appendChild(child);
+                        alert(item);
+                    });
+                    calenderappend.appendChild(par);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("Why is Error");
+                }
+            });
+        }
+
+
+        async function after() {
+            var currentDateISO = currentDateTime.toISOString();
+            currentDate.setHours(currentDate.getHours() + 24);
+            currentDateTime.setHours(currentDateTime.getHours() + 24);
+            calenderappend.innerHTML = ''
+            calenderappend.innerHTML = currentDate;
+            //currentDate = currentDateTime.Now.AddHours(-24);
+            alert(currentDate)
+            $.ajax({
+                url: '/Dashboard/CalenderAfter',
+                type: 'GET',
+                data: { currentDate: currentDateISO },
+                //dataType: 'json',
+                success: function (data) {
+                    // alert(data.Result);
+                    var par = document.createElement("div");
+                    data.forEach(function (item) {
+                        var child = document.createElement("div");
+                        child.innerHTML = item;
+                        par.appendChild(child);
+                        alert(item);
+                    });
+                    calenderappend.appendChild(par);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("Why is Error");
+                }
+            });
+        }
+    </script>
+
+
+    <h2 style="text-align:center; margin-bottom: 3rem;">Admin Dashboard</h2>*@
+
+    @model ITAdminProject.Models.Dashboard
+
+    <div id="empcount">
+        <div>Users</div>
     </div>
-</body>
-</html>
+    <div id="devnum">
+        <div>No. of Devices</div>
+    </div>
+    <div id="unallotednum">
+        <div>Unalloted Devices</div>
+    </div>
+    <div style="width: 80%; margin: 0 auto;">
+        <canvas id="myPieChart"></canvas>
+        <canvas id="myBarChart" width="400" height="200"></canvas>
+    </div>
+    @if (Model.glist.Count() > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Category Name</th>
+                    <th>Action</th>
+                    <th>Updated At</th>
+                    <th>Updated By</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.glist)
+                {
+                    <tr>
+                        <td>@item.CategoryName</td>
+                        <td>@item.Action</td>
+                        <td>@item.UpdatedAtUtc</td>
+                        <td>@item.UpdatedBy</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 
-<div id="empcount">
-    <div>Users</div>
-</div>
-<div id="devnum">
-    <div>No. of Devices</div>
-</div>
-<div id="unallotednum">
-    <div>Unalloted Devices</div>
-</div>
-<div style="width: 80%; margin: 0 auto;">
-    <canvas id="myPieChart"></canvas>
-    <canvas id="myBarChart" width="400" height="200"></canvas>
-</div>
+    @*<div id="history">
+
+        </div>*@
+
+    <div>
+        <button id="left">left</button>
+        <div id="calender"></div>
+        <button id="right">right</button>
+    </div>
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.is/2.8.0/Chart.bundle.min.js"></script>
 
-<script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.is/2.8.0/Chart.bundle.min.js"></script>
+
+    <script>
     function getRandomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -306,8 +568,104 @@
         }
     });*@
     });
-</script>
 
 
-<h2 style="text-align:center; margin-bottom: 3rem;">Admin Dashboard</h2>
+    const historyappend = document.getElementById("history");
+    @*var parofhistory = document.createElement("div");
+    var arr =  @Html.Raw(Json.Serialize(Model.glist));*@
+    //alert(arr.length);
+    //for (var i = 0; i < arr.length; i++) {
+    //    if (arr[i] != null) {
+    //        var childofhistory = document.createElement("div");
+    //        childofhistory.innerHTML = arr[i];
+    //        parofhistory.appendChild(childofhistory);
+    //        console.log(arr[i]);
+    //    }
+    //}
+    //historyappend.appendChild(parofhistory);
+
+
+
+
+
+    const calenderappend = document.getElementById("calender");
+    const left = document.getElementById("left");
+    const right = document.getElementById("right");
+    var currentDateTime = new Date();
+    //const currentDateISO = currentDateTime.toISOString();
+
+
+    const year = currentDateTime.getFullYear();
+    const month = currentDateTime.getMonth();
+    const day = currentDateTime.getDate();
+
+    const currentDate = new Date(year, month, day);
+    //alert(currentDate);
+    calenderappend.innerHTML = currentDate;
+    //const currentDateISO = currentDateTime.toISOString();
+    left.addEventListener("click", before);
+    right.addEventListener("click",after);
+
+    async function before() {
+        var currentDateISO = currentDateTime.toISOString();
+        currentDate.setHours(currentDate.getHours() - 24);
+        currentDateTime.setHours(currentDateTime.getHours() - 24);
+        calenderappend.innerHTML = ''
+        calenderappend.innerHTML = currentDate;
+        //currentDate = currentDateTime.Now.AddHours(-24);
+        alert(currentDate)
+        $.ajax({
+            url: '/Dashboard/CalenderBefore',
+            type: 'GET',
+            data: { currentDate: currentDateISO },
+            //dataType: 'json',
+            success: function (data) {
+                alert("entered");
+                var par = document.createElement("div"); // Use 'document.createElement'
+                data.forEach(function (item) {
+                    var child = document.createElement("div"); // Use 'document.createElement'
+                    child.innerHTML = item;
+                    par.appendChild(child);
+                    alert(item);
+                });
+                calenderappend.appendChild(par);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("Why is Error");
+            }
+        });
+    }
+
+
+    async function after() {
+        var currentDateISO = currentDateTime.toISOString();
+        currentDate.setHours(currentDate.getHours() + 24);
+        currentDateTime.setHours(currentDateTime.getHours() + 24);
+        calenderappend.innerHTML = ''
+        calenderappend.innerHTML = currentDate;
+        //currentDate = currentDateTime.Now.AddHours(-24);
+        alert(currentDate)
+        $.ajax({
+            url: '/Dashboard/CalenderAfter',
+            type: 'GET',
+            data: { currentDate: currentDateISO },
+            //dataType: 'json',
+            success: function (data) {
+                // alert(data.Result);
+                var par = document.createElement("div");
+                data.forEach(function (item) {
+                    var child = document.createElement("div");
+                    child.innerHTML = item;
+                    par.appendChild(child);
+                    alert(item);
+                });
+                calenderappend.appendChild(par);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("Why is Error");
+            }
+        });
+    }
+    </script>
+    <h2 style="text-align:center; margin-bottom: 3rem;">Admin Dashboard</h2>
 

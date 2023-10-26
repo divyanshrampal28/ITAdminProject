@@ -17,6 +17,7 @@ namespace ITAdminProject.Models
 
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<History> History { get; set; }
         public virtual DbSet<Inventory> Inventory { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<StatusTable> StatusTable { get; set; }
@@ -71,6 +72,25 @@ namespace ITAdminProject.Models
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__Employee__RoleId__398D8EEE");
+            });
+
+            modelBuilder.Entity<History>(entity =>
+            {
+                entity.Property(e => e.CategoryName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DeviceName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Action)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UpdatedAtUtc)
+                    .HasColumnName("UpdatedAtUTC")
+                    .HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Inventory>(entity =>

@@ -14,12 +14,15 @@ namespace ITAdminProject.Controllers
     public class DeviceController : Controller
     {
         private readonly ItAdminContext _login;
+        private readonly GlobalList _GobalList;
 
 
-        public DeviceController(ItAdminContext login)
+        public DeviceController(ItAdminContext login, GlobalList GobalList)
         {
             _login = login;
+            _GobalList = GobalList;
         }
+
         public IActionResult Index()
         {
             IEnumerable<Inventory> obj = _login.Inventory;
@@ -177,8 +180,21 @@ namespace ITAdminProject.Controllers
             obj.UpdatedBy = 4;
             obj.CreatedBy = 4;
 
+            History child = new History();
+            child.CategoryName = "";
+            child.Action = "Added";
+            child.DeviceName = obj.DeviceName;
+            //DateTime currentDateTime = DateTime.Now;
+            child.UpdatedAtUtc = currentDateTime;
+            child.UpdatedBy = 1;
+            _GobalList.GlobalListofHistory.Add(child);
+
             _login.Inventory.Add(obj);
             _login.SaveChanges();
+
+            _login.History.Add(child);
+            _login.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

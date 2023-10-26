@@ -13,5 +13,6 @@ namespace ITAdminProject.Models
         public int unalottedcount { get; set; }
         // public string FirstName { get; set; }
         //public int DeviceCount { get; set; }
+        public List<History> glist { get; set; }
     }
 }

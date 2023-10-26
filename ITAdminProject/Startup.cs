@@ -33,7 +33,7 @@ namespace ITAdminProject
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddSingleton<GlobalList>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<ItAdminContext>(o => o.UseSqlServer("Server=.\\SQLExpress;Database=ItAdmin;Trusted_Connection=True;"));
 

@@ -10,10 +10,13 @@ namespace ITAdminProject.Controllers
     public class CategoryController : Controller
     {
         private readonly ItAdminContext _login;
+        private readonly GlobalList _GobalList;
 
-        public CategoryController(ItAdminContext login)
+
+        public CategoryController(ItAdminContext login, GlobalList GobalList)
         {
             _login = login;
+            _GobalList = GobalList;
         }
         public IActionResult Index()
         {
@@ -28,7 +31,19 @@ namespace ITAdminProject.Controllers
             {
                 return BadRequest("this category already exists");
             }
+            History child = new History();
+            child.CategoryName = req.CategoryName;
+            child.Action = "Added";
+            child.DeviceName = "";
+            DateTime currentDateTime = DateTime.Now;
+            child.UpdatedAtUtc = currentDateTime;
+            child.UpdatedBy = 1;
+            _GobalList.GlobalListofHistory.Add(child);
+
+            
             _login.Category.Add(req);
+            _login.SaveChanges();
+            _login.History.Add(child);
             _login.SaveChanges();
 
             TempData["SuccessMessage"] = "Category created successfully"; // Add success message to TempData
@@ -55,6 +70,17 @@ namespace ITAdminProject.Controllers
             {
                 data.CategoryName = Model.CategoryName;
                 _login.SaveChanges();
+                History child = new History();
+                child.CategoryName = data.CategoryName;
+                child.Action = "Edit";
+                child.DeviceName = "";
+                DateTime currentDateTime = DateTime.Now;
+                child.UpdatedAtUtc = currentDateTime;
+                child.UpdatedBy = 1;
+                _GobalList.GlobalListofHistory.Add(child);
+
+                _login.History.Add(child);
+                _login.SaveChanges();
             }
 
             return RedirectToAction("");
@@ -68,6 +94,16 @@ namespace ITAdminProject.Controllers
             if (data != null)
             {
                 _login.Category.Remove(data);
+                _login.SaveChanges();
+                History child = new History();
+                child.CategoryName = data.CategoryName;
+                child.Action = "Delete";
+                child.DeviceName = "";
+                DateTime currentDateTime = DateTime.Now;
+                child.UpdatedAtUtc = currentDateTime;
+                child.UpdatedBy = 1;
+                _GobalList.GlobalListofHistory.Add(child);
+                _login.History.Add(child);
                 _login.SaveChanges();
             }
 

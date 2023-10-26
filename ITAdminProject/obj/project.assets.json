@@ -13133,23 +13133,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\DivyanshRampal\\.nuget\\packages\\": {},
+    "C:\\Users\\NamanMalik\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DivyanshRampal\\Documents\\ITAdminProject\\ITAdminProject\\ITAdminProject.csproj",
+      "projectUniqueName": "C:\\Users\\NamanMalik\\Desktop\\thurs_after\\ITAdminProject\\ITAdminProject.csproj",
       "projectName": "ITAdminProject",
-      "projectPath": "C:\\Users\\DivyanshRampal\\Documents\\ITAdminProject\\ITAdminProject\\ITAdminProject.csproj",
-      "packagesPath": "C:\\Users\\DivyanshRampal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DivyanshRampal\\Documents\\ITAdminProject\\ITAdminProject\\obj\\",
+      "projectPath": "C:\\Users\\NamanMalik\\Desktop\\thurs_after\\ITAdminProject\\ITAdminProject.csproj",
+      "packagesPath": "C:\\Users\\NamanMalik\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\NamanMalik\\Desktop\\thurs_after\\ITAdminProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\DivyanshRampal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\NamanMalik\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
