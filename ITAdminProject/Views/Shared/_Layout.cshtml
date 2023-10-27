@@ -24,6 +24,7 @@
         .nav li{
             color: #012C3D;
         }
+
     </style>
 </head>
 <body>
@@ -49,10 +50,10 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        @*<hr />
         <footer>
             <p>&copy; 2023 - ITAdminProject</p>
-        </footer>
+        </footer>*@
     </div>
 
     <environment include="Development">
@@ -143,9 +144,11 @@
 
         var li7 = document.createElement('li');
         var a7 = document.createElement('a');
+        li7.id = 'logout-button';
         //a7.href = '/Login/Logout';
         a7.textContent = 'Logout';
         a7.id = 'logout-link';
+        a7.style.color = '#012C3D';
         li7.appendChild(a7);
         u.appendChild(li7);
     }
@@ -159,7 +162,7 @@
     logout.addEventListener("click", function () {
         localStorage.clear();
     
-    window.location.href = '@Url.Action("Index", "Home")';
+    window.location.href = '@Url.Action("Index", "Login")';
     })
 </script>
 </html>

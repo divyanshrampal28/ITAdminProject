@@ -8,13 +8,11 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <style>
         .body-login {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            height: 100vh;
             width: 100vw;
             overflow-x: hidden;
             overflow-y: hidden;
+            margin-left: 13% !important;
         }
 
         .container-login{
@@ -150,6 +148,44 @@
         .content-login img {
             width: 300px;
         }
+
+        @@media (max-width:779px) {
+            .container {
+                width: 100vw;
+                height: 100vh;
+            }
+        }
+        @@media (max-width:635px) {
+
+            form {
+                width: 80%;
+            }
+
+            .panels-container {
+                display: none;
+            }
+
+            .signin-signup{
+                width: 50%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                margin-left: 7rem;
+            }
+            .account-text {
+                display: initial;
+                margin-top: 30px;
+            }
+
+            .input-field {
+                width: 90%;
+            }
+        }
+        @@media (max-width:320px) {
+            form {
+                width: 90%;
+            }
+        }
     </style>
 </head>
 <body class="body-login">
@@ -215,152 +251,4 @@
     </script>
 </body>
 </html>
-
-@*<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - LOGIN_IN</title>
-
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/login.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/login.min.css" asp-append-version="true" />
-    </environment>
-</head>
-<body>
-    <form method="post" asp-controller="welcome" asp-action="Index">
-        <div class="table p-3">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group row pl-4">
-                <h2 class="text-info" style="margin-left:10%">Login Page</h2>
-            </div>
-            <div class="row">
-                <div class="col-8">
-                    <div class="form-group row">
-                        <div class="col-4">
-                            <label asp-for="Email"></label>
-                        </div>
-                        <div class="col-8">
-                            <input asp-for="Email" class="form-control" required id="inp" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                        <div class="col-4">
-                            <label asp-for="Password"></label>
-                        </div>
-                        <div class="col-8">
-                            <input asp-for="Password" class="form-control" required />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-8 offset-4 row">
-
-                            <div class="col">
-                                <input type="submit" class="btn btn-info w-100" value="Submit" id="sub" />
-                            </div>
-                            <div class="col">
-                                <a asp-controller="Home" asp-action="Index" class="btn btn-success w-100">Back</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <a asp-controller="Register" asp-action="Index" class="btn btn-success w-100">Not a User?Register Now</a>
-                    </div>
-                </div>
-                <div class="col-4">
-                    @* Keep this empty 
-                </div>
-            </div>
-        </div>
-    </form>
-    <script>
-    const sub = document.getElementById('sub').addEventListener("click", function () {
-    let value = document.getElementById("inp");
-    console.log('user', JSON.stringify(value.value))
-    localStorage.setItem('user', JSON.stringify(value.value));
-
-    //var naman = ${ }
-    @*$.ajax({
-        type: "GET",
-        traditional: true,
-        url: '@Url.Action("GetloginDetails", "Account")',
-        data: { id: "naman@gmail.com" },
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function (data) {
-            alert(result);
-            localStorage.setItem('role', JSON.stringify(result));
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log("Error: " + textStatus + " - " + errorThrown);
-        }
-    });
-
-        $.ajax({
-            url: '/Login/GetloginDetails',
-            type: 'GET',
-            data: { "Email": value.value.toString()},
-            dataType: 'json',
-            success: function (data) {
-               // alert(data.Result);
-                alert(data);
-                localStorage.setItem('role', JSON.stringify(data));
-
-
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert("Why is Error");
-            }
-        });
-    //sessionStorage.setItem('user', 'value.value');
-    // alert(value.value);
-    //const data = { email: value.value };
-    //fetch(`http://localhost:56059/Login/Id?data=${value.value}`)
-    //    //.then(response => response.json())
-    //    .then(data => {
-    //        console.log(data);
-    //    }).catch(error)
-    //{
-    //    console.log(Error.error);
-    //}
-    //const email = value.value;
-    //const data = { email: email };
-
-    //const data = new EmailModel
-    //{ "Email": "naman@gmail.com" };
-    //const url = `http://localhost:56059/Login/Id?data=${data}`;
-
-    //fetch(url)
-    //    //.then(response => response.json())
-    //    .then(data => {
-    //        alert(data);
-    //    })
-    //    .catch(error => {
-    //        console.error(error);
-    //    });
-    //alert(value.value);
-    const par = document.getElementById("prnt");
-    //par.innerHTML = '';
-    //par.appendChild('<ul class="nav navbar-nav">< li > <a asp-area="" asp-controller="View" asp-action="view">View</a></li>')
-    var u = document.createElement('ul');
-    u.className = 'nav navbar-nav';
-    var li3 = document.createElement('li');
-    var a3 = document.createElement('a');
-    a3.href = '/Dashboard/Index';
-    a3.textContent = 'View';
-    li3.appendChild(a3);
-    u.appendChild(li3);
-});
-
-    </script>
-</body>*@
-
 
