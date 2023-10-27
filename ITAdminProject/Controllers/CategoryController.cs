@@ -122,11 +122,86 @@ namespace ITAdminProject.Controllers
             return RedirectToAction("");
         }
 
+        [HttpPost]
+        public IActionResult EditAll(List<Category> categories)
+        {
+            try
+            {
+                foreach (var category in categories)
+                {
+                    var data = _login.Category.FirstOrDefault(x => x.Id == category.Id);
+                    if (data != null)
+                    {
+                        data.CategoryName = category.CategoryName;
+                    }
+                }
+                _login.SaveChanges();
+
+                TempData["SuccessMessage"] = "All categories updated successfully";
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult DeleteAll(List<int> IdToChange)
+        {
+            try
+            {
+                foreach (var item in IdToChange)
+                {
+                    var data = _login.Category.FirstOrDefault(x => x.Id == item);
+                    _login.Category.Remove(data);
+                }
+                _login.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+        }
+
+
         [HttpGet]
         public string Get([FromQuery]int data)
         {
             var res = _login.Category.Find(data);
             return res.CategoryName;
+        }
+
+        [HttpPost]
+        public List<Category> GetSelected(List<int> selectedId)
+        {
+            List<Category> updateCategory = new List<Category>();
+            foreach (var item in selectedId)
+            {
+                var data = _login.Category.FirstOrDefault(x => x.Id == item);
+                updateCategory.Add(data);
+            }
+
+            //ViewBag.updateCategory = updateCategory;
+
+            return updateCategory;
+
+        }
+
+        [HttpPost]
+        public string UpdateAll(List<UpdateAll> datalist)
+        {
+            foreach (var d in datalist)
+            {
+                var data = _login.Category.FirstOrDefault(x => x.Id == int.Parse(d.Id));
+                data.CategoryName = d.Value;
+                _login.SaveChanges();
+            }
+            return "sucess";
         }
     }
 }

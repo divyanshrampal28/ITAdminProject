@@ -172,30 +172,36 @@ namespace ITAdminProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult Send(Inventory obj)
+        public IActionResult Create(Inventory obj)
         {
-            DateTime currentDateTime = DateTime.Now;
-            obj.CreatedAtUtc = currentDateTime;
-            obj.UpdatedAtUtc = currentDateTime;
-            obj.UpdatedBy = 1;
-            obj.CreatedBy = 1;
+            if(ModelState.IsValid)
+            {
+                DateTime currentDateTime = DateTime.Now;
+                obj.CreatedAtUtc = currentDateTime;
+                obj.UpdatedAtUtc = currentDateTime;
+                obj.UpdatedBy = 1;
+                obj.CreatedBy = 1;
 
-            History child = new History();
-            child.CategoryName = "";
-            child.Action = "Added";
-            child.DeviceName = obj.DeviceName;
-            //DateTime currentDateTime = DateTime.Now;
-            child.UpdatedAtUtc = currentDateTime;
-            child.UpdatedBy = 1;
-            _GobalList.GlobalListofHistory.Add(child);
+                History child = new History();
+                child.CategoryName = "";
+                child.Action = "Added";
+                child.DeviceName = obj.DeviceName;
+                //DateTime currentDateTime = DateTime.Now;
+                child.UpdatedAtUtc = currentDateTime;
+                child.UpdatedBy = 1;
+                _GobalList.GlobalListofHistory.Add(child);
 
-            _login.Inventory.Add(obj);
-            _login.SaveChanges();
+                _login.Inventory.Add(obj);
+                _login.SaveChanges();
 
-            _login.History.Add(child);
-            _login.SaveChanges();
+                _login.History.Add(child);
+                _login.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+
+            return View(obj);
+
         }
 
         [HttpPost]

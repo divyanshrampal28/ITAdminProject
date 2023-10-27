@@ -21,7 +21,7 @@
     </environment>
 </head>
 <body>
-    <form method="post" asp-action="Send">
+    <form method="post" asp-action="Create">
         <div class="table p-5">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group row pl-4">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-8">
                             <input asp-for="DeviceName" class="form-control" />
-                            @*<span asp-validation-for="FirstName" class="text-danger"></span>*@
+                            <span asp-validation-for="DeviceName" class="text-danger"></span>
                         </div>
                         <div class="col-4">
                             <label asp-for="SerialNumber"></label>
