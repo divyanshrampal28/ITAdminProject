@@ -27,7 +27,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: lightgray;">
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="thisisnavbar" style="background-color: lightgray;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -41,23 +41,6 @@
                 </a>
             </div>
             <div class="navbar-collapse collapse" id="prnt">
-
-                @*<ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Category" asp-action="Index">Category</a></li>
-                    <li><a asp-area="" asp-controller="View" asp-action="view">View</a></li>
-                    <li><a asp-area="" asp-controller="Device" asp-action="Index">Device</a></li>
-                </ul>*@
-                @*<ul class="nav navbar-nav">
-                    @if (string.IsNullOrEmpty(user))
-                    {
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-area="" asp-controller="Login" asp-action="Index">Login</a></li>
-                    }
-                    else
-                    {
-                        <li><a asp-area="" asp-controller="View" asp-action="view">View</a></li>
-                    }
-                </ul>*@
             </div>
         </div>
     </nav>
@@ -105,20 +88,18 @@
     //function () {
     var user = localStorage.getItem('user');
     var par = document.getElementById("prnt");
+    var navbarRemove = document.getElementById("thisisnavbar");
+    
 
     // Create an unordered list element
     var u = document.createElement('ul');
     u.className = 'nav navbar-nav';
 
     if (user === null) {
-        // Add "Home" and "Login" links to the list
-        var li1 = document.createElement('li');
-        var a1 = document.createElement('a');
-        a1.href = '/Home/Index';
-        a1.textContent = 'Home';
-        li1.appendChild(a1);
-        u.appendChild(li1);
-
+        console.log(navbarRemove);
+        
+        navbarRemove.style.display = 'none';
+        console.log(navbarRemove.style.display);
         var li2 = document.createElement('li');
         var a2 = document.createElement('a');
         a2.href = '/Login/Index';

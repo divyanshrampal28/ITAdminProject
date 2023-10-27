@@ -1,6 +1,222 @@
 ﻿@model ITAdminProject.Models.Employeechk
 
-<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <style>
+        .body-login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100vw;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        .container-login{
+            display: flex;
+            justify-content: space-between;
+            width: 70%;
+            height: 80vh;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .signin-signup {
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            z-index: 5;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 40%;
+            min-width: 238px;
+            padding: 0 10px;
+        }
+
+
+        .title {
+            font-size: 35px;
+            color: #082c3c;
+            margin-bottom: 10px;
+        }
+
+        .input-field {
+            width: 150%;
+            height: 50px;
+            margin: 10px 0;
+            border: 2px solid #082c3c;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-field i {
+            flex: 1;
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .input-field input {
+            flex: 5;
+            background: none;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 18px;
+            color: #444;
+        }
+
+        .btn {
+            width: 150px;
+            height: 50px;
+            border: none;
+            border-radius: 50px;
+            background: #082c3c;
+            color: #fff;
+            font-weight: 600;
+            margin: 10px 0;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+            .btn:hover {
+                background: #0c4056;
+            }
+
+        a {
+            text-decoration: none;
+        }
+
+        .panels-container {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #082c3c;
+        }
+
+        .panel-login {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            width: 35%;
+            min-width: 238px;
+            padding: 0 10px;
+            text-align: center;
+            z-index: 6;
+        }
+
+        .left-panel {
+            pointer-events: none;
+        }
+
+        .panel-login h3 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .panel-login p {
+            font-size: 15px;
+            padding: 10px 0;
+        }
+
+        .panel-login h1 {
+            color: #fff;
+            margin-top: 2rem;
+            font-size: 3rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .content-login img {
+            width: 300px;
+        }
+    </style>
+</head>
+<body class="body-login">
+    <div class="container-login">
+        <div class="panels-container">
+            <div class="panel-login left-panel">
+                <div class="content-login">
+                    <img src="https://skillfinity.cginfinity.com/static/media/Cginfinitylogo.89c539294b8e6745a0c62a8ae4cffed8.svg">
+                    <h1>CGI IT ADMIN</h1>
+                </div>
+                <img src="signin.svg" alt="" class="image">
+            </div>
+        </div>
+        <div class="signin-signup">
+            <form method="post" asp-controller="welcome" asp-action="Index" class="sign-up-form">
+                <h2 class="title">Sign In</h2>
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input type="text" asp-for="Email" placeholder="Email" id="inp" required>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" asp-for="Password" placeholder="Password" required>
+                </div>
+                <input type="submit" value="Login" class="btn" id="sub">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const sub = document.getElementById('sub').addEventListener("click", function () {
+        let value = document.getElementById("inp");
+        console.log('user', JSON.stringify(value.value))
+        localStorage.setItem('user', JSON.stringify(value.value));
+
+            $.ajax({
+                url: '/Login/GetloginDetails',
+                type: 'GET',
+                data: { "Email": value.value.toString()},
+                dataType: 'json',
+                success: function (data) {
+                   // alert(data.Result);
+                    alert(data);
+                    localStorage.setItem('role', JSON.stringify(data));
+
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("Why is Error");
+                }
+            });
+        const par = document.getElementById("prnt");
+        var u = document.createElement('ul');
+        u.className = 'nav navbar-nav';
+        var li3 = document.createElement('li');
+        var a3 = document.createElement('a');
+        a3.href = '/Dashboard/Index';
+        a3.textContent = 'View';
+        li3.appendChild(a3);
+        u.appendChild(li3);
+    });
+
+    </script>
+</body>
+</html>
+
+@*<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -60,7 +276,7 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    @* Keep this empty *@
+                    @* Keep this empty 
                 </div>
             </div>
         </div>
@@ -86,7 +302,7 @@
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("Error: " + textStatus + " - " + errorThrown);
         }
-    });*@
+    });
 
         $.ajax({
             url: '/Login/GetloginDetails',
@@ -145,4 +361,6 @@
 });
 
     </script>
-</body>
+</body>*@
+
+
