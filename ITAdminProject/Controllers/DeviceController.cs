@@ -177,8 +177,8 @@ namespace ITAdminProject.Controllers
             DateTime currentDateTime = DateTime.Now;
             obj.CreatedAtUtc = currentDateTime;
             obj.UpdatedAtUtc = currentDateTime;
-            obj.UpdatedBy = 4;
-            obj.CreatedBy = 4;
+            obj.UpdatedBy = 1;
+            obj.CreatedBy = 1;
 
             History child = new History();
             child.CategoryName = "";
