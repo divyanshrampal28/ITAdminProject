@@ -54,6 +54,7 @@ namespace ITAdminProject.Controllers
             dash.unalottedcount = _login.Inventory.Where(s => s.StatusId == 2).Count();
             DateTime twentyFourHoursAgo = DateTime.Now.AddHours(-24);
 
+            _GobalList.GlobalListofHistory = _login.History.ToList();
             dash.glist = _GobalList.GlobalListofHistory
                 .Where(i => i.UpdatedAtUtc >= twentyFourHoursAgo)
                 .ToList();
@@ -64,18 +65,13 @@ namespace ITAdminProject.Controllers
         {
             List<string> result = new List<string>();
 
-            // Calculate the start date for the last 24 hours
             DateTime startDate = currentDate.AddHours(-24);
 
-            // Assuming you're using Entity Framework, you can query your database
-            // to retrieve data that falls within the specified time range.
-            // using (YourDbContext dbContext = new YourDbContext())
-            //{
+           
             result = _login.Inventory
                 .Where(item => item.UpdatedAtUtc >= startDate && item.UpdatedAtUtc <= currentDate)
                 .Select(item => item.DeviceName)
                 .ToList();
-            //}
 
             return result;
         }
@@ -84,18 +80,13 @@ namespace ITAdminProject.Controllers
         {
             List<string> result = new List<string>();
 
-            // Calculate the start date for the last 24 hours
             DateTime startDate = currentDate.AddHours(+24);
 
-            // Assuming you're using Entity Framework, you can query your database
-            // to retrieve data that falls within the specified time range.
-            // using (YourDbContext dbContext = new YourDbContext())
-            //{
             result = _login.Inventory
                 .Where(item => item.UpdatedAtUtc <= startDate && item.UpdatedAtUtc >= currentDate)
                 .Select(item => item.DeviceName)
                 .ToList();
-            //}
+            
 
             return result;
         }

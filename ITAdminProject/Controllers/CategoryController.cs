@@ -93,21 +93,33 @@ namespace ITAdminProject.Controllers
             var data = _login.Category.FirstOrDefault(x => x.Id == id);
             if (data != null)
             {
-                _login.Category.Remove(data);
-                _login.SaveChanges();
-                History child = new History();
-                child.CategoryName = data.CategoryName;
-                child.Action = "Delete";
-                child.DeviceName = "";
-                DateTime currentDateTime = DateTime.Now;
-                child.UpdatedAtUtc = currentDateTime;
-                child.UpdatedBy = 1;
-                _GobalList.GlobalListofHistory.Add(child);
-                _login.History.Add(child);
-                _login.SaveChanges();
+                var invdata = _login.Inventory.FirstOrDefault(x => x.CategoryId == data.Id);
+                if (invdata != null)
+                {
+                    TempData["DisplayAlert"] = true;
+                    return RedirectToAction("Index");
+                    // return BadRequest("Cannot delete because related inventory data exists."); 
+                }
+                else
+                {
+
+
+                    _login.Category.Remove(data);
+                    _login.SaveChanges();
+                    History child = new History();
+                    child.CategoryName = data.CategoryName;
+                    child.Action = "Delete";
+                    child.DeviceName = "";
+                    DateTime currentDateTime = DateTime.Now;
+                    child.UpdatedAtUtc = currentDateTime;
+                    child.UpdatedBy = 1;
+                    _GobalList.GlobalListofHistory.Add(child);
+                    _login.History.Add(child);
+                    _login.SaveChanges();
+                }
             }
 
-            return RedirectToAction(""); 
+            return RedirectToAction("");
         }
 
         [HttpGet]

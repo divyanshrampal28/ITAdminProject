@@ -368,6 +368,17 @@ namespace ITAdminProject.Controllers
                 data.UpdatedBy = 1;
                 data.UpdatedAtUtc = currentDateTime;
                 _login.SaveChanges();
+
+                History child = new History();
+                child.CategoryName = "";
+                child.Action = "Added";
+                child.DeviceName = inventory.DeviceName;
+                //DateTime currentDateTime = DateTime.Now;
+                child.UpdatedAtUtc = currentDateTime;
+                child.UpdatedBy = 7;
+                _GobalList.GlobalListofHistory.Add(child);
+                _login.History.Add(child);
+                _login.SaveChanges();
             }
 
             return RedirectToAction("");
@@ -379,7 +390,18 @@ namespace ITAdminProject.Controllers
             var data = _login.Inventory.Where(i => i.Id == id).FirstOrDefault();
             if (data != null)
             {
+                History child = new History();
+                child.CategoryName = "";
+                child.Action = "Added";
+                child.DeviceName = data.DeviceName;
+                DateTime currentDateTime = DateTime.Now;
+                child.UpdatedAtUtc = currentDateTime;
+                child.UpdatedBy = 7;
+                _GobalList.GlobalListofHistory.Add(child);
+                
                 _login.Inventory.Remove(data);
+                _login.SaveChanges();
+                _login.History.Add(child);
                 _login.SaveChanges();
             }
 

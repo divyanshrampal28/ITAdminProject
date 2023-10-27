@@ -19,7 +19,7 @@
     <!-- Bootstrap JavaScript -->
     <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <style>  
+    <style>
         h4 {
             margin: 2rem 0rem 1rem;
         }
@@ -85,6 +85,11 @@
         + Add Category
     </button>
 </div>
+
+@if (TempData.ContainsKey("DisplayAlert") && (bool)TempData["DisplayAlert"])
+{
+    <script>alert('This category is allotted with a device. Delete it from the device and then continue.');</script>
+}
 
 
 @*<script>

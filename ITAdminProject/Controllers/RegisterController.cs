@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ITAdminProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ITAdminProject.Controllers
 {
@@ -101,11 +102,25 @@ namespace ITAdminProject.Controllers
         public IActionResult Delete(int id)
         {
             var data = _login.Employee.FirstOrDefault(i => i.Id == id);
-            if(data != null)
+            if (data != null)
             {
+                var empinvdata = _login.Inventory.Where(i => i.AssignedTo == data.Id);
+                foreach (var dev in empinvdata)
+                {
+                    var targetController = ActivatorUtilities.CreateInstance<DeviceController>(HttpContext.RequestServices);
+                    //RedirectToAction("DeleteDevice", "Device",dev.Id);
+                    var result = targetController.DeleteDevice(dev.Id); 
+                    if (result is RedirectToActionResult redirectToAction && redirectToAction.ActionName == "Index")
+                    {
+                    }
+                    else
+                    {
+                    }
+                }
+
                 _login.Employee.Remove(data);
                 _login.SaveChanges();
-               
+
             }
             return RedirectToAction("");
         }
