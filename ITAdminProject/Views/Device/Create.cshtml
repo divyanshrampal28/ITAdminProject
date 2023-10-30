@@ -19,76 +19,109 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/login.min.css" asp-append-version="true" />
     </environment>
+
+    <style>
+        .create-device{
+            margin-top: 3%;
+        }
+
+        input{
+            max-width: 400px;
+        }
+
+        select{
+            max-width: 400px;
+        }
+
+        .names{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .names label{
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .selects{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .selects label {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <form method="post" asp-action="Create">
         <div class="table p-5">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group row pl-4">
-                <h2 class="text-info" style="margin-left:10%">Register Page</h2>
+                <h2 class="text-info" style="margin-left:-13px;">Add a new device</h2>
             </div>
             <div class="row">
                 <div class="col-8">
                     <div class="form-group row">
-                        <div class="col-4">
-                            <label asp-for="DeviceName"></label>
-                        </div>
-                        <div class="col-8">
-                            <input asp-for="DeviceName" class="form-control" />
-                            <span asp-validation-for="DeviceName" class="text-danger"></span>
-                        </div>
-                        <div class="col-4">
-                            <label asp-for="SerialNumber"></label>
-                        </div>
-                        <div class="col-8">
-                            <input asp-for="SerialNumber" class="form-control" />
-                            <span asp-validation-for="SerialNumber" class="text-danger"></span>
-                        </div>
-                        <div class="col-4">
-                            <label asp-for="CategoryId"></label>
-                        </div>
-                        <div class="col-8">
-                            <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" required></select>
-                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        <div class="names">
                             <div class="col-4">
-                                <label asp-for="AssignedTo"></label>
+                                <label asp-for="DeviceName">Device Name</label>
                             </div>
                             <div class="col-8">
-                                <input asp-for="AssignedTo" class="form-control" />
-                                <span asp-validation-for="AssignedTo" class="text-danger"></span>
+                                <input asp-for="DeviceName" class="form-control" />
+                                <span asp-validation-for="DeviceName" class="text-danger"></span>
                             </div>
-                            @*<div class="col-4">
-                                    <label asp-for="RoleId"></label>
+                            <div class="col-4">
+                                <label asp-for="SerialNumber">Serial Number</label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="SerialNumber" class="form-control" />
+                                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+                            </div>
+                            
+                        </div>
+                        <div class="selects">
+                            <div class="col-8">
+                                <div class="col-4">
+                                    <label asp-for="CategoryId">Category</label>
+                                </div>
+                                <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" required></select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                <div class="col-4">
+                                    <label asp-for="StatusId">Allocation Status</label>
                                 </div>
                                 <div class="col-8">
-                                    <input asp-for="RoleId" class="form-control" />
-                                    <span asp-validation-for="RoleId" class="text-danger"></span>
-                                </div>*@
-                            <div class="col-4">
-                                <label asp-for="StatusId"></label>
-                            </div>
-                            <div class="col-8">
-                                <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control" required></select>
-                                <span asp-validation-for="StatusId" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-8 offset-4 row">
-
-                                <div class="col">
-                                    <input type="submit" class="btn btn-info p-5" value="Create" />
+                                    <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control" required></select>
+                                    <span asp-validation-for="StatusId" class="text-danger"></span>
                                 </div>
-                                <div class="col">
-                                    <a asp-controller="Home" asp-action="Index" class="btn btn-success p-5">Back</a>
+                                <div class="col-4">
+                                    <label asp-for="AssignedTo">Assigned To</label>
+                                </div>
+                                <div class="col-8">
+                                    <select asp-for="AssignedTo" class="form-control" asp-items="ViewBag.AssignedTo" id="editAssignedTo"></select>
+                                    <span asp-validation-for="AssignedTo" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
+             
+                        <div class="form-group row create-device">
+                            <div class="col-lg-3 row">
+                                <div class="col-xs-6">
+                                    <button type="submit" class="btn btn-info btn-block p-3" id="createButton" style="font-size:16px;">Create</button>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a asp-controller="Home" asp-action="Index" class="btn btn-success btn-block p-3" id="backButton" style="font-size:16px;">Back</a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="col-4">
                         @* Keep this empty *@
                     </div>
                 </div>
             </div>
+        </div>    
     </form>
 </body>
