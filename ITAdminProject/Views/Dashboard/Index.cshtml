@@ -399,7 +399,6 @@
         background: #dbdfe5;
         margin-bottom: 4%;
         margin-left: 6.5%;
-        
     }
 
     .sabkuch {
@@ -423,26 +422,29 @@
 
 <div class="row">
 
-    <div class="col-sm-3 kuchbhi">
+    <div class="col-sm-2 kuchbhi">
         <div id="empcount">
-            <div>Users</div>
+            <div>Employees</div>
         </div>
     </div>
 
 
-
-
-    <div class="col-sm-3 sabkuch">
+    <div class="col-sm-2 sabkuch">
         <div id="devnum">
-            <div>No. of Devices</div>
+            <div>Number of Assets</div>
+        </div>
+    </div>
+
+    <div class="col-sm-2 kuchbhi">
+        <div id="allocatednum">
+            <div>Allocated Devices</div>
         </div>
     </div>
 
 
-
-    <div class="col-sm-3 kuchnahi">
+    <div class="col-sm-2 kuchnahi">
         <div id="unallotednum">
-            <div>Unalloted Devices</div>
+            <div>Unallocated Devices</div>
         </div>
     </div>
 
@@ -453,150 +455,150 @@
 
 
 
-    <div class="row">
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title" style="text-align:center; margin-bottom:5px;">Categories</h2>
-                    <canvas id="myBarChart" width="200" height="100"></canvas>
-                </div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title" style="text-align:center; margin-bottom:5px;">Categories</h2>
+                <canvas id="myBarChart" width="200" height="100"></canvas>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Alloted Employees</h3>
-                        </div>
-                        <div class="panel-body">
-                            <canvas id="myPieChart"></canvas>
-                        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Alloted Employees</h3>
+                    </div>
+                    <div class="panel-body">
+                        <canvas id="myPieChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="demo-content scroll" style="min-height: 400px;">
-                <table class="table table-striped table-bordered">
-                    <thead>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="demo-content" style="max-height: 400px; overflow-y: scroll;">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Category Name</th>
+                        <th>Action</th>
+                        <th>Updated At</th>
+                        <th>Updated By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.glist)
+                    {
                         <tr>
-                            <th>Category Name</th>
-                            <th>Action</th>
-                            <th>Updated At</th>
-                            <th>Updated By</th>
+                            <td>@item.CategoryName</td>
+                            <td>@item.Action</td>
+                            <td>@item.UpdatedAtUtc</td>
+                            <td>@item.UpdatedBy</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.glist)
-                        {
-                            <tr>
-                                <td>@item.CategoryName</td>
-                                <td>@item.Action</td>
-                                <td>@item.UpdatedAtUtc</td>
-                                <td>@item.UpdatedBy</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class=" col-md-4 col-sm-12 well pull-right-lg" style="border:0px solid; min-height: 400px;">
-            <p class="well" style="padding:10px; margin-bottom:2px; text-align:center;">
-                Device History
-            </p>
-            <div class="col-md-12" style="padding:0px;">
-                <br>
-                <table class="table table-bordered table-style table-responsive">
-                    <thead>
-                        <tr>
-                            <th>
-                                <div class="dateAndButton">
-                                    <button id="left">left</button>
-                                    <div id="calender"></div>
-                                    <button id="right">right</button>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="moreRows"></tbody>
-                </table>
-            </div>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <div class="col-md-4">
-
+    <div class=" col-md-4 col-sm-12 well pull-right-lg" style="border:0px solid; min-height: 400px;">
+        <p class="well" style="padding:10px; margin-bottom:2px; text-align:center;">
+            Device History
+        </p>
+        <div class="col-md-12" style="padding:0px;">
+            <br>
+            <table class="table table-bordered table-style table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="dateAndButton">
+                                <button id="left">left</button>
+                                <div id="calender"></div>
+                                <button id="right">right</button>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="moreRows"></tbody>
+            </table>
+        </div>
     </div>
+</div>
 
-    @*<div id="history">
+<div class="col-md-4">
 
-        </div>*@
+</div>
 
-    @*<div>
-            <button id="left">left</button>
-            <div id="calender"></div>
-            <button id="right">right</button>
-        </div>*@
+@*<div id="history">
+
+    </div>*@
+
+@*<div>
+        <button id="left">left</button>
+        <div id="calender"></div>
+        <button id="right">right</button>
+    </div>*@
 
 
 
-    <style>
-        .table-style .today {
-            background: #2A3F54;
-            color: #ffffff;
+<style>
+    .table-style .today {
+        background: #2A3F54;
+        color: #ffffff;
+    }
+
+    .table-style th:nth-of-type(7), td:nth-of-type(7) {
+        color: blue;
+    }
+
+    .table-style th:nth-of-type(1), td:nth-of-type(1) {
+        color: red;
+    }
+
+    .table-style tr:first-child th {
+        background-color: #F6F6F6;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .dateAndButton {
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    .demo-content {
+        padding: 15px;
+        font-size: 18px;
+        background: #dbdfe5;
+        margin-bottom: 10px;
+    }
+
+
+
+        .demo-content.bg-alt {
+            background: #EEEEEE;
         }
 
-        .table-style th:nth-of-type(7), td:nth-of-type(7) {
-            color: blue;
-        }
-
-        .table-style th:nth-of-type(1), td:nth-of-type(1) {
-            color: red;
-        }
-
-        .table-style tr:first-child th {
-            background-color: #F6F6F6;
-            text-align: center;
-            font-size: 15px;
-        }
-
-        .dateAndButton {
-            display: flex;
-            justify-content: space-between;
-        }
+    .scrooolll {
+        overflow-y: scroll;
+        height: 300px;
+    }
+</style>
 
 
-        .demo-content {
-            padding: 15px;
-            font-size: 18px;
-            background: #dbdfe5;
-            margin-bottom: 10px;
-        }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.is/2.8.0/Chart.bundle.min.js"></script>
 
-
-
-            .demo-content.bg-alt {
-                background: #EEEEEE;
-            }
-
-        .scrooolll {
-            overflow-y: scroll;
-            height: 300px;
-        }
-    </style>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.is/2.8.0/Chart.bundle.min.js"></script>
-
-    <script>
+<script>
     function getRandomColor() {
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -632,9 +634,15 @@
 
         var unallotedticket = document.getElementById("unallotednum");
 
+        var allocatednum = document.getElementById("allocatednum");
+
         var unallotedtkt = document.createElement("div");
         unallotedtkt.innerHTML = unalloteddata;
         unallotedticket.appendChild(unallotedtkt);
+
+        var allotedtkt = document.createElement("div");
+        allotedtkt.innerHTML = devdata - unalloteddata;
+        allocatednum.appendChild(allotedtkt);
 
         var labels = pieChartData.map(item => item.firstName);
         var dataValues = pieChartData.map(item => item.deviceCount);
@@ -831,5 +839,5 @@
             }
         });
     }
-    </script>
+</script>
 

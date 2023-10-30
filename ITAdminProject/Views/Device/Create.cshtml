@@ -55,9 +55,9 @@
     </style>
 </head>
 <body>
-    <form method="post" asp-action="Create">
+    <form method="post" asp-action="Create" id="addDeviceForm">
         <div class="table p-5">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
             <div class="form-group row pl-4">
                 <h2 class="text-info" style="margin-left:-13px;">Add a new device</h2>
             </div>
@@ -69,42 +69,42 @@
                                 <label asp-for="DeviceName">Device Name</label>
                             </div>
                             <div class="col-8">
-                                <input asp-for="DeviceName" class="form-control" />
-                                <span asp-validation-for="DeviceName" class="text-danger"></span>
+                                <input asp-for="DeviceName" class="form-control" id="getDeviceName" />
+
                             </div>
                             <div class="col-4">
                                 <label asp-for="SerialNumber">Serial Number</label>
                             </div>
                             <div class="col-8">
-                                <input asp-for="SerialNumber" class="form-control" />
-                                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+                                <input asp-for="SerialNumber" class="form-control" id="getSerialNumber" />
+
                             </div>
-                            
+
                         </div>
                         <div class="selects">
                             <div class="col-8">
                                 <div class="col-4">
                                     <label asp-for="CategoryId">Category</label>
                                 </div>
-                                <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" required></select>
-                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" id="getCategoryId"></select>
+
                                 <div class="col-4">
                                     <label asp-for="StatusId">Allocation Status</label>
                                 </div>
                                 <div class="col-8">
-                                    <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control" required></select>
-                                    <span asp-validation-for="StatusId" class="text-danger"></span>
+                                    <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control" id="getStatusId"></select>
+
                                 </div>
                                 <div class="col-4">
                                     <label asp-for="AssignedTo">Assigned To</label>
                                 </div>
                                 <div class="col-8">
                                     <select asp-for="AssignedTo" class="form-control" asp-items="ViewBag.AssignedTo" id="editAssignedTo"></select>
-                                    <span asp-validation-for="AssignedTo" class="text-danger"></span>
+
                                 </div>
                             </div>
                         </div>
-             
+
                         <div class="form-group row create-device">
                             <div class="col-lg-3 row">
                                 <div class="col-xs-6">
@@ -115,6 +115,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="AddDeviceErrorAlert" class="alert alert-danger" role="alert" style="display: none; margin-top: 10px;">
+
+                        </div>
 
                     </div>
                     <div class="col-4">
@@ -122,6 +125,97 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     </form>
+
+    <!--ADD DEVICE FUNCTIONALITY-->
+    <script>
+        document.getElementById('getDeviceName').addEventListener('click', function () {
+
+            var errorBox = document.getElementById('AddDeviceErrorAlert');
+            errorBox.style.display = 'none';
+
+        });
+
+        document.getElementById('getSerialNumber').addEventListener('click', function () {
+
+            var errorBox = document.getElementById('AddDeviceErrorAlert');
+            errorBox.style.display = 'none';
+
+        });
+
+        document.getElementById('getCategoryId').addEventListener('click', function () {
+
+            var errorBox = document.getElementById('AddDeviceErrorAlert');
+            errorBox.style.display = 'none';
+
+        });
+
+        document.getElementById('getStatusId').addEventListener('click', function () {
+
+            var errorBox = document.getElementById('AddDeviceErrorAlert');
+            errorBox.style.display = 'none';
+
+        });
+
+        document.getElementById('editAssignedTo').addEventListener('click', function () {
+
+            var errorBox = document.getElementById('AddDeviceErrorAlert');
+            errorBox.style.display = 'none';
+
+        });
+
+        document.getElementById('addDeviceForm').addEventListener('mouseenter', function () {
+
+            var errorBox = document.getElementById('AddDeviceErrorAlert');
+            errorBox.style.display = 'none';
+
+        });
+
+        document.getElementById('createButton').addEventListener('click', function () {
+            var dname = document.getElementById('getDeviceName').value;
+            var sname = document.getElementById('getSerialNumber').value;
+            var cateId = document.getElementById('getCategoryId').value;
+            var statId = document.getElementById('getStatusId').value;
+            var assignedtoo = document.getElementById('editAssignedTo').value;
+
+            $.ajax({
+                type: "POST",
+                url: '/Device/Create',
+                data: { DeviceName: dname, SerialNumber: sname, CategoryId: cateId, StatusId: statId, AssignedTo: assignedtoo }, // Ensure you use the correct parameter name
+                success: function (data) {
+                    if (data.errorMessage) {
+                        var errorMessage = data.errorMessage;
+                        var errorBox = document.getElementById('AddDeviceErrorAlert');
+                        errorBox.innerHTML = errorMessage;
+                        errorBox.style.display = 'block';
+                    } else {
+                        window.location.assign("/Device/Index")
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: ", error);
+                }
+            });
+
+            // Prevent the default form submission behavior
+            event.preventDefault();
+        });
+
+
+        function errofunc() {
+            console.log('function changes');
+        }
+    </script>
+
+    @*@if (ViewBag.ErrorMessage != null)
+    {
+        <script>
+        window.onload = function () {
+            var element = document.getElementById('addErrorAlert');
+            element.textContent = '@ViewBag.ErrorMessage';
+            $('addCategory').modal('show');
+        }
+        </script>
+    }*@
 </body>

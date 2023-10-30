@@ -59,16 +59,27 @@ namespace ITAdminProject.Controllers
         [HttpPost]
         public IActionResult Index(Employee obj)
         {
-            //if (ModelState.IsValid)
-            //{
-            //var newpass = Hashing.ToSHA256(obj.Password);
-            //obj.Password = newpass;
-            _login.Employee.Add(obj);
-            _login.SaveChanges();
-            //return RedirectToAction("Index", "Home");
-            //}
+            try
+            {
+                if (string.IsNullOrEmpty(obj.FirstName) || string.IsNullOrEmpty(obj.LastName) || string.IsNullOrEmpty(obj.Email) || string.IsNullOrEmpty(obj.Password) || obj.RoleId == 0)
+                {
+                    return Json(new { errorMessage = "All fields are mandatory" });
+                }
+                //if (ModelState.IsValid)
+                //{
+                //var newpass = Hashing.ToSHA256(obj.Password);
+                //obj.Password = newpass;
+                _login.Employee.Add(obj);
+                _login.SaveChanges();
+                //return RedirectToAction("Index", "Home");
+                //}
 
-            return RedirectToAction("");
+                return RedirectToAction("");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { errorMessage = "An error occurred: " + ex.Message });
+            }
         }
 
         [HttpGet]
@@ -86,16 +97,27 @@ namespace ITAdminProject.Controllers
         [HttpPost]
         public IActionResult Update(Employee emp)
         {
-            var data = _login.Employee.FirstOrDefault(i => i.Id == emp.Id);
-            if(data.FirstName != null && data.LastName != null && data.Email != null)
-            {
-                data.FirstName = emp.FirstName;
-                data.LastName = emp.LastName;
-                data.Email = emp.Email;
-                _login.SaveChanges();
-            }
+            try {
+                    if (string.IsNullOrEmpty(emp.FirstName) || string.IsNullOrEmpty(emp.LastName) || string.IsNullOrEmpty(emp.Email))
+                    {
+                        return Json(new { errorMessage = "All fields are mandatory" });
+                    }
 
-            return RedirectToAction("");
+                var data = _login.Employee.FirstOrDefault(i => i.Id == emp.Id);
+                    if (data.FirstName != null && data.LastName != null && data.Email != null)
+                    {
+                        data.FirstName = emp.FirstName;
+                        data.LastName = emp.LastName;
+                        data.Email = emp.Email;
+                        _login.SaveChanges();
+                    }
+
+                    return RedirectToAction("");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { errorMessage = "An error occurred: " + ex.Message });
+            }
         }
 
         [HttpPost]

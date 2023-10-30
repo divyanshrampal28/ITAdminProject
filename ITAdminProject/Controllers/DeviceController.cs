@@ -174,33 +174,46 @@ namespace ITAdminProject.Controllers
         [HttpPost]
         public IActionResult Create(Inventory obj)
         {
-            if(ModelState.IsValid)
+            try
             {
-                DateTime currentDateTime = DateTime.Now;
-                obj.CreatedAtUtc = currentDateTime;
-                obj.UpdatedAtUtc = currentDateTime;
-                obj.UpdatedBy = 1;
-                obj.CreatedBy = 1;
+                if (string.IsNullOrEmpty(obj.DeviceName) || string.IsNullOrEmpty(obj.SerialNumber) || obj.CategoryId == 0 || obj.StatusId == 0 || obj.AssignedTo == 0)
+                {
+                    return Json(new { errorMessage = "All fields are mandatory" });
+                }
 
-                History child = new History();
-                child.CategoryName = "";
-                child.Action = "Added";
-                child.DeviceName = obj.DeviceName;
-                //DateTime currentDateTime = DateTime.Now;
-                child.UpdatedAtUtc = currentDateTime;
-                child.UpdatedBy = 1;
-                _GobalList.GlobalListofHistory.Add(child);
+                if (ModelState.IsValid)
+                {
+                    DateTime currentDateTime = DateTime.Now;
+                    obj.CreatedAtUtc = currentDateTime;
+                    obj.UpdatedAtUtc = currentDateTime;
+                    obj.UpdatedBy = 1;
+                    obj.CreatedBy = 1;
 
-                _login.Inventory.Add(obj);
-                _login.SaveChanges();
+                    History child = new History();
+                    child.CategoryName = "";
+                    child.Action = "Added";
+                    child.DeviceName = obj.DeviceName;
+                    //DateTime currentDateTime = DateTime.Now;
+                    child.UpdatedAtUtc = currentDateTime;
+                    child.UpdatedBy = 1;
+                    _GobalList.GlobalListofHistory.Add(child);
 
-                _login.History.Add(child);
-                _login.SaveChanges();
+                    _login.Inventory.Add(obj);
+                    _login.SaveChanges();
 
-                return RedirectToAction("Index");
+                    _login.History.Add(child);
+                    _login.SaveChanges();
+
+                    return RedirectToAction("Index");
+                    
+                }
+
+                return View(obj);
             }
-
-            return View(obj);
+            catch (Exception ex)
+            {
+                return Json(new { errorMessage = "An error occurred: " + ex.Message });
+            }
 
         }
 

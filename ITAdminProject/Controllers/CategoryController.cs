@@ -77,27 +77,37 @@ namespace ITAdminProject.Controllers
         [HttpPost]
         public IActionResult Edit(Category Model)
         {
-            // Find the category by ID
-            var data = _login.Category.Where(x => x.Id == Model.Id).FirstOrDefault();
-
-            if (data != null)
+            try
             {
-                data.CategoryName = Model.CategoryName;
-                _login.SaveChanges();
-                History child = new History();
-                child.CategoryName = data.CategoryName;
-                child.Action = "Edit";
-                child.DeviceName = "";
-                DateTime currentDateTime = DateTime.Now;
-                child.UpdatedAtUtc = currentDateTime;
-                child.UpdatedBy = 1;
-                _GobalList.GlobalListofHistory.Add(child);
+                if (string.IsNullOrEmpty(Model.CategoryName))
+                {
+                    return Json(new { errorMessage = "Category Name field cannot be empty" });
+                }
+                // Find the category by ID
+                var data = _login.Category.Where(x => x.Id == Model.Id).FirstOrDefault();
+                if (data != null)
+                {
+                    data.CategoryName = Model.CategoryName;
+                    _login.SaveChanges();
+                    History child = new History();
+                    child.CategoryName = data.CategoryName;
+                    child.Action = "Edit";
+                    child.DeviceName = "";
+                    DateTime currentDateTime = DateTime.Now;
+                    child.UpdatedAtUtc = currentDateTime;
+                    child.UpdatedBy = 1;
+                    _GobalList.GlobalListofHistory.Add(child);
 
-                _login.History.Add(child);
-                _login.SaveChanges();
+                    _login.History.Add(child);
+                    _login.SaveChanges();
+                }
+
+                return RedirectToAction("");
             }
-
-            return RedirectToAction("");
+            catch (Exception ex)
+            {
+                return Json(new { errorMessage = "An error occurred: " + ex.Message });
+            }
         }
 
 
