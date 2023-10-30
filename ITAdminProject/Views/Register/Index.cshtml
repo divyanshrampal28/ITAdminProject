@@ -203,13 +203,13 @@
                             <input type="hidden" id="updateEmployeeId" name="Id" asp-for="Id" />
                             <div class="form-group">
 
-                                <label asp-for="FirstName" class="control-label"></label>
+                                <label asp-for="FirstName" class="control-label">First Name</label>
                                 <input type="text" asp-for="FirstName" class="form-control" id="updateEmployeeFirstName" name="FirstName" />
 
-                                <label asp-for="LastName" class="control-label"></label>
+                                <label asp-for="LastName" class="control-label">Last Name</label>
                                 <input type="text" asp-for="LastName" class="form-control" id="updateEmployeeLastName" name="LastName" />
 
-                                <label asp-for="Email" class="control-label"></label>
+                                <label asp-for="Email" class="control-label">Email</label>
                                 <input type="text" asp-for="Email" class="form-control" id="updateEmployeeEmail" name="Email" />
 
                             </div>
@@ -262,22 +262,22 @@
                         <form method="post" asp-action="Index">
                             <div class="form-group" id="employeetable">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <label asp-for="FirstName"></label>
+                                <label asp-for="FirstName">First Name</label>
                                 <input asp-for="FirstName" class="form-control" />
 
-                                <label asp-for="LastName"></label>
+                                <label asp-for="LastName">Last Name</label>
                                 <input asp-for="LastName" class="form-control" />
                                 <span asp-validation-for="LastName" class="text-danger"></span>
 
-                                <label asp-for="Email"></label>
+                                <label asp-for="Email">Email</label>
                                 <input asp-for="Email" class="form-control" />
                                 <span asp-validation-for="Email" class="text-danger"></span>
 
-                                <label asp-for="Password"></label>
+                                <label asp-for="Password">Password</label>
                                 <input asp-for="Password" class="form-control" />
                                 <span asp-validation-for="Password" class="text-danger"></span>
 
-                                <label asp-for="RoleId"></label>
+                                <label asp-for="RoleId">Role</label>
                                 <select asp-for="RoleId" asp-items="ViewBag.RoleList" class="form-control" required></select>
                                 <span asp-validation-for="RoleId" class="text-danger"></span>
 
