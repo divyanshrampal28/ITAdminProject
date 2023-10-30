@@ -27,28 +27,42 @@ namespace ITAdminProject.Controllers
         [HttpPost]
         public IActionResult Create(Category req)
         {
-            if (_login.Category.Any(u => u.CategoryName == req.CategoryName))
+            try
             {
-                return BadRequest("this category already exists");
+                if (string.IsNullOrEmpty(req.CategoryName))
+                {
+                    return Json(new { errorMessage = "Category Name field cannot be empty" });
+                }
+
+                if (_login.Category.Any(u => u.CategoryName == req.CategoryName))
+                {
+                    throw new Exception("this category already exists");
+                }
+                History child = new History();
+                child.CategoryName = req.CategoryName;
+                child.Action = "Added";
+                child.DeviceName = "";
+                DateTime currentDateTime = DateTime.Now;
+                child.UpdatedAtUtc = currentDateTime;
+                child.UpdatedBy = 1;
+                _GobalList.GlobalListofHistory.Add(child);
+
+
+                _login.Category.Add(req);
+                _login.SaveChanges();
+                _login.History.Add(child);
+                _login.SaveChanges();
+
+                TempData["SuccessMessage"] = "Category created successfully"; // Add success message to TempData
+
+                return RedirectToAction("");
             }
-            History child = new History();
-            child.CategoryName = req.CategoryName;
-            child.Action = "Added";
-            child.DeviceName = "";
-            DateTime currentDateTime = DateTime.Now;
-            child.UpdatedAtUtc = currentDateTime;
-            child.UpdatedBy = 1;
-            _GobalList.GlobalListofHistory.Add(child);
 
-            
-            _login.Category.Add(req);
-            _login.SaveChanges();
-            _login.History.Add(child);
-            _login.SaveChanges();
-
-            TempData["SuccessMessage"] = "Category created successfully"; // Add success message to TempData
-
-            return RedirectToAction("");
+            catch (Exception ex)
+            {
+                return Json(new { errorMessage = "An error occurred: " + ex.Message });
+            }
+           
         }
 
         [HttpGet]

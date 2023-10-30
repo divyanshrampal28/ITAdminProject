@@ -521,20 +521,88 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form method="post" asp-action="Create" id="addCategory">
+                
+                <form method="post" asp-action="Create" id="addCategoryForm">
                     <div class="form-group" id="categorytable">
                         <label for="categoryName" asp-for="CategoryName" class="control-label">Category Name:</label>
-                        <input type="text" id="addCategory" name="categoryName" class="form-control" asp-for="CategoryName" required>
+                        <input type="text" id="addCategoryName" name="categoryName" class="form-control" asp-for="CategoryName"/>
+
+
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Add Category</button>
+                        <button type="button" class="btn btn-primary" id="addSubmitBtn">Add Category</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
+                    <div id="addErrorAlert" class="alert alert-danger" role="alert" style="display: none; margin-top: 10px;">
+
+                    </div>
                 </form>
+            
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('addCategoryName').addEventListener('click', function () {
+
+        var errorBox = document.getElementById('addErrorAlert');
+        errorBox.style.display = 'none';
+
+    });
+
+    document.getElementById('addCategory').addEventListener('mouseenter', function () {
+
+        var errorBox = document.getElementById('addErrorAlert');
+        errorBox.style.display = 'none';
+
+    });
+
+    document.getElementById('addSubmitBtn').addEventListener('click', function () {
+        var category = document.getElementById('addCategoryName').value;
+
+        $.ajax({
+            type: "POST",
+            url: '/Category/Create',
+            data: { CategoryName: category }, // Ensure you use the correct parameter name
+            success: function (data) {
+                if (data.errorMessage) {
+                    var errorMessage = data.errorMessage;
+                    var errorBox = document.getElementById('addErrorAlert');
+                    errorBox.innerHTML = errorMessage;
+                    errorBox.style.display = 'block';
+                } else {
+                    $('#addCategory').modal('hide');
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Error: ", error);
+            }
+        });
+
+        // Prevent the default form submission behavior
+        event.preventDefault();
+    });
+
+
+    function errofunc() {
+        console.log('function changes');
+    }
+</script>
+
+@if(ViewBag.ErrorMessage != null)
+{
+    <script>
+        window.onload = function () {
+            var element = document.getElementById('addErrorAlert');
+            element.textContent = '@ViewBag.ErrorMessage';
+            $('addCategory').modal('show');
+        }
+    </script>
+}
+
+
 
 
 @*<form asp-action="Edit">
