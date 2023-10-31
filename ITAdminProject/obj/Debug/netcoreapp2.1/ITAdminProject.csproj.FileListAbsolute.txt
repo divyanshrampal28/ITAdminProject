@@ -541,4 +541,3 @@ C:\Users\JigyasaChopra\Desktop\IT Adminn Projecttt\ITAdminProject\obj\Debug\netc
 C:\Users\JigyasaChopra\Desktop\IT Adminn Projecttt\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.dll
 C:\Users\JigyasaChopra\Desktop\IT Adminn Projecttt\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.pdb
 C:\Users\JigyasaChopra\Desktop\IT Adminn Projecttt\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.csproj.CopyComplete
-C:\Users\JigyasaChopra\Desktop\IT Adminn Projecttt\ITAdminProject\obj\Debug\netcoreapp2.1\ITAdminProject.csprojAssemblyReference.cache

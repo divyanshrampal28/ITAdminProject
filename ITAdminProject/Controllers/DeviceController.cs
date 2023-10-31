@@ -373,34 +373,48 @@ namespace ITAdminProject.Controllers
         [HttpPost]
         public IActionResult Edit(Inventory inventory)
         {
-
-            var data = _login.Inventory.Where(x => x.Id == inventory.Id).FirstOrDefault();
-
-            if (data.DeviceName != null && data.SerialNumber != null && data.CategoryId != 0 && data.AssignedTo != 0 && data.StatusId != 0)
+            try
             {
-                DateTime currentDateTime = DateTime.Now;
-                data.DeviceName = inventory.DeviceName;
-                data.SerialNumber = inventory.SerialNumber;
-                data.CategoryId = inventory.CategoryId;
-                data.AssignedTo = inventory.AssignedTo;
-                data.StatusId = inventory.StatusId;
-                data.UpdatedBy = 1;
-                data.UpdatedAtUtc = currentDateTime;
-                _login.SaveChanges();
+                if (string.IsNullOrEmpty(inventory.DeviceName) || string.IsNullOrEmpty(inventory.SerialNumber) || inventory.CategoryId == 0 || inventory.StatusId == 0 || inventory.AssignedTo == 0)
+                {
+                    return Json(new { errorMessage = "All fields are mandatory" });
+                }
 
-                History child = new History();
-                child.CategoryName = "";
-                child.Action = "Added";
-                child.DeviceName = inventory.DeviceName;
-                //DateTime currentDateTime = DateTime.Now;
-                child.UpdatedAtUtc = currentDateTime;
-                child.UpdatedBy = 7;
-                _GobalList.GlobalListofHistory.Add(child);
-                _login.History.Add(child);
-                _login.SaveChanges();
+                var data = _login.Inventory.Where(x => x.Id == inventory.Id).FirstOrDefault();
+
+                if (data.DeviceName != null && data.SerialNumber != null && data.CategoryId != 0 && data.AssignedTo != 0 && data.StatusId != 0)
+                {
+                    DateTime currentDateTime = DateTime.Now;
+                    data.DeviceName = inventory.DeviceName;
+                    data.SerialNumber = inventory.SerialNumber;
+                    data.CategoryId = inventory.CategoryId;
+                    data.AssignedTo = inventory.AssignedTo;
+                    data.StatusId = inventory.StatusId;
+                    data.UpdatedBy = 1;
+                    data.UpdatedAtUtc = currentDateTime;
+                    _login.SaveChanges();
+
+                    History child = new History();
+                    child.CategoryName = "";
+                    child.Action = "Added";
+                    child.DeviceName = inventory.DeviceName;
+                    //DateTime currentDateTime = DateTime.Now;
+                    child.UpdatedAtUtc = currentDateTime;
+                    child.UpdatedBy = 7;
+                    _GobalList.GlobalListofHistory.Add(child);
+                    _login.History.Add(child);
+                    _login.SaveChanges();
+
+                  
+                }
+
+                return RedirectToAction("");
+
             }
-
-            return RedirectToAction("");
+            catch (Exception ex)
+            {
+                return Json(new { errorMessage = "An error occurred: " + ex.Message });
+            }
         }
 
         [HttpPost]

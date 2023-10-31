@@ -305,7 +305,7 @@
 
 
 
-    async function collectAndDeleteSelected() {
+    function collectAndDeleteSelected() {
         var selectedIds = [];
         $('.checkbox:checked').each(function () {
             selectedIds.push($(this).val());
@@ -317,7 +317,7 @@
                 var cateId = selectedIds[idx];
                 list.push(cateId);
             }
-            await delall(list);
+            delall(list);
         } else {
             alert("No categories selected for deletion.");
         }
@@ -329,7 +329,7 @@
 
     }
 
-    async function delall(jsonData) {
+    function delall(jsonData) {
         //alert(jsonData)
         //alert('delall function executed');
         $.ajax({
@@ -339,8 +339,8 @@
             success: function (response) {
 
                 if (response.success) {
-
-                    refreshCategoryList();
+                    window.location.assign('/Category/Index')
+                    //refreshCategoryList();
                 } else {
                     alert('Error: ' + response.error);
                 }
@@ -353,7 +353,7 @@
         });
     }
 
-    async function refreshCategoryList() {
+    function refreshCategoryList() {
 
         $.ajax({
             url: '/Category/Index',
