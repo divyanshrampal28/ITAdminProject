@@ -144,13 +144,21 @@
 
         var li7 = document.createElement('li');
         var a7 = document.createElement('a');
-        li7.id = 'logout-button';
-        //a7.href = '/Login/Logout';
-        a7.textContent = 'Logout';
-        a7.id = 'logout-link';
+        a7.href = '/Logs/Index';
+        a7.textContent = 'Logs';
         a7.style.color = '#012C3D';
         li7.appendChild(a7);
         u.appendChild(li7);
+
+        var li8 = document.createElement('li');
+        var a8 = document.createElement('a');
+        li8.id = 'logout-button';
+        //a7.href = '/Login/Logout';
+        a8.textContent = 'Logout';
+        a8.id = 'logout-link';
+        a8.style.color = '#012C3D';
+        li8.appendChild(a8);
+        u.appendChild(li8);
     }
     //}, 1000)
 

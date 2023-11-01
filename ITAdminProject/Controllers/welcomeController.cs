@@ -47,9 +47,9 @@ namespace ITAdminProject.Controllers
                             }
                             else
                             {
-                        
-                                return RedirectToAction("Index", "IsAdmin");
-                            }
+
+                        return RedirectToAction("Index", "Dashboard");
+                    }
 
                             //return RedirectToAction("welcome", "Index");
                         }

@@ -217,17 +217,17 @@
 
     <script>
         const sub = document.getElementById('sub').addEventListener("click", function () {
-        let value = document.getElementById("inp");
-        console.log('user', JSON.stringify(value.value))
-        localStorage.setItem('user', JSON.stringify(value.value));
+            let value = document.getElementById("inp");
+            console.log('user', JSON.stringify(value.value))
+            localStorage.setItem('user', JSON.stringify(value.value));
 
             $.ajax({
                 url: '/Login/GetloginDetails',
                 type: 'GET',
-                data: { "Email": value.value.toString()},
+                data: { "Email": value.value.toString() },
                 dataType: 'json',
                 success: function (data) {
-                   // alert(data.Result);
+                    // alert(data.Result);
                     alert(data);
                     localStorage.setItem('role', JSON.stringify(data));
 
@@ -237,17 +237,24 @@
                     alert("Why is Error");
                 }
             });
-        const par = document.getElementById("prnt");
-        var u = document.createElement('ul');
-        u.className = 'nav navbar-nav';
-        var li3 = document.createElement('li');
-        var a3 = document.createElement('a');
-        a3.href = '/Dashboard/Index';
-        a3.textContent = 'View';
-        li3.appendChild(a3);
-        u.appendChild(li3);
-    });
+            const par = document.getElementById("prnt");
+            var u = document.createElement('ul');
+            u.className = 'nav navbar-nav';
+            var li3 = document.createElement('li');
+            var a3 = document.createElement('a');
+            a3.href = '/Dashboard/Index';
+            a3.textContent = 'View';
+            li3.appendChild(a3);
+            u.appendChild(li3);
+        });
 
+    </script>
+    <script>
+        (function () {
+            if (localStorage.user != null) {
+                window.location.href = "/Dashboard/Index";
+            }
+        })()
     </script>
 </body>
 </html>

@@ -64,6 +64,8 @@ namespace ITAdminProject.Controllers
         public List<string> CalenderBefore(DateTime currentDate)
         {
             List<string> result = new List<string>();
+            int hour = currentDate.Hour;
+            currentDate = currentDate.AddHours(-hour);
 
             DateTime startDate = currentDate.AddHours(-24);
 
@@ -79,6 +81,8 @@ namespace ITAdminProject.Controllers
         public List<string> CalenderAfter(DateTime currentDate)
         {
             List<string> result = new List<string>();
+            // int hour = currentDate.Hour;
+            //currentDate = currentDate.AddHours(-hour);
 
             DateTime startDate = currentDate.AddHours(+24);
 

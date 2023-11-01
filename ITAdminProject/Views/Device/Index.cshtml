@@ -560,4 +560,11 @@
         return await r1.text();
     }
 </script>
+<script>
+    (function () {
+        if (localStorage.user == null) {
+            window.location.href = "/Login/Index";
+        }
+    })()
+</script>
 </html>
