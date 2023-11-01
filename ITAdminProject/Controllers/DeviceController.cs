@@ -181,6 +181,11 @@ namespace ITAdminProject.Controllers
                     return Json(new { errorMessage = "All fields are mandatory" });
                 }
 
+                if (_login.Inventory.Any(u => u.SerialNumber == obj.SerialNumber))
+                {
+                    return Json(new { errorMessage = "This serial number already exists" });
+                }
+
                 if (ModelState.IsValid)
                 {
                     DateTime currentDateTime = DateTime.Now;
