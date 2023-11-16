@@ -12,6 +12,7 @@ namespace ITAdminProject.Models
 
         public int Id { get; set; }
         public string CategoryName { get; set; }
+        public bool IsArchived { get; set; }
 
         public ICollection<Inventory> Inventory { get; set; }
     }

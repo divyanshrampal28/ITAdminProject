@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ITAdminProject.Models.Category>
+
+@{
+    ViewData["Title"] = "Archived";
+}
+
+<h2>Archived Categories</h2>
+
+
+<table class="table table-striped table-bordered">
+    <thead class="headercolor">
+        <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col" style="text-align:center;">Category Name</th>
+            <th scope="col" style="text-align:center;">Unarchive</th>
+
+        </tr>
+    </thead>
+    <tbody id="yourTableBodyId">
+
+        @{
+            var index = 1;
+        }
+
+        @foreach (var category in ViewBag.archivedCategories)
+        {
+
+            <tr style="text-align:center;">
+                <td scope="row">@index</td>
+                <td>@category.CategoryName</td>
+                <td>
+                    <button type="button" class="btn btn-danger" onclick="unarchiveCategory('@category.Id')">
+                        unarchive
+                    </button>
+                </td>
+            </tr>
+
+            index++;
+
+        }
+    </tbody>
+</table>
+
+<script>
+
+    function unarchiveCategory(Id) {
+
+        $.ajax({
+            url: '/Category/Unarchive',  
+            type: 'POST',  
+            data: { id: Id },
+            success: function (data) {
+                window.location.href = '/Category/Archived';
+
+            },
+            error: function (error) {
+                alert(error)
+            }
+        });
+
+    }
+
+
+</script>

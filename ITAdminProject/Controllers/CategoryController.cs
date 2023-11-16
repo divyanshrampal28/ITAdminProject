@@ -22,6 +22,7 @@ namespace ITAdminProject.Controllers
         {
             List<Category> categories = _login.Category.OrderBy(c => c.Id).ToList();
             ViewBag.Category = categories;
+            ViewBag.flag = null;
             return View();
         }
         [HttpPost]
@@ -48,6 +49,7 @@ namespace ITAdminProject.Controllers
                 _GobalList.GlobalListofHistory.Add(child);
 
 
+                req.IsArchived = false;
                 _login.Category.Add(req);
                 _login.SaveChanges();
                 _login.History.Add(child);
@@ -126,9 +128,9 @@ namespace ITAdminProject.Controllers
                 }
                 else
                 {
-
-
-                    _login.Category.Remove(data);
+                    
+                    data.IsArchived = true;
+                    // _login.Category.Remove(data);
                     _login.SaveChanges();
                     History child = new History();
                     child.CategoryName = data.CategoryName;
@@ -227,5 +229,43 @@ namespace ITAdminProject.Controllers
             }
             return "sucess";
         }
+
+        public IActionResult Archived()
+        {
+            List<Category> archivedCategories = _login.Category.OrderBy(c => c.Id).Where(c => c.IsArchived).ToList();
+            ViewBag.archivedCategories = archivedCategories;
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Unarchive(int id)
+        {
+            var data = _login.Category.FirstOrDefault(x => x.Id == id);
+            if (data != null)
+            {
+              
+                data.IsArchived = false;
+                // _login.Category.Remove(data);
+                _login.SaveChanges();
+                //History child = new History();
+                //child.CategoryName = data.CategoryName;
+                //child.Action = "Delete";
+                //child.DeviceName = "";
+                //DateTime currentDateTime = DateTime.Now;
+                //child.UpdatedAtUtc = currentDateTime;
+                //child.UpdatedBy = 1;
+                //_GobalList.GlobalListofHistory.Add(child);
+                //_login.History.Add(child);
+                //_login.SaveChanges();
+                return RedirectToAction("");
+            }
+
+            return BadRequest("Not found category");
+        }
+
+
+
     }
 }

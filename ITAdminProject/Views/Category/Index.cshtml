@@ -80,11 +80,26 @@
         <button type="submit" class="btn btn-primary">Add Category</button>
     </form>*@
 
-<div class="addbutton">
-    <button type="button" class="btn btn-primary addbutton" data-toggle="modal" data-target="#addCategory">
-        + Add Category
-    </button>
+<div style="display:flex; justify-content:space-between; align-items: center;">
+    <div class="addbutton">
+        <button type="button" class="btn btn-primary addbutton" data-toggle="modal" data-target="#addCategory">
+            + Add Category
+        </button>
+    </div>
+    <div style="font-size:16px;">
+        @*<input type="checkbox" id="showArchived" onchange="changeTable()"/>
+        <label for="showArchived">Show Archived Categories</label>*@
+        <div class="addbutton">
+            <a asp-controller="Category" asp-action="Archived">
+                <button type="button" class="btn btn-primary addbutton">
+                    Archieved Categories
+                </button>
+            </a>
+        </div>
+    </div>
 </div>
+
+
 
 @if (TempData.ContainsKey("DisplayAlert") && (bool)TempData["DisplayAlert"])
 {
@@ -105,11 +120,11 @@
 <table class="table table-striped table-bordered">
     <thead class="headercolor">
         <tr>
-            <th><input type="checkbox" id="checkAll" />Select</th>
+            <th>@*<input type="checkbox" id="checkAll" />*@Select</th>
             <th scope="col">S.No.</th>
             <th scope="col" style="text-align:center;">Category Name</th>
             <th scope="col" style="text-align:center;">Edit</th>
-            <th scope="col" style="text-align:center;">Delete</th>
+            <th scope="col" style="text-align:center;" id="archive-heading">Archive</th>
         </tr>
     </thead>
     <tbody id="yourTableBodyId">
@@ -121,29 +136,36 @@
         @foreach (var category in ViewBag.Category)
         {
 
-        <tr style="text-align:center;">
-            <td><input type="checkbox" name="IdToChange" class="checkbox" value="@category.Id" /></td>
-            <th scope="row">@index</th>
-            <td>@category.CategoryName</td>
-            <td>
-                <button type="button" class="btn btn-success" onclick="openEditModal('@category.CategoryName', '@category.Id')"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" /></svg></button>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger" onclick="openDeleteModal('@category.CategoryName', '@category.Id')">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
-                        <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
-                    </svg>
-                </button>
-            </td>
-        </tr>
+            if (category.IsArchived == true)
+            {
+                continue;
+            }
+
+            <tr style="text-align:center;">
+                <td><input type="checkbox" name="IdToChange" class="checkbox" value="@category.Id" /></td>
+                <th scope="row">@index</th>
+                <td>@category.CategoryName</td>
+                <td>
+                    <button type="button" class="btn btn-success" onclick="openEditModal('@category.CategoryName', '@category.Id')"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" /></svg></button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger" onclick="openDeleteModal('@category.CategoryName', '@category.Id')">
+                        <?xml version="1.0" ?>
+                        <svg height="1em" version="1.1" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink"><title /><desc /><defs /><g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1"><g fill="#000000" id="Core" transform="translate(-381.000000, -3.000000)"><g id="archive" transform="translate(381.000000, 3.000000)"><path d="M17.5,2.2 L16.1,0.5 C15.9,0.2 15.5,0 15,0 L3,0 C2.5,0 2.1,0.2 1.8,0.5 L0.5,2.2 C0.2,2.6 0,3 0,3.5 L0,16 C0,17.1 0.9,18 2,18 L16,18 C17.1,18 18,17.1 18,16 L18,3.5 C18,3 17.8,2.6 17.5,2.2 L17.5,2.2 Z M9,14.5 L3.5,9 L7,9 L7,7 L11,7 L11,9 L14.5,9 L9,14.5 L9,14.5 Z M2.1,2 L2.9,1 L14.9,1 L15.8,2 L2.1,2 L2.1,2 Z" id="Shape" /></g></g></g></svg>
+                    </button>
+                </td>
+            </tr>
 
             index++;
 
         }
+       
+        
+
     </tbody>
 </table>
 
-<button type="button" id="deleteSelectedButton"class="btn btn-primary" onclick="openDeleteSelectedModal()">Delete Selected</button>
+<button type="button" id="deleteSelectedButton" class="btn btn-primary" onclick="openDeleteSelectedModal()">Delete Selected</button>
 <button type="button" id="updateAllButton" class="btn btn-primary" onclick="collectAndSubmitUpdateData()">Edit Selected</button>
 
 <script>
@@ -227,6 +249,19 @@
 
         $("#editAllCategoriesModal").modal("show");
 
+    }
+
+
+
+    function changeTable() {
+
+        var checkboxes = document.getElementById("showArchived");
+        alert(checkboxes.checked)
+        var viewFlag = @Html.Raw(Json.Serialize(ViewBag.flag));
+        alert(viewFlag)
+        viewFlag = !viewFlag;
+        alert(viewFlag)
+        location.reload(true);
     }
 
 
@@ -377,8 +412,8 @@
     //                var row = '<tr>';
     //                row += '<td>' + item.Id + '</td>';
     //                row += '<td>' + item.CategoryName + '</td>';
-    //                row += '<td><button type="button" class="btn btn-success" onclick="openEditModal(\'' + item.CategoryName + '\', ' + item.Id + ')"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" /></svg></button></td>';
-    //                row += '<td><button type="button" class="btn btn-danger" onclick="openDeleteModal(\'' + item.CategoryName + '\', ' + item.Id + ')"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" /></svg></button></td>';
+    //                row += '<td><button type="button" class="btn btn-success" onclick="        openEditModal(\'' + item.CategoryName + '\', ' + item.Id + ')"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" /></svg></button></td>';
+    //                row += '<td><button type="button" class="btn btn-danger" onclick="        openDeleteModal(\'' + item.CategoryName + '\', ' + item.Id + ')"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" /></svg></button></td>';
     //                row += '</tr>';
     //                $('#yourTableBodyId').append(row);
     //            });
@@ -462,18 +497,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteCategoryModalLabel">Delete Category</h5>
+                <h5 class="modal-title" id="deleteCategoryModalLabel">Archive Category</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h3>Are you sure you want to delete this?</h3>
+                <h3>Are you sure you want to archive this?</h3>
                 <div>
                     <form id="deleteCategoryForm" asp-action="Delete" method="post">
                         <div class="form-group">
                             <input type="hidden" name="Id" asp-for="Id" />
-                            <button type="submit" class="btn btn-default">Delete</button>
+                            <button type="submit" class="btn btn-default">Archive</button>
                         </div>
                     </form>
                 </div>
@@ -572,11 +607,11 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                
+
                 <form method="post" asp-action="Create" id="addCategoryForm">
                     <div class="form-group" id="categorytable">
                         <label for="categoryName" asp-for="CategoryName" class="control-label">Category Name:</label>
-                        <input type="text" id="addCategoryName" name="categoryName" class="form-control" asp-for="CategoryName"/>
+                        <input type="text" id="addCategoryName" name="categoryName" class="form-control" asp-for="CategoryName" />
 
 
                     </div>
@@ -588,7 +623,7 @@
 
                     </div>
                 </form>
-            
+
             </div>
         </div>
     </div>
@@ -643,7 +678,7 @@
     }
 </script>
 
-@if(ViewBag.ErrorMessage != null)
+@if (ViewBag.ErrorMessage != null)
 {
     <script>
         window.onload = function () {

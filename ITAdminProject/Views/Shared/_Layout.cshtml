@@ -150,22 +150,41 @@
         li7.appendChild(a7);
         u.appendChild(li7);
 
-        var li8 = document.createElement('li');
-        var a8 = document.createElement('a');
-        li8.id = 'logout-button';
-        //a7.href = '/Login/Logout';
-        a8.textContent = 'Logout';
-        a8.id = 'logout-link';
-        a8.style.color = '#012C3D';
-        li8.appendChild(a8);
-        u.appendChild(li8);
+        
+        var anchor = document.createElement('a');
+        anchor.id = 'logout-link';
+        anchor.className = 'btn btn-info btn-md';
+        var span = document.createElement('span');
+        span.className = 'glyphicon glyphicon-log-out';
+        anchor.textContent = ' Logout  ';
+        anchor.appendChild(span);
+        par.appendChild(anchor);
+        anchor.style.position = 'absolute';
+        anchor.style.top = '0';
+        anchor.style.right = '0';
+        anchor.style.marginTop = '8px';
+        anchor.style.marginRight = '10px';
+
+
+   
+
+        //var li8 = document.createElement('li');
+        //var a8 = document.createElement('a');
+        //li8.id = 'logout-button';
+        //a8.textContent = 'Logout';
+        //a8.id = 'logout-link';
+        //a8.style.color = '#012C3D';
+        //li8.appendChild(a8);
+        //u.appendChild(li8);
     }
     //}, 1000)
-
+      
     // Append the list to the parent element
+    
+
     par.appendChild(u);
 
-      const logout = document.getElementById("logout-link");
+    const logout = document.getElementById("logout-link");
 
     logout.addEventListener("click", function () {
         localStorage.clear();

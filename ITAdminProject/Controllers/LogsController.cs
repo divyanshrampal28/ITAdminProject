@@ -29,5 +29,22 @@ namespace ITAdminProject.Controllers
 
             return View(dash);
         }
+
+        [HttpPost]
+        public List<string> GetUserName(List<int> userlist)
+        {
+            List<string> name = new List<string>();
+            foreach(var id in userlist)
+            {
+                var employeeInfo = _login.Employee.FirstOrDefault(e => e.Id == id);
+                name.Add(employeeInfo.FirstName);
+            }
+
+
+            return name;
+            
+
+        }
+
     }
 }

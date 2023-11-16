@@ -134,7 +134,7 @@ namespace ITAdminProject.Controllers
         public IActionResult Create()
         {
             List<Category> list = _login.Category.ToList();
-            var selectListItems = list.Select(category => new SelectListItem
+            var selectListItems = list.Where(c => c.IsArchived == false).Select(category => new SelectListItem
             {
                 Text = category.CategoryName,
                 Value = category.Id.ToString()
