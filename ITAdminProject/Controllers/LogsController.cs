@@ -20,12 +20,16 @@ namespace ITAdminProject.Controllers
         }
         public IActionResult Index()
         {
-            List<History> list1 = _login.History.Where(l => l.DeviceName != null && l.DeviceName.Length > 0).ToList();
+            List<string> list1 = _login.History
+    .Where(l => l.DeviceName != null && l.DeviceName.Length > 0).Select(item => item.DeviceName).Distinct()
+    .ToList();
+
             var selectListItems1 = list1.Select(dev => new SelectListItem
             {
-                Text = dev.DeviceName,
-                Value = dev.DeviceName,
+                Text = dev,
+                Value = dev,
             }).ToList();
+
             ViewBag.DeviceName = selectListItems1;
 
             Dashboard dash = new Dashboard();
@@ -67,6 +71,7 @@ namespace ITAdminProject.Controllers
         public List<History> Filter(FilterLogs data)
         {
             List<History> list = _login.History.ToList();
+            
             if (data.Type == "Device")
             {
                 list = list.Where(l => !string.IsNullOrEmpty(l.DeviceName)).ToList();
