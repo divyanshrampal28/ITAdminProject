@@ -394,14 +394,19 @@ namespace ITAdminProject.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(inventory.DeviceName) || string.IsNullOrEmpty(inventory.SerialNumber) || inventory.CategoryId == 0 || inventory.StatusId == 0 || inventory.AssignedTo == 0)
+                if (string.IsNullOrEmpty(inventory.DeviceName) || string.IsNullOrEmpty(inventory.SerialNumber) || inventory.CategoryId == 0 || inventory.StatusId == 0)
+                {
+                    return Json(new { errorMessage = "All fields are mandatory" });
+                }
+
+                if(inventory.StatusId == 3 && inventory.AssignedTo == null)
                 {
                     return Json(new { errorMessage = "All fields are mandatory" });
                 }
 
                 var data = _login.Inventory.Where(x => x.Id == inventory.Id).FirstOrDefault();
 
-                if (data.DeviceName != null && data.SerialNumber != null && data.CategoryId != 0 && data.AssignedTo != 0 && data.StatusId != 0)
+                if (data.DeviceName != null && data.SerialNumber != null && data.CategoryId != 0 && data.StatusId != 0)
                 {
                     //yaha se leke
                     var existingRecord = _login.Inventory.FirstOrDefault(x =>
@@ -417,7 +422,7 @@ namespace ITAdminProject.Controllers
                     data.DeviceName = inventory.DeviceName;
                     data.SerialNumber = inventory.SerialNumber;
                     data.CategoryId = inventory.CategoryId;
-                    data.AssignedTo = inventory.AssignedTo;
+                    data.AssignedTo = inventory.AssignedTo == 0?null: inventory.AssignedTo;
                     data.StatusId = inventory.StatusId;
                     data.UpdatedBy = 1;
                     data.UpdatedAtUtc = currentDateTime;

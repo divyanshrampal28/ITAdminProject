@@ -54,7 +54,7 @@ namespace ITAdminProject.Controllers
 
             dash.emp = _login.Employee.Count();
             dash.dev = _login.Inventory.Count();
-            dash.unalottedcount = _login.Inventory.Where(s => s.StatusId == 2).Count();
+            dash.unalottedcount = _login.Inventory.Where(s => s.StatusId == 1).Count();
             DateTime twentyFourHoursAgo = DateTime.Now.AddHours(-24);
 
             _GobalList.GlobalListofHistory = _login.History.ToList();

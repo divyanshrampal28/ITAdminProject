@@ -71,12 +71,12 @@ using ITAdminProject.Models;
             WriteLiteral("\r\n\r\n<div class=\"container\">\r\n\r\n    ");
             EndContext();
             BeginContext(75, 3679, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e46252938af94f52ba299132ce5721fe", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "608d58e870204459a8a2d69c8f93309a", async() => {
                 BeginContext(141, 218, true);
                 WriteLiteral("\r\n        <div class=\"row\">\r\n            <div class=\"form-group col-md-3\">\r\n                <label for=\"DeviceName\">Search by Type:</label>\r\n                <select class=\"form-control\" id=\"type\">\r\n                    ");
                 EndContext();
                 BeginContext(359, 32, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "13f09db473794b91bc62488a23d9e540", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5403ff2af362431e93bf428ea300488a", async() => {
                     BeginContext(379, 3, true);
                     WriteLiteral("All");
                     EndContext();
@@ -98,7 +98,7 @@ using ITAdminProject.Models;
                 WriteLiteral("\r\n                    ");
                 EndContext();
                 BeginContext(413, 38, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1bc76c74fe554694a33524a466f34c6e", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e705bb72dbc74d54a65c2977f5a9e5e3", async() => {
                     BeginContext(436, 6, true);
                     WriteLiteral("Device");
                     EndContext();
@@ -120,7 +120,7 @@ using ITAdminProject.Models;
                 WriteLiteral("\r\n                    ");
                 EndContext();
                 BeginContext(473, 42, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1acbb861affe432695a2ecf6c2459e9d", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f1f6bf943db24725b7799d203c41c87a", async() => {
                     BeginContext(498, 8, true);
                     WriteLiteral("Category");
                     EndContext();
@@ -142,12 +142,12 @@ using ITAdminProject.Models;
                 WriteLiteral("\r\n                </select>\r\n            </div>\r\n            <div class=\"form-group col-md-3\">\r\n                <label for=\"DeviceName\">Search by Device Name:</label>\r\n                ");
                 EndContext();
                 BeginContext(699, 165, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ebbfe12d1f534902803bb505e6ee584a", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("select", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fa14417760134e96a806c12bbabf20dd", async() => {
                     BeginContext(775, 22, true);
                     WriteLiteral("\r\n                    ");
                     EndContext();
                     BeginContext(797, 40, false);
-                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "697e56c63a8949dab53198979f775a59", async() => {
+                    __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5091acc34ba4488aa19a387a99ac3421", async() => {
                         BeginContext(817, 11, true);
                         WriteLiteral("All Devices");
                         EndContext();
@@ -201,7 +201,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.DeviceName
                 WriteLiteral("\r\n            <div class=\"form-group col-md-3\">\r\n                <label for=\"DeviceName\">Search by Action:</label>\r\n                <select class=\"form-control\" id=\"Action\">\r\n                    ");
                 EndContext();
                 BeginContext(2711, 32, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "be1fbedc5b694186a634ecb210b65b4f", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "434cbbdf2ef14cbaadf6130130dc00b8", async() => {
                     BeginContext(2731, 3, true);
                     WriteLiteral("All");
                     EndContext();
@@ -223,7 +223,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.DeviceName
                 WriteLiteral("\r\n                    ");
                 EndContext();
                 BeginContext(2765, 36, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "528a0fd1b91342cd9496fc728696eadc", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e60bf4eeb7ea4abc84de4b07e59a12f3", async() => {
                     BeginContext(2787, 5, true);
                     WriteLiteral("Added");
                     EndContext();
@@ -245,7 +245,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.DeviceName
                 WriteLiteral("\r\n                    ");
                 EndContext();
                 BeginContext(2823, 38, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2f7c50734728494d9164b40df37607be", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e0f78e941edb4d81ad766f233ecfa0af", async() => {
                     BeginContext(2846, 6, true);
                     WriteLiteral("Edited");
                     EndContext();
@@ -267,7 +267,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.DeviceName
                 WriteLiteral("\r\n                    ");
                 EndContext();
                 BeginContext(2883, 38, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5499197384804b4691f1cbd6ae4a7d45", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e94e27852a2a49bebd3e76581a496577", async() => {
                     BeginContext(2906, 6, true);
                     WriteLiteral("Delete");
                     EndContext();
@@ -292,7 +292,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.DeviceName
                 WriteLiteral("                </select>\r\n            </div>\r\n\r\n            <div class=\"form-group col-md-3\">\r\n                <label for=\"DeviceName\">Search by Time:</label>\r\n                <select class=\"form-control\" id=\"Duration\">\r\n                    ");
                 EndContext();
                 BeginContext(3230, 32, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "47c22625ec3e4fcbb7fedc301e3d800b", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6e2fe456f8c0458e967ee6fa83fdce52", async() => {
                     BeginContext(3250, 3, true);
                     WriteLiteral("All");
                     EndContext();
@@ -314,7 +314,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.DeviceName
                 WriteLiteral("\r\n                    ");
                 EndContext();
                 BeginContext(3284, 39, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "90d9e31a88d54696adb9c19958d7e146", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "39ce73a87a3d4bd78c3a40891ee488c1", async() => {
                     BeginContext(3303, 11, true);
                     WriteLiteral("Last 24 Hrs");
                     EndContext();
@@ -336,7 +336,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.DeviceName
                 WriteLiteral("\r\n                    ");
                 EndContext();
                 BeginContext(3345, 39, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a1f0ed5dd4d44cdb86873765cfa886d1", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6d43e7f21a9b41aaa4c5db166260de05", async() => {
                     BeginContext(3366, 9, true);
                     WriteLiteral("Last Week");
                     EndContext();
@@ -358,7 +358,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.DeviceName
                 WriteLiteral("\r\n                    ");
                 EndContext();
                 BeginContext(3406, 41, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "66f3a1430822416aa14b31797de97f6a", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bb94f7e198854424a83af0cc77aab952", async() => {
                     BeginContext(3428, 10, true);
                     WriteLiteral("Last Month");
                     EndContext();
@@ -380,7 +380,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_SelectTagHelper.Items = ViewBag.DeviceName
                 WriteLiteral("\r\n                    ");
                 EndContext();
                 BeginContext(3469, 39, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "df88f9151db64dbfabff04e9bac16ca1", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "de8ce0dbd9524f8e9cfe7753fc12ddc5", async() => {
                     BeginContext(3490, 9, true);
                     WriteLiteral("Last Year");
                     EndContext();

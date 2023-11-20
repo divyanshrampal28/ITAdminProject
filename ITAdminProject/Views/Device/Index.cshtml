@@ -380,8 +380,9 @@
         var dname = editDeviceNameInput.value;
         var sname = editSerialNumberInput.value;
         var categId = editCategoryIdInput.value;
-        var assignId = editAssignedToInput.value;
         var statuId = editStatusIdInput.value;
+        var assignId = statuId != 3 ? 0 : document.getElementById('editAssignedTo').value;
+
 
 
         $.ajax({
@@ -402,6 +403,18 @@
                 console.log("Error: ", error);
             }
         });
+    });
+
+    document.getElementById('editStatusId').addEventListener('click', () => {
+        var statusId = document.getElementById('editStatusId').value;
+
+        if (statusId !== '3') {
+
+            $('#editAssignedTo').prop('disabled', true);
+        } else {
+
+            $('#editAssignedTo').prop('disabled', false);
+        }
     });
 </script>
 

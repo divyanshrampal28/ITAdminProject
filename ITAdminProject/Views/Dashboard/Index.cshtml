@@ -628,7 +628,7 @@
         devtkt.innerHTML = devdata;
         devticket.appendChild(devtkt);
 
-          var unalloteddata = @Html.Raw(Json.Serialize(Model.unalottedcount));
+        var unalloteddata = @Html.Raw(Json.Serialize(Model.unalottedcount));
 
         var unallotedticket = document.getElementById("unallotednum");
 
@@ -862,10 +862,10 @@
                 let chld = document.createElement("div");
                 if (item.categoryName.length == 0) {
                     chld.innerHTML = "Device " + item.deviceName + " was " + item.action + " by " + data[i];
-                    alert(item.deviceName);
+                   
                 } else {
                     chld.innerHTML = "Category " + item.categoryName + " was " + item.action + " by " + data[i];
-                    alert("yes");
+                    
                 }
                 par.appendChild(chld);
                 

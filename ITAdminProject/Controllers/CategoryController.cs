@@ -116,36 +116,46 @@ namespace ITAdminProject.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            var data = _login.Category.FirstOrDefault(x => x.Id == id);
-            if (data != null)
+            try
             {
-                var invdata = _login.Inventory.FirstOrDefault(x => x.CategoryId == data.Id);
-                if (invdata != null)
+                var data = _login.Category.FirstOrDefault(x => x.Id == id);
+                if (data != null)
                 {
-                    TempData["DisplayAlert"] = true;
-                    return RedirectToAction("Index");
-                    // return BadRequest("Cannot delete because related inventory data exists."); 
+                    var invdata = _login.Inventory.FirstOrDefault(x => x.CategoryId == data.Id);
+                    if (invdata != null)
+                    {
+                        //TempData["DisplayAlert"] = true;
+                        //return RedirectToAction("Index");
+                        // return BadRequest("Cannot delete because related inventory data exists."); 
+                        return Json(new { errorMessage = "Cannot archive this category because device is allocated" });
+                    }
+                    else
+                    {
+
+                        data.IsArchived = true;
+                        // _login.Category.Remove(data);
+                        _login.SaveChanges();
+                        History child = new History();
+                        child.CategoryName = data.CategoryName;
+                        child.Action = "Delete";
+                        child.DeviceName = "";
+                        DateTime currentDateTime = DateTime.Now;
+                        child.UpdatedAtUtc = currentDateTime;
+                        child.UpdatedBy = 1;
+                        _GobalList.GlobalListofHistory.Add(child);
+                        _login.History.Add(child);
+                        _login.SaveChanges();
+                    }
                 }
-                else
-                {
-                    
-                    data.IsArchived = true;
-                    // _login.Category.Remove(data);
-                    _login.SaveChanges();
-                    History child = new History();
-                    child.CategoryName = data.CategoryName;
-                    child.Action = "Delete";
-                    child.DeviceName = "";
-                    DateTime currentDateTime = DateTime.Now;
-                    child.UpdatedAtUtc = currentDateTime;
-                    child.UpdatedBy = 1;
-                    _GobalList.GlobalListofHistory.Add(child);
-                    _login.History.Add(child);
-                    _login.SaveChanges();
-                }
+
+                return RedirectToAction("");
             }
 
-            return RedirectToAction("");
+            catch (Exception ex)
+            {
+                return Json(new { errorMessage = "An error occurred while deleting the category: " + ex.Message });
+            }
+            
         }
 
         [HttpPost]
