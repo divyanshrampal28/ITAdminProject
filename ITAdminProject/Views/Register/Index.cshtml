@@ -266,8 +266,8 @@
 
 
         document.getElementById('editSubmitEmployeeBtn').addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent the default form submission behavior
-            var empId = document.getElementById('updateEmployeeId').value; // Get the Employee Id
+            event.preventDefault(); 
+            var empId = document.getElementById('updateEmployeeId').value;
             var fname = editEmployeeFNameInput.value;
             var lname = editEmployeeLNameInput.value;
             var email = editEmployeeEmailInput.value;
@@ -275,7 +275,7 @@
             $.ajax({
                 type: "POST",
                 url: '/Register/Update',
-                data: { Id: empId, FirstName: fname, LastName: lname, Email: email }, // Include the Employee Id
+                data: { Id: empId, FirstName: fname, LastName: lname, Email: email }, 
                 success: function (data) {
                     if (data.errorMessage) {
                         var errorMessage = data.errorMessage;

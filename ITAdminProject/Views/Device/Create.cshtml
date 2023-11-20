@@ -330,7 +330,7 @@
             $.ajax({
                 type: "POST",
                 url: '/Device/Create',
-                data: { DeviceName: dname, SerialNumber: sname, CategoryId: cateId, StatusId: statId, AssignedTo: assignedtoo }, // Ensure you use the correct parameter name
+                data: { DeviceName: dname, SerialNumber: sname, CategoryId: cateId, StatusId: statId, AssignedTo: assignedtoo }, 
                 success: function (data) {
                     if (data.errorMessage) {
                         var errorMessage = data.errorMessage;

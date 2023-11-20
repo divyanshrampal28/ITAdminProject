@@ -429,7 +429,7 @@ namespace ITAdminProject.Controllers
                     child.DeviceName = inventory.DeviceName;
                     //DateTime currentDateTime = DateTime.Now;
                     child.UpdatedAtUtc = currentDateTime;
-                    child.UpdatedBy = 7;
+                    child.UpdatedBy = 1;
                     _GobalList.GlobalListofHistory.Add(child);
                     _login.History.Add(child);
                     _login.SaveChanges();
@@ -492,7 +492,7 @@ namespace ITAdminProject.Controllers
                 child.DeviceName = data.DeviceName;
                 DateTime currentDateTime = DateTime.Now;
                 child.UpdatedAtUtc = currentDateTime;
-                child.UpdatedBy = 7;
+                child.UpdatedBy = 1;
                 _GobalList.GlobalListofHistory.Add(child);
 
                 data.StatusId = 2;
