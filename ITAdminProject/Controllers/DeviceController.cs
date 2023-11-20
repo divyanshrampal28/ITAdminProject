@@ -196,38 +196,37 @@ namespace ITAdminProject.Controllers
                     return Json(new { errorMessage = "This serial number already exists" });
                 }
 
-                if (ModelState.IsValid)
+                
+                DateTime currentDateTime = DateTime.Now;
+                obj.CreatedAtUtc = currentDateTime;
+                obj.UpdatedAtUtc = currentDateTime;
+                obj.UpdatedBy = 1;
+                obj.CreatedBy = 1;
+
+                History child = new History();
+                child.CategoryName = "";
+                child.Action = "Added";
+                child.DeviceName = obj.DeviceName;
+                //DateTime currentDateTime = DateTime.Now;
+                child.UpdatedAtUtc = currentDateTime;
+                child.UpdatedBy = 1;
+                _GobalList.GlobalListofHistory.Add(child);
+
+                if (obj.AssignedTo == 0)
                 {
-                    DateTime currentDateTime = DateTime.Now;
-                    obj.CreatedAtUtc = currentDateTime;
-                    obj.UpdatedAtUtc = currentDateTime;
-                    obj.UpdatedBy = 1;
-                    obj.CreatedBy = 1;
-
-                    History child = new History();
-                    child.CategoryName = "";
-                    child.Action = "Added";
-                    child.DeviceName = obj.DeviceName;
-                    //DateTime currentDateTime = DateTime.Now;
-                    child.UpdatedAtUtc = currentDateTime;
-                    child.UpdatedBy = 1;
-                    _GobalList.GlobalListofHistory.Add(child);
-
-                    if (obj.AssignedTo == 0)
-                    {
-                        obj.AssignedTo = null;
-                    }
-
-                    _login.Inventory.Add(obj);
-                    _login.SaveChanges();
-
-                    _login.History.Add(child);
-                    _login.SaveChanges();
-
-                    return RedirectToAction("Index");
+                    obj.AssignedTo = null;
                 }
 
-                return View(obj);
+                _login.Inventory.Add(obj);
+                _login.SaveChanges();
+
+                _login.History.Add(child);
+                _login.SaveChanges();
+
+                return RedirectToAction("Index");
+                
+
+               // return View(obj);
             }
             catch (Exception ex)
             {
@@ -393,35 +392,93 @@ namespace ITAdminProject.Controllers
         [HttpPost]
         public IActionResult Edit(Inventory inventory)
         {
-
-            var data = _login.Inventory.Where(x => x.Id == inventory.Id).FirstOrDefault();
-
-            if (data.DeviceName != null && data.SerialNumber != null && data.CategoryId != 0 && data.AssignedTo != 0 && data.StatusId != 0)
+            try
             {
-                DateTime currentDateTime = DateTime.Now;
-                data.DeviceName = inventory.DeviceName;
-                data.SerialNumber = inventory.SerialNumber;
-                data.CategoryId = inventory.CategoryId;
-                data.AssignedTo = inventory.AssignedTo;
-                data.StatusId = inventory.StatusId;
-                data.UpdatedBy = 1;
-                data.UpdatedAtUtc = currentDateTime;
-                _login.SaveChanges();
+                if (string.IsNullOrEmpty(inventory.DeviceName) || string.IsNullOrEmpty(inventory.SerialNumber) || inventory.CategoryId == 0 || inventory.StatusId == 0 || inventory.AssignedTo == 0)
+                {
+                    return Json(new { errorMessage = "All fields are mandatory" });
+                }
 
-                History child = new History();
-                child.CategoryName = "";
-                child.Action = "Edited";
-                child.DeviceName = inventory.DeviceName;
-                //DateTime currentDateTime = DateTime.Now;
-                child.UpdatedAtUtc = currentDateTime;
-                child.UpdatedBy = 7;
-                _GobalList.GlobalListofHistory.Add(child);
-                _login.History.Add(child);
-                _login.SaveChanges();
+                var data = _login.Inventory.Where(x => x.Id == inventory.Id).FirstOrDefault();
+
+                if (data.DeviceName != null && data.SerialNumber != null && data.CategoryId != 0 && data.AssignedTo != 0 && data.StatusId != 0)
+                {
+                    //yaha se leke
+                    var existingRecord = _login.Inventory.FirstOrDefault(x =>
+                        x.SerialNumber.Trim() == inventory.SerialNumber.Trim() &&
+                        x.Id != inventory.Id
+                    );
+                    if (existingRecord != null)
+                    {
+                        return Json(new { errorMessage = "Serial number must be unique" });
+                    }
+                    //yaha tak change kiya hai
+                    DateTime currentDateTime = DateTime.Now;
+                    data.DeviceName = inventory.DeviceName;
+                    data.SerialNumber = inventory.SerialNumber;
+                    data.CategoryId = inventory.CategoryId;
+                    data.AssignedTo = inventory.AssignedTo;
+                    data.StatusId = inventory.StatusId;
+                    data.UpdatedBy = 1;
+                    data.UpdatedAtUtc = currentDateTime;
+                    _login.SaveChanges();
+
+                    History child = new History();
+                    child.CategoryName = "";
+                    child.Action = "Added";
+                    child.DeviceName = inventory.DeviceName;
+                    //DateTime currentDateTime = DateTime.Now;
+                    child.UpdatedAtUtc = currentDateTime;
+                    child.UpdatedBy = 7;
+                    _GobalList.GlobalListofHistory.Add(child);
+                    _login.History.Add(child);
+                    _login.SaveChanges();
+
+
+                }
+
+                return RedirectToAction("");
+
             }
 
-            return RedirectToAction("");
+            catch (Exception ex)
+            {
+                return Json(new { errorMessage = "An error occurred: " + ex.Message });
+            }
         }
+
+        //[HttpPost]
+        //public IActionResult Edit(Inventory inventory)
+        //{
+
+        //    var data = _login.Inventory.Where(x => x.Id == inventory.Id).FirstOrDefault();
+
+        //    if (data.DeviceName != null && data.SerialNumber != null && data.CategoryId != 0 && data.AssignedTo != 0 && data.StatusId != 0)
+        //    {
+        //        DateTime currentDateTime = DateTime.Now;
+        //        data.DeviceName = inventory.DeviceName;
+        //        data.SerialNumber = inventory.SerialNumber;
+        //        data.CategoryId = inventory.CategoryId;
+        //        data.AssignedTo = inventory.AssignedTo;
+        //        data.StatusId = inventory.StatusId;
+        //        data.UpdatedBy = 1;
+        //        data.UpdatedAtUtc = currentDateTime;
+        //        _login.SaveChanges();
+
+        //        History child = new History();
+        //        child.CategoryName = "";
+        //        child.Action = "Edited";
+        //        child.DeviceName = inventory.DeviceName;
+        //        //DateTime currentDateTime = DateTime.Now;
+        //        child.UpdatedAtUtc = currentDateTime;
+        //        child.UpdatedBy = 7;
+        //        _GobalList.GlobalListofHistory.Add(child);
+        //        _login.History.Add(child);
+        //        _login.SaveChanges();
+        //    }
+
+        //    return RedirectToAction("");
+        //}
 
         [HttpPost]
         public IActionResult DeleteDevice(int id)

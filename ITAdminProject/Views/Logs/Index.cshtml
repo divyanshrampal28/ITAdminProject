@@ -107,7 +107,7 @@
 
                             <td>@item.Action</td>
                             <td>@item.UpdatedAtUtc</td>
-                            <td>@item.UpdatedBy</td>
+                            <td id="updated-by">@item.UpdatedBy</td>
                         </tr>
                     }
                 </tbody>
@@ -250,7 +250,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-        var list = document.querySelectorAll("#updated-by");
+    var list = document.querySelectorAll("#updated-by");
         var passlist = [];
         list.forEach(function (element) {
             passlist.push(parseInt(element.innerHTML));

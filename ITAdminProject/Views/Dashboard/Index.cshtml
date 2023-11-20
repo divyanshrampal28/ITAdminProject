@@ -479,7 +479,7 @@
 </div>
 
 
-<div class="row">
+<div class="row" id="widget_logs">
     @*<div class="col-sm-8">
         <div class="demo-content" style="max-height: 400px; overflow-y: scroll;">
             <table class="table table-striped table-bordered">
@@ -837,10 +837,48 @@
         });
     }
     document.addEventListener('DOMContentLoaded', function () {
-        
-        before();
-        after();
+        //alert("entered");
+        left.click();
+        right.click();
+        var list = @Html.Raw(Json.Serialize(Model.glist));
+        var passlist = [];
+        list.forEach(function (element) {
+            console.log(element.updatedBy);
+            passlist.push(parseInt(element.updatedBy));
+        })
+        //console.log(passlist);
+        $.ajax({
+        url: "/Logs/GetUserName",  
+        method: "POST",
+        data: { userlist: passlist },
+        success: function (data) {
+            //for (let e = 0; e < list.length && e < data.length; e++) {
+            //    list[e].innerHTML = data[e];
+            //}
+            let par = document.createElement("div");
+            let body = document.getElementById("widget_logs");
+            for (let i = 0; i < list.length; i++) {
+                let item = list[i];
+                let chld = document.createElement("div");
+                if (item.categoryName.length == 0) {
+                    chld.innerHTML = "Device" + item.deviceName + "was" + item.action + "by" + data[i];
+                    alert(item.deviceName);
+                } else {
+                    chld.innerHTML = "Category" + item.categoryName + "was" + item.action + "by" + data[i];
+                    alert("yes");
+                }
+                par.appendChild(chld);
+                
+                console.log(item);
+            }
+            body.appendChild(par);
+            //console.log(data);
+        },
+        error: function (error) {
+            console.log("Error fetching user name:", error);
+        }
     });
+        });
 </script>
 <script>
     (function () {

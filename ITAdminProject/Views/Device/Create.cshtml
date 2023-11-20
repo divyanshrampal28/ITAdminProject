@@ -324,8 +324,9 @@
             var sname = document.getElementById('getSerialNumber').value;
             var cateId = document.getElementById('getCategoryId').value;
             var statId = document.getElementById('getStatusId').value;
-            var assignedtoo = document.getElementById('editAssignedTo').value;
+            var assignedtoo = statId!=3?0:document.getElementById('editAssignedTo').value;
 
+            
             $.ajax({
                 type: "POST",
                 url: '/Device/Create',
