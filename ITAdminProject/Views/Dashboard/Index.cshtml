@@ -392,67 +392,65 @@
 
 
 <style>
-    .kuchbhi {
-        margin-top: 5%;
-        padding: 15px;
-        font-size: 18px;
-        background: #dbdfe5;
-        margin-bottom: 4%;
-        margin-left: 6.5%;
+    .dashboard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: 20px;
     }
 
-    .sabkuch {
-        margin-top: 5%;
-        padding: 15px;
-        font-size: 18px;
-        background: pink;
-        margin-bottom: 4%;
-        margin-left: 6.5%;
+    .roww {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 10px;
     }
 
-    .kuchnahi {
-        margin-top: 5%;
+    .box {
+        flex: 1;
         padding: 15px;
-        font-size: 18px;
-        background: red;
-        margin-bottom: 4%;
-        margin-left: 6.5%;
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .box h2 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .box p {
+        font-size: 3rem;
+        font-weight: 500;
     }
 </style>
 
-<div class="row">
-
-    <div class="col-sm-2 kuchbhi">
-        <div id="empcount">
-            <div>Employees</div>
+<div class="dashboard">
+    <!-- First Row: Parameters -->
+    <div class="roww">
+        <div class="box">
+            <h2>Total Assets</h2>
+            <p id="devnum"></p>
+        </div>
+        <div class="box">
+            <h2>Total Users</h2>
+            <p id="empcount"></p>
+        </div>
+        <div class="box">
+            <h2>Allotted Devices</h2>
+            <p id="allocatednum"></p>
+        </div>
+        <div class="box">
+            <h2>Unallotted Devices</h2>
+            <p id="unallotednum"></p>
         </div>
     </div>
-
-
-    <div class="col-sm-2 sabkuch">
-        <div id="devnum">
-            <div>Number of Assets</div>
-        </div>
-    </div>
-
-    <div class="col-sm-2 kuchbhi">
-        <div id="allocatednum">
-            <div>Allocated Devices</div>
-        </div>
-    </div>
-
-
-    <div class="col-sm-2 kuchnahi">
-        <div id="unallotednum">
-            <div>Unallocated Devices</div>
-        </div>
-    </div>
-
 </div>
-
-
-
-
 
 
 <div class="row">
@@ -839,7 +837,7 @@
         });
     }
     document.addEventListener('DOMContentLoaded', function () {
-        alert("entered")
+        
         before();
         after();
     });

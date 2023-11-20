@@ -30,7 +30,7 @@ namespace ITAdminProject.Controllers
             var cat = _login.Category;
             var stat = _login.StatusTable;
             var emp = _login.Employee;
-            IEnumerable<Jnd> jnd = inv
+            List<Jnd> jnd = inv
     .Join(cat,
         i => i.CategoryId,
         c => c.Id,
@@ -63,24 +63,42 @@ namespace ITAdminProject.Controllers
             UpdatedBy = j.UpdatedBy,
             StatusName = s.StatusName,
             CategoryId = j.CategoryId
-        }).Join(emp,
-        j => j.AssignedTo, e => e.Id,
-        (j, e) => new Jnd
-        {
-            Id = j.Id,
-            DeviceName = j.DeviceName,
-            SerialNumber = j.SerialNumber,
-            cname = j.cname,
-            CreatedAtUtc = j.CreatedAtUtc,
-            CreatedBy = j.CreatedBy,
-            AssignedTo = j.AssignedTo,
-            StatusId = j.StatusId,
-            UpdatedAtUtc = j.UpdatedAtUtc,
-            UpdatedBy = j.UpdatedBy,
-            StatusName = j.StatusName,
-            FirstName = e.FirstName,
-            CategoryId = j.CategoryId
-        });
+        }).ToList();
+
+            for (int i = 0; i < jnd.Count(); i++)
+            {
+                if (jnd[i].AssignedTo != null)
+                {
+                    var matchingEmployee = emp.FirstOrDefault(e => e.Id == jnd[i].AssignedTo);
+                    if (matchingEmployee != null)
+                    {
+                        jnd[i].FirstName = matchingEmployee.FirstName;
+                    }
+                }
+            }
+
+
+            //    IEnumerable<Jnd> jnd2 = jnd;
+
+            //    .Join(emp,
+            //j => j.AssignedTo, e => e.Id,
+            //(j, e) => new Jnd
+            //{
+            //    Id = j.Id,
+            //    DeviceName = j.DeviceName,
+            //    SerialNumber = j.SerialNumber,
+            //    cname = j.cname,
+            //    CreatedAtUtc = j.CreatedAtUtc,
+            //    CreatedBy = j.CreatedBy,
+            //    AssignedTo = j.AssignedTo,
+            //    StatusId = j.StatusId,
+            //    UpdatedAtUtc = j.UpdatedAtUtc,
+            //    UpdatedBy = j.UpdatedBy,
+            //    StatusName = j.StatusName,
+            //    FirstName = j.AssignedTo == null ? "" : e.FirstName,
+            //    CategoryId = j.CategoryId
+            //});
+
             List<Inventory> list4 = _login.Inventory.ToList();
             var selectListItems4 = list4.Select(dev => new SelectListItem
             {
@@ -151,22 +169,13 @@ namespace ITAdminProject.Controllers
 
             ViewBag.AssignedTo = selectListItems3;
 
-            //        ViewBag.CategoryId = new List<SelectListItem>
-
-            //{
-
-            //            new SelectListItem { Text = "Laptop", Value = "1" },
-            //            new SelectListItem { Text = "Mobile", Value = "2" },
-            //            new SelectListItem { Text = "Tablet", Value = "3" },
-            //            new SelectListItem { Text = "Mouse", Value = "4" },
-            //            // Add more items as needed
-            //        };
             List<StatusTable> list2 = _login.StatusTable.ToList();
-            var selectListItems2 = list2.Select(category => new SelectListItem
+            var selectListItems2 = list2.Where(s => s.Id != 2).Select(category => new SelectListItem
             {
                 Text = category.StatusName,
                 Value = category.Id.ToString()
             }).ToList();
+
             ViewBag.StatusId = selectListItems2;
             return View();
         }
@@ -174,14 +183,15 @@ namespace ITAdminProject.Controllers
         [HttpPost]
         public IActionResult Create(Inventory obj)
         {
+
             try
             {
-                if (string.IsNullOrEmpty(obj.DeviceName) || string.IsNullOrEmpty(obj.SerialNumber) || obj.CategoryId == 0 || obj.StatusId == 0 || obj.AssignedTo == 0)
+                if (string.IsNullOrEmpty(obj.DeviceName) || string.IsNullOrEmpty(obj.SerialNumber) || obj.CategoryId == 0)
                 {
                     return Json(new { errorMessage = "All fields are mandatory" });
                 }
 
-                if (_login.Inventory.Any(u => u.SerialNumber == obj.SerialNumber))
+                if (_login.Inventory.Any(u => u.SerialNumber.Trim() == obj.SerialNumber.Trim()))
                 {
                     return Json(new { errorMessage = "This serial number already exists" });
                 }
@@ -203,6 +213,11 @@ namespace ITAdminProject.Controllers
                     child.UpdatedBy = 1;
                     _GobalList.GlobalListofHistory.Add(child);
 
+                    if (obj.AssignedTo == 0)
+                    {
+                        obj.AssignedTo = null;
+                    }
+
                     _login.Inventory.Add(obj);
                     _login.SaveChanges();
 
@@ -210,7 +225,6 @@ namespace ITAdminProject.Controllers
                     _login.SaveChanges();
 
                     return RedirectToAction("Index");
-                    
                 }
 
                 return View(obj);
@@ -219,6 +233,7 @@ namespace ITAdminProject.Controllers
             {
                 return Json(new { errorMessage = "An error occurred: " + ex.Message });
             }
+
 
         }
 
@@ -378,48 +393,34 @@ namespace ITAdminProject.Controllers
         [HttpPost]
         public IActionResult Edit(Inventory inventory)
         {
-            try
+
+            var data = _login.Inventory.Where(x => x.Id == inventory.Id).FirstOrDefault();
+
+            if (data.DeviceName != null && data.SerialNumber != null && data.CategoryId != 0 && data.AssignedTo != 0 && data.StatusId != 0)
             {
-                if (string.IsNullOrEmpty(inventory.DeviceName) || string.IsNullOrEmpty(inventory.SerialNumber) || inventory.CategoryId == 0 || inventory.StatusId == 0 || inventory.AssignedTo == 0)
-                {
-                    return Json(new { errorMessage = "All fields are mandatory" });
-                }
+                DateTime currentDateTime = DateTime.Now;
+                data.DeviceName = inventory.DeviceName;
+                data.SerialNumber = inventory.SerialNumber;
+                data.CategoryId = inventory.CategoryId;
+                data.AssignedTo = inventory.AssignedTo;
+                data.StatusId = inventory.StatusId;
+                data.UpdatedBy = 1;
+                data.UpdatedAtUtc = currentDateTime;
+                _login.SaveChanges();
 
-                var data = _login.Inventory.Where(x => x.Id == inventory.Id).FirstOrDefault();
-
-                if (data.DeviceName != null && data.SerialNumber != null && data.CategoryId != 0 && data.AssignedTo != 0 && data.StatusId != 0)
-                {
-                    DateTime currentDateTime = DateTime.Now;
-                    data.DeviceName = inventory.DeviceName;
-                    data.SerialNumber = inventory.SerialNumber;
-                    data.CategoryId = inventory.CategoryId;
-                    data.AssignedTo = inventory.AssignedTo;
-                    data.StatusId = inventory.StatusId;
-                    data.UpdatedBy = 1;
-                    data.UpdatedAtUtc = currentDateTime;
-                    _login.SaveChanges();
-
-                    History child = new History();
-                    child.CategoryName = "";
-                    child.Action = "Added";
-                    child.DeviceName = inventory.DeviceName;
-                    //DateTime currentDateTime = DateTime.Now;
-                    child.UpdatedAtUtc = currentDateTime;
-                    child.UpdatedBy = 7;
-                    _GobalList.GlobalListofHistory.Add(child);
-                    _login.History.Add(child);
-                    _login.SaveChanges();
-
-                  
-                }
-
-                return RedirectToAction("");
-
+                History child = new History();
+                child.CategoryName = "";
+                child.Action = "Edited";
+                child.DeviceName = inventory.DeviceName;
+                //DateTime currentDateTime = DateTime.Now;
+                child.UpdatedAtUtc = currentDateTime;
+                child.UpdatedBy = 7;
+                _GobalList.GlobalListofHistory.Add(child);
+                _login.History.Add(child);
+                _login.SaveChanges();
             }
-            catch (Exception ex)
-            {
-                return Json(new { errorMessage = "An error occurred: " + ex.Message });
-            }
+
+            return RedirectToAction("");
         }
 
         [HttpPost]
@@ -430,14 +431,16 @@ namespace ITAdminProject.Controllers
             {
                 History child = new History();
                 child.CategoryName = "";
-                child.Action = "Added";
+                child.Action = "Delete";
                 child.DeviceName = data.DeviceName;
                 DateTime currentDateTime = DateTime.Now;
                 child.UpdatedAtUtc = currentDateTime;
                 child.UpdatedBy = 7;
                 _GobalList.GlobalListofHistory.Add(child);
-                
-                _login.Inventory.Remove(data);
+
+                data.StatusId = 2;
+                data.AssignedTo = null;
+                //_login.Inventory.Remove(data);
                 _login.SaveChanges();
                 _login.History.Add(child);
                 _login.SaveChanges();

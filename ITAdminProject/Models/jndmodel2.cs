@@ -10,7 +10,7 @@ namespace ITAdminProject.Models
 
         public int CategoryId { get; set; }
 
-        public int AssignedTo { get; set; }
+        public int? AssignedTo { get; set; }
         public int StatusId { get; set; }
 
 

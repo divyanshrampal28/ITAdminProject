@@ -33,21 +33,24 @@ namespace ITAdminProject.Controllers
             //        CategoryCount = g.Count(),
             //    }).ToList();
 
-            dash.barlist = _login.Category.Select(c => new Bar
-            {
-                Category = c.CategoryName,
-                CategoryCount = c.Inventory.Count(),
-            }).ToList();
+            dash.barlist = _login.Category
+                .Where(c => c.IsArchived == false)
+                .Select(c => new Bar
+                {
+                    Category = c.CategoryName,
+                    CategoryCount = c.Inventory.Count(),
+                }).ToList();
 
 
             dash.pielist = _login.Inventory
-             .GroupBy(i => i.AssignedToNavigation.FirstName)
-             .Select(g => new Pie
-             {
-                 FirstName = g.Key,
-                 DeviceCount = g.Count()
-             })
-             .ToList();
+            .Where(i => i.AssignedTo != null)
+            .GroupBy(i => i.AssignedToNavigation.FirstName)
+            .Select(g => new Pie
+            {
+                FirstName = g.Key,
+                DeviceCount = g.Count()
+            })
+            .ToList();
 
             dash.emp = _login.Employee.Count();
             dash.dev = _login.Inventory.Count();

@@ -65,7 +65,6 @@ namespace ITAdminProject.Controllers
 
             return name;
             
-
         }
         [HttpPost]
         public List<History> Filter(FilterLogs data)

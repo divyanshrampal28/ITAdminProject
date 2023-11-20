@@ -18,8 +18,7 @@ namespace ITAdminProject.Models
         public DateTime CreatedAtUtc { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime UpdatedAtUtc { get; set; }
-        [Required]
-        public int AssignedTo { get; set; }
+        public int? AssignedTo { get; set; }
         [Required]
         public int StatusId { get; set; }
 

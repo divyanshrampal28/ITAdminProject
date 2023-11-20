@@ -1,4 +1,4 @@
-﻿@model ITAdminProject.Models.Inventory
+﻿@*@model ITAdminProject.Models.Inventory
 
 
 
@@ -21,37 +21,184 @@
     </environment>
 
     <style>
-        .create-device{
+        .create-device {
             margin-top: 3%;
         }
 
-        input{
+        input {
             max-width: 400px;
         }
 
-        select{
+        select {
             max-width: 400px;
         }
 
-        .names{
+        .names {
             display: flex;
             flex-direction: column;
         }
 
-        .names label{
-            font-size: 16px;
-            margin-top: 10px;
-        }
+            .names label {
+                font-size: 16px;
+                margin-top: 10px;
+            }
 
-        .selects{
+        .selects {
             display: flex;
             flex-direction: column;
         }
 
-        .selects label {
-            font-size: 16px;
-            margin-top: 10px;
+            .selects label {
+                font-size: 16px;
+                margin-top: 10px;
+            }
+    </style>
+</head>
+<body>
+    <form method="post" asp-action="Create">
+        <div class="table p-5">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row pl-4">
+                <h2 class="text-info" style="margin-left:-13px;">Add a new device</h2>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group row">
+                        <div class="names">
+                            <div class="col-4">
+                                <label asp-for="DeviceName">Device Name</label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="DeviceName" class="form-control" />
+                                <span asp-validation-for="DeviceName" class="text-danger"></span>
+                            </div>
+                            <div class="col-4">
+                                <label asp-for="SerialNumber">Serial Number</label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="SerialNumber" class="form-control" />
+                                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="selects">
+                            <div class="col-8">
+                                <div class="col-4">
+                                    <label asp-for="CategoryId">Category</label>
+                                </div>
+                                <select asp-for="CategoryId" asp-items="ViewBag.CategoryId" class="form-control" required></select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                <div class="col-4">
+                                    <label asp-for="StatusId">Allocation Status</label>
+                                </div>
+                                <div class="col-8">
+                                    <select asp-for="StatusId" asp-items="ViewBag.StatusId" class="form-control" required id="statusIdSelect"></select>
+                                    <span asp-validation-for="StatusId" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-4">
+                                    <label asp-for="AssignedTo">Assigned To</label>
+                                </div>
+
+                                <div class="col-8">
+                                    <select asp-for="AssignedTo" class="form-control" asp-items="ViewBag.AssignedTo" id="AssignedTo"></select>
+                                    <span asp-validation-for="AssignedTo" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row create-device">
+                            <div class="col-lg-3 row">
+                                <div class="col-xs-6">
+                                    <button type="submit" class="btn btn-info btn-block p-3" id="createButton" style="font-size:16px;">Create</button>
+                                </div>
+                                <div class="col-xs-6">
+                                    <a asp-controller="Home" asp-action="Index" class="btn btn-success btn-block p-3" id="backButton" style="font-size:16px;">Back</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-4">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script>
+
+        document.getElementById('statusIdSelect').addEventListener('click', () => {
+            var statusId = document.getElementById('statusIdSelect').value;
+
+            if (statusId !== '3') {
+
+                $('#AssignedTo').prop('disabled', true);
+            } else {
+
+                $('#AssignedTo').prop('disabled', false);
+            }
+        });
+    </script>
+
+</body>*@
+
+@model ITAdminProject.Models.Inventory
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LOGIN_IN</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/login.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/login.min.css" asp-append-version="true" />
+    </environment>
+
+    <style>
+        .create-device {
+            margin-top: 3%;
         }
+
+        input {
+            max-width: 400px;
+        }
+
+        select {
+            max-width: 400px;
+        }
+
+        .names {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .names label {
+                font-size: 16px;
+                margin-top: 10px;
+            }
+
+        .selects {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .selects label {
+                font-size: 16px;
+                margin-top: 10px;
+            }
     </style>
 </head>
 <body>
@@ -111,7 +258,7 @@
                                     <button type="submit" class="btn btn-info btn-block p-3" id="createButton" style="font-size:16px;">Create</button>
                                 </div>
                                 <div class="col-xs-6">
-                                    <a asp-controller="Home" asp-action="Index" class="btn btn-success btn-block p-3" id="backButton" style="font-size:16px;">Back</a>
+                                    <a asp-controller="Device" asp-action="Index" class="btn btn-success btn-block p-3" id="backButton" style="font-size:16px;">Back</a>
                                 </div>
                             </div>
                         </div>
@@ -198,8 +345,20 @@
                 }
             });
 
-            // Prevent the default form submission behavior
+            
             event.preventDefault();
+        });
+
+        document.getElementById('getStatusId').addEventListener('click', () => {
+            var statusId = document.getElementById('getStatusId').value;
+
+            if (statusId !== '3') {
+
+                $('#editAssignedTo').prop('disabled', true);
+            } else {
+
+                $('#editAssignedTo').prop('disabled', false);
+            }
         });
 
 
@@ -207,15 +366,4 @@
             console.log('function changes');
         }
     </script>
-
-    @*@if (ViewBag.ErrorMessage != null)
-    {
-        <script>
-        window.onload = function () {
-            var element = document.getElementById('addErrorAlert');
-            element.textContent = '@ViewBag.ErrorMessage';
-            $('addCategory').modal('show');
-        }
-        </script>
-    }*@
 </body>

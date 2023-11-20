@@ -23,45 +23,27 @@
         h4 {
             margin: 2rem 0rem 1rem;
         }
-
+ 
         .addbutton {
             display: flex;
             flex-direction: row-reverse;
             margin-bottom: 1rem;
             margin-top: 1rem;
         }
-
+ 
             .addbutton button {
                 background-color: #012C3D;
                 border: 1px solid #012C3D;
             }
-
-        #categorytable {
-            display: flex;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-            margin-left: 0.5rem;
-        }
-
+ 
+      
+ 
         h2 {
             color: #012C3D;
             text-align: center;
             justify-content: center;
             margin-top: 6rem;
             font-weight: bold;
-        }
-
-        .headercolor {
-            background: rgba(0, 128, 0, 0.3)
-        }
-
-        .table-bordered tbody tr:nth-child(odd) {
-            background-color: #ffffff; /* Set the background color for odd rows */
-        }
-
-        .table-bordered tbody tr:nth-child(even) {
-            background-color: #e6e6e6; /* Set the background color for even rows */
         }
     </style>
 </head>
@@ -117,7 +99,7 @@
         });
     </script>*@
 
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered" style="width:100%">
     <thead class="headercolor">
         <tr>
             <th>@*<input type="checkbox" id="checkAll" />*@Select</th>
@@ -672,6 +654,12 @@
         event.preventDefault();
     });
 
+    document.getElementById('addCategoryName').addEventListener('keydown', function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById('addSubmitBtn').click();
+        }
+    });
 
     function errofunc() {
         console.log('function changes');
