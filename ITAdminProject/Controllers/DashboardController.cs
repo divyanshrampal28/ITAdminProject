@@ -57,10 +57,10 @@ namespace ITAdminProject.Controllers
             dash.unalottedcount = _login.Inventory.Where(s => s.StatusId == 1).Count();
             DateTime twentyFourHoursAgo = DateTime.Now.AddHours(-24);
 
-            _GobalList.GlobalListofHistory = _login.History.ToList();
-            dash.glist = _GobalList.GlobalListofHistory
-                .Where(i => i.UpdatedAtUtc >= twentyFourHoursAgo)
-                .ToList();
+            _GobalList.GlobalListofHistory = _login.History.OrderByDescending(h => h.UpdatedAtUtc)
+                                                .Take(5)
+                                                .ToList();
+            dash.glist = _GobalList.GlobalListofHistory;
 
             return View(dash);
         }

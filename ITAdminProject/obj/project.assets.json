@@ -13139,11 +13139,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DivyanshRampal\\Documents\\ITADMIN3\\ITAdminProject\\ITAdminProject.csproj",
+      "projectUniqueName": "C:\\Users\\DivyanshRampal\\Documents\\ITADMIN4\\ITAdminProject\\ITAdminProject.csproj",
       "projectName": "ITAdminProject",
-      "projectPath": "C:\\Users\\DivyanshRampal\\Documents\\ITADMIN3\\ITAdminProject\\ITAdminProject.csproj",
+      "projectPath": "C:\\Users\\DivyanshRampal\\Documents\\ITADMIN4\\ITAdminProject\\ITAdminProject.csproj",
       "packagesPath": "C:\\Users\\DivyanshRampal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DivyanshRampal\\Documents\\ITADMIN3\\ITAdminProject\\obj\\",
+      "outputPath": "C:\\Users\\DivyanshRampal\\Documents\\ITADMIN4\\ITAdminProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

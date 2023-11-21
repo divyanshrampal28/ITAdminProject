@@ -430,7 +430,7 @@ namespace ITAdminProject.Controllers
 
                     History child = new History();
                     child.CategoryName = "";
-                    child.Action = "Added";
+                    child.Action = "Edited";
                     child.DeviceName = inventory.DeviceName;
                     //DateTime currentDateTime = DateTime.Now;
                     child.UpdatedAtUtc = currentDateTime;
