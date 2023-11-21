@@ -250,56 +250,94 @@ namespace ITAdminProject.Controllers
             var cat = _login.Category;
             var stat = _login.StatusTable;
             var emp = _login.Employee;
+            //        IEnumerable<Jnd> jnd = inv
+            //.Join(cat,
+            //    i => i.CategoryId,
+            //    c => c.Id,
+            //    (i, c) => new Jnd
+            //    {
+            //        Id = i.Id,
+            //        DeviceName = i.DeviceName,
+            //        SerialNumber = i.SerialNumber,
+            //        cname = c.CategoryName,
+            //        CreatedAtUtc = i.CreatedAtUtc,
+            //        CreatedBy = i.CreatedBy,
+            //        AssignedTo = i.AssignedTo,
+            //        StatusId = i.StatusId,
+            //        UpdatedAtUtc = i.UpdatedAtUtc,
+            //        UpdatedBy = i.UpdatedBy,
+            //        CategoryId = i.CategoryId
+            //    }).Join(stat,
+            //    j => j.StatusId, s => s.Id,
+            //    (j, s) => new Jnd
+            //    {
+            //        Id = j.Id,
+            //        DeviceName = j.DeviceName,
+            //        SerialNumber = j.SerialNumber,
+            //        cname = j.cname,
+            //        CreatedAtUtc = j.CreatedAtUtc,
+            //        CreatedBy = j.CreatedBy,
+            //        AssignedTo = j.AssignedTo,
+            //        StatusId = j.StatusId,
+            //        UpdatedAtUtc = j.UpdatedAtUtc,
+            //        UpdatedBy = j.UpdatedBy,
+            //        StatusName = s.StatusName,
+            //        CategoryId = j.CategoryId
+            //    }).Join(emp,
+            //    j => j.AssignedTo, e => e.Id,
+            //    (j, e) => new Jnd
+            //    {
+            //        Id = j.Id,
+            //        DeviceName = j.DeviceName,
+            //        SerialNumber = j.SerialNumber,
+            //        cname = j.cname,
+            //        CreatedAtUtc = j.CreatedAtUtc,
+            //        CreatedBy = j.CreatedBy,
+            //        AssignedTo = j.AssignedTo,
+            //        StatusId = j.StatusId,
+            //        UpdatedAtUtc = j.UpdatedAtUtc,
+            //        UpdatedBy = j.UpdatedBy,
+            //        StatusName = j.StatusName,
+            //        FirstName = e.FirstName,
+            //        CategoryId = j.CategoryId
+            //    });
+
             IEnumerable<Jnd> jnd = inv
-    .Join(cat,
+    .GroupJoin(cat,
         i => i.CategoryId,
         c => c.Id,
-        (i, c) => new Jnd
+        (i, cGroup) => new { i, cGroup })
+    .SelectMany(joined =>
+        joined.cGroup.DefaultIfEmpty(),
+        (joined, c) => new { joined.i, c })
+    .GroupJoin(stat,
+        j => j.i.StatusId,
+        s => s.Id,
+        (j, sGroup) => new { j.i, j.c, sGroup })
+    .SelectMany(joined =>
+        joined.sGroup.DefaultIfEmpty(),
+        (joined, s) => new { joined.i, joined.c, s })
+    .GroupJoin(emp,
+        j => j.i.AssignedTo,
+        e => e.Id,
+        (j, eGroup) => new { j.i, j.c, j.s, eGroup })
+    .SelectMany(joined =>
+        joined.eGroup.DefaultIfEmpty(),
+        (joined, e) => new Jnd
         {
-            Id = i.Id,
-            DeviceName = i.DeviceName,
-            SerialNumber = i.SerialNumber,
-            cname = c.CategoryName,
-            CreatedAtUtc = i.CreatedAtUtc,
-            CreatedBy = i.CreatedBy,
-            AssignedTo = i.AssignedTo,
-            StatusId = i.StatusId,
-            UpdatedAtUtc = i.UpdatedAtUtc,
-            UpdatedBy = i.UpdatedBy,
-            CategoryId = i.CategoryId
-        }).Join(stat,
-        j => j.StatusId, s => s.Id,
-        (j, s) => new Jnd
-        {
-            Id = j.Id,
-            DeviceName = j.DeviceName,
-            SerialNumber = j.SerialNumber,
-            cname = j.cname,
-            CreatedAtUtc = j.CreatedAtUtc,
-            CreatedBy = j.CreatedBy,
-            AssignedTo = j.AssignedTo,
-            StatusId = j.StatusId,
-            UpdatedAtUtc = j.UpdatedAtUtc,
-            UpdatedBy = j.UpdatedBy,
-            StatusName = s.StatusName,
-            CategoryId = j.CategoryId
-        }).Join(emp,
-        j => j.AssignedTo, e => e.Id,
-        (j, e) => new Jnd
-        {
-            Id = j.Id,
-            DeviceName = j.DeviceName,
-            SerialNumber = j.SerialNumber,
-            cname = j.cname,
-            CreatedAtUtc = j.CreatedAtUtc,
-            CreatedBy = j.CreatedBy,
-            AssignedTo = j.AssignedTo,
-            StatusId = j.StatusId,
-            UpdatedAtUtc = j.UpdatedAtUtc,
-            UpdatedBy = j.UpdatedBy,
-            StatusName = j.StatusName,
+            Id = joined.i.Id,
+            DeviceName = joined.i.DeviceName,
+            SerialNumber = joined.i.SerialNumber,
+            cname = joined.c.CategoryName,
+            CreatedAtUtc = joined.i.CreatedAtUtc,
+            CreatedBy = joined.i.CreatedBy,
+            AssignedTo = joined.i.AssignedTo,
+            StatusId = joined.i.StatusId,
+            UpdatedAtUtc = joined.i.UpdatedAtUtc,
+            UpdatedBy = joined.i.UpdatedBy,
+            StatusName = joined.s.StatusName,
             FirstName = e.FirstName,
-            CategoryId = j.CategoryId
+            CategoryId = joined.i.CategoryId
         });
 
 
@@ -309,17 +347,17 @@ namespace ITAdminProject.Controllers
                 jnd = jnd.Where(item => item.DeviceName == dname);
             }
 
-            if (catId > 1)
+            if (catId > 0)
             {
                 jnd = jnd.Where(item => item.CategoryId == catId);
             }
 
-            if (assTo > 1)
+            if (assTo > 0)
             {
                 jnd = jnd.Where(item => item.AssignedTo == assTo);
             }
 
-            if (statId > 1)
+            if (statId > 0)
             {
                 jnd = jnd.Where(item => item.StatusId == statId);
             }
